@@ -67,7 +67,34 @@ $(document).ready(function() {
                 type: 'GET',
                 url: 'deceased/'+id,
                 success: function (response) {
-                    console.log(response);
+                    let data = response.data;
+                    $('#detailModalBody form').attr('action', 'deceased/'+data.id)
+                    $('#viewfirstname').val(data.person.firstname);
+                    $('#viewmiddlename').val(data.person.firstname);
+                    $('#viewlastname').val(data.person.firstname);
+                    $('#viewextension').val(data.person.extension);
+                    $('#viewgender').val(data.person.gender).change();
+                    $('#viewbirthdate').val(data.person.birthdate);
+                    $('#viewaddress').val(data.person.address);
+                    $('#viewdateDied').val(data.dateDied);
+                    $('#viewinternmentDate').val(data.internmentDate);
+                    $('#viewinternmentTime').val(data.internmentTime);
+                    $('#viewexpiryDate').val(data.expiryDate);
+                    $('#viewcod').val(data.causeOfDeath);
+                    $('#viewlocation').val(data.location);
+                    if (data.payment != null) {
+                        $('#viewamount').val(data.payment.amount);
+                        $('#viewornumber').val(data.payment.ORNumber);
+                        $('#viewdatepaid').val(data.payment.datePaid);
+                    }
+
+                    if (data.relative != null) {
+                        $('#viewrelativeFirstname').val(data.relative.firstname);
+                        $('#viewrelativeMiddlename').val(data.relative.middlename);
+                        $('#viewrelativeLastname').val(data.relative.lastname);
+                        $('#viewrelativeContactNumber').val(data.relative.contact_number);
+                    }
+
                     $('#detailModal').modal('show');
                 }, error: function (error) {
                     console.log(error);
