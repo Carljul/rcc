@@ -14,10 +14,9 @@ $(document).ready(function() {
                     let name = element['person']['firstname']+` `+(element['person']['middlename'] == null ? '':element['person']['middlename'])+` `+element['person']['lastname']+` `+(element['person']['extension'] == null ? '' : element['person']['extension']);
                     html += `<tr>
                         <td>`+name+`</td>
-                        <td>`+element['dateDied']+`</td>
                         <td>`+(element['internmentDate'] == null ? '' : element['internmentDate'])+` `+(element['internmentTime'] == null ? '' : element['internmentTime'])+`</td>
-                        <td>`+(element['remarks'] == null ? '' : element['remarks'])+`</td>
-                        <td>`+element['location']+`</td>`;
+                        <td>`+element['location']+`</td>
+                        <td>`+(element['remarks'] == null ? '' : element['remarks'])+`</td>`;
                     if (element['payment'] == null) {
                         html += `
                         <td></td>
@@ -29,17 +28,20 @@ $(document).ready(function() {
                     }
 
                     html +=`<td><button class="btn btn-success btn-edit" data-id="`+element['id']+`"><i class="fa fa-eye white" aria-hidden="true"></i></button>
-                        <button class="btn btn-warning btn-ligthings"><i class="fa fa-lightbulb-o white" aria-hidden="true"></i></button>
+                        <button class="btn btn-warning btn-ligthings" data-id="`+element['id']+`"><i class="fa fa-lightbulb-o white" aria-hidden="true"></i></button>
                         <button class="btn btn-danger btn-delete" data-id="`+element['id']+`" data-name="`+name+`"><i class="fa fa-trash white" aria-hidden="true"></i></button>
-                        <button class="btn btn-primary btn-print"><i class="fa fa-print white" aria-hidden="true"></i></button></td>
+                        <button class="btn btn-primary btn-print" data-id="`+element['id']+`"><i class="fa fa-print white" aria-hidden="true"></i></button></td>
                     </tr>`;
                 }
                 $('#deceasedTable tbody').html(html);
                 $('#deceasedTable').dataTable({
                     "aaSorting": []
                 });
-                deleteModal();
+
                 viewRecord();
+                deleteModal();
+                lightingRecord();
+                printingRecord();
             }, error: function (e) {
                 console.log(e);
             }
@@ -99,6 +101,33 @@ $(document).ready(function() {
                     console.log(error);
                 }
             });
+        });
+    }
+
+    function lightingRecord()
+    {
+        $('.btn-ligthings').on('click', function () {
+            let id = $(this).data('id');
+
+            $.ajax({
+                type: 'GET',
+                url: 'lighting/'+id,
+                success: function (response) {
+                    console.log(response);
+                    $('#tableLightings').dataTable();
+                    $('#lightingModal').modal('show');
+                }, error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+    }
+
+    function printingRecord()
+    {
+        $('.btn-print').on('click', function () {
+            let id = $(this).data('id');
+            $('#printingModal').modal('show');
         });
     }
 
