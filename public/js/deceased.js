@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     generateTable();
     function generateTable() {
         let table = $('#deceasedTable').DataTable();
@@ -17,7 +16,7 @@ $(document).ready(function() {
                         <td>`+name+`</td>
                         <td>`+element['dateDied']+`</td>
                         <td>`+(element['internmentDate'] == null ? '' : element['internmentDate'])+` `+(element['internmentTime'] == null ? '' : element['internmentTime'])+`</td>
-                        <td>`+(element['expiryDate'] == null ? '' : element['expiryDate'])+`</td>
+                        <td>`+(element['remarks'] == null ? '' : element['remarks'])+`</td>
                         <td>`+element['location']+`</td>`;
                     if (element['payment'] == null) {
                         html += `
