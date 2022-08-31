@@ -1,7 +1,9 @@
 #app .container {
     display: grid;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 #form-container {
@@ -13,4 +15,39 @@
     outline: none;
     border: none;
     font-size: 28px;
+}
+
+#login-image {
+    width: 260px;
+    height: 260px;
+    border-radius: 140px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 3px 6px 46px 2px #bfbfbf;
+    background-image: url(../img/Archdiocesan-Shrine-of-the-Immaculate-Heart-of-Mary-22.jpg);
+}
+
+.pass-dots {
+    width: 5px;
+    height: 5px;
+    padding: 0px 10px;
+    display: inline;
+    margin: 0px 18px;
+    border: solid 1px #867f7f;
+    border-radius: 18px;
+}
+
+.times {
+    padding: 10px;
+    font-size: 1.7em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.password-field {
+    opacity: 1;
+    top: 112px;
+    z-index: -1;
+    left: 95px;
+    opacity: 1;
 }
