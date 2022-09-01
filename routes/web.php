@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -27,4 +28,6 @@ Route::group(['middleware' => 'auth'], function() {
     // change pin
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');
     Route::get('/auth/change-pin', [LoginController::class, 'showChangePinForm'])->name('change-pin.form');
+
+    Route::get('/lighting/{lighting}', [LightingController::class, 'show'])->name('lighting.show');
 });
