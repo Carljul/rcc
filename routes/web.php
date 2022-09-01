@@ -22,6 +22,8 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
 

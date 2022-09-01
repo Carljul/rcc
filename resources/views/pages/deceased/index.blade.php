@@ -101,10 +101,11 @@
         </div>
         <div class="modal-body" id="detailModalBody">
             <div class="container-fluid">
-                <form action="" method="POST">
+                <form action="" method="POST" id="updateFormDeceased">
                     <h5>Record of</h5>
                     <hr>
                     @csrf
+                    {{ method_field('PUT') }}
                     @include('pages.common.template_deceased_form', [
                         'isEdit' => true
                     ])
@@ -140,7 +141,7 @@
                             <div class="col-md-12">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name *') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" />
-        
+
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -150,7 +151,7 @@
                             <div class="col-md-12">
                                 <label for="dateOfConnection" class="col-md-4 col-form-label text-md-right">{{ __('Date of connection *') }}</label>
                                 <input id="dateOfConnection" type="text" class="form-control @error('dateOfConnection') is-invalid @enderror" name="dateOfConnection" />
-        
+
                                 @error('dateOfConnection')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -160,7 +161,7 @@
                             <div class="col-md-12">
                                 <label for="expiryDate" class="col-md-4 col-form-label text-md-right">{{ __('Expiry Date') }}</label>
                                 <input id="expiryDate" type="text" class="form-control @error('expiryDate') is-invalid @enderror" name="expiryDate" />
-        
+
                                 @error('expiryDate')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -170,7 +171,7 @@
                             <div class="col-md-12">
                                 <label for="amount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
                                 <input id="amount" type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" />
-        
+
                                 @error('amount')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -180,7 +181,7 @@
                             <div class="col-md-12">
                                 <label for="ornumber" class="col-md-4 col-form-label text-md-right">{{ __('OR Number') }}</label>
                                 <input id="ornumber" type="text" class="form-control @error('ornumber') is-invalid @enderror" name="ornumber" />
-        
+
                                 @error('ornumber')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -20,6 +20,7 @@ class DefaultUser extends Seeder
             'email'             => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('092322'),
+            'role'              => 1,
             'created_at'        => now()
         ]);
 
@@ -28,6 +29,7 @@ class DefaultUser extends Seeder
             'email'             => 'staff@gmail.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('082822'),
+            'role'              => 2,
             'created_at'        => now()
         ]);
     }

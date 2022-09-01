@@ -115,9 +115,26 @@ class DeceasedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeceasedRequest $request, $id)
     {
-        //
+        $params = $request->all();
+        $params['id'] = $id;
+
+        $rtn = Deceased::updateRecord($params);
+
+        if ($rtn['error']) {
+            return response()->json([
+                'error' => true,
+                'message' => $rtn['message'],
+                'data' => []
+            ]);
+        }
+
+        return response()->json([
+            'error' => false,
+            'message' => $rtn['message'],
+            'data' => $rtn['data']
+        ]);
     }
 
     /**

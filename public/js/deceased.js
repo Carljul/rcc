@@ -69,10 +69,11 @@ $(document).ready(function() {
                 url: 'deceased/'+id,
                 success: function (response) {
                     let data = response.data;
+                    console.log(data);
                     $('#detailModalBody form').attr('action', 'deceased/'+data.id)
                     $('#viewfirstname').val(data.person.firstname);
-                    $('#viewmiddlename').val(data.person.firstname);
-                    $('#viewlastname').val(data.person.firstname);
+                    $('#viewmiddlename').val(data.person.middlename);
+                    $('#viewlastname').val(data.person.lastname);
                     $('#viewextension').val(data.person.extension);
                     $('#viewgender').val(data.person.gender).change();
                     $('#viewbirthdate').val(data.person.birthdate);
@@ -174,5 +175,9 @@ $(document).ready(function() {
                 alert('Something went wrong');
             }
         })
+    });
+
+    $('#updateFormBtn').on('click', function() {
+        $('#updateFormDeceased').submit();
     });
 });

@@ -20,6 +20,7 @@ class Deceased extends Model
     protected $fillable = [
         'person_id',
         'relative_id',
+        'payment_id',
         'dateDied',
         'internmentDate',
         'internementTime',
@@ -74,18 +75,20 @@ class Deceased extends Model
                     'ORNumber' => $params['ornumber'],
                     'datePaid' => $params['datepaid']
                 ]);
+                $payment = $payment->id;
             }
 
             $data = self::create([
                 'person_id' => $person->id,
                 'relative_id' => empty($relative) ? $relative : $relative->id,
-                'payment_id' => empty($payment) ? $payment : $payment->id,
+                'payment_id' => $payment,
                 'dateDied' => $params['dateDied'],
                 'internmentDate' => $params['internmentDate'],
                 'internmentTime' => $params['internmentTime'],
                 'expiryDate' => $params['expiryDate'],
                 'causeOfDeath' => $params['cod'],
-                'location' => $params['location']
+                'location' => $params['location'],
+                'remarks' => $params['remarks']
             ]);
 
             DB::commit();
@@ -96,6 +99,74 @@ class Deceased extends Model
                 'data' => self::show($data->id)
             ];
         } catch (Exception $e) {
+            \Log::error(get_class().' '.$e);
+
+            DB::rollback();
+
+            return [
+                'error' => true,
+                'message' => 'Something went wrong',
+                'data' => []
+            ];
+        }
+    }
+
+    public static function updateRecord($params)
+    {
+        DB::beginTransaction();
+        try {
+            $deceased = self::find($params['id'])->first();
+
+            $person = Person::find($deceased->person_id)->first();
+
+            if (empty($deceased->relative_id)) {
+                $relative = Relative::create([
+                    'firstname' => $params['relativeFirstname'],
+                    'middlename' => $params['relativeMiddlename'],
+                    'lastname' => $params['relativeLastname'],
+                    'contact_number' => $params['relativeContactNumber']
+                ]);
+            } else {
+                $relative = Relative::find($deceased->relative_id)->fist();
+                $relative->firstname = $params['relativeFirstname'];
+                $relative->middlename = $params['relativeMiddlename'];
+                $relative->lastname = $params['relativeLastname'];
+                $relative->contact_number = $params['relativeContactNumber'];
+                $relative->save();
+            }
+
+            if (empty($deceased->payment_id)) {
+                $payment = Payment::create([
+                    'amount' => $params['amount'],
+                    'ORNumber' => $params['ornumber'],
+                    'datePaid' => $params['datepaid']
+                ]);
+            } else {
+                $payment = Payment::find($deceased->payment_id)->fist();
+                $payment->amount = $params['amount'];
+                $payment->ORNumber = $params['ornumber'];
+                $payment->datePaid = $params['datepaid'];
+                $payment->save();
+            }
+            $deceased->person_id = $person->id;
+            $deceased->relative_id = $relative->id;
+            $deceased->payment_id = $payment->id;
+            $deceased->dateDied = $params['dateDied'];
+            $deceased->internmentDate = $params['internmentDate'];
+            $deceased->internmentTime = $params['internmentTime'];
+            $deceased->expiryDate = $params['expiryDate'];
+            $deceased->causeOfDeath = $params['causeOfDeath'];
+            $deceased->location = $params['location'];
+            $deceased->remarks = $params['remarks'];
+            dd($deceased);
+
+            DB::commit();
+            return [
+                'error' => false,
+                'message' => 'Updated',
+                'data' => []
+            ];
+        } catch (\Exception $e) {
             \Log::error(get_class().' '.$e);
 
             DB::rollback();

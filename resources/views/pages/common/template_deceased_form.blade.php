@@ -149,6 +149,12 @@
         <input id="relativeContactNumber" type="text" class="form-control @error('relativeContactNumber') is-invalid @enderror" name="relativeContactNumber" />
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+        <label for="remarks" class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
+        <input id="remarks" type="text" class="form-control @error('remarks') is-invalid @enderror" name="remarks" />
+    </div>
+</div>
 <br>
 <div class="row">
     <div class="col-md-12">
