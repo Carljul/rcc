@@ -1,7 +1,18 @@
 $(document).ready(() => {
     $('input#password').focus();
 
+    $(document).click(() => $('input#password').focus());
+
+    $('#login-form').keyup((e) => {
+        if (e.which == 13) {
+            $('#login-form').submit()
+        }
+    })
+
+    // password
     $('#password').on('input', (e) => {
+        e.stopPropagation()
+
         let pass = e.target.value.substr(0,6);
 
         pass = pass.replaceAll(/[^0-9]+/g, "")
@@ -27,12 +38,20 @@ $(document).ready(() => {
         })
     })
 
+    $('#new-email').click((e) => {
+        e.stopPropagation()
+    })
+
     $('#confirm-button').click((e) => {
+        e.stopPropagation()
+
         let email = $('#new-email').val()
         $('#new-email').val('')
 
-        $('#form-email').text(email)
-        $('#email').val(email)
+        if (email.length) {
+            $('#form-email').text(email)
+            $('#email').val(email)
+        }
 
         $('.input-email-cont').addClass('d-none')
         $('.times').removeClass('d-none')
@@ -46,5 +65,14 @@ $(document).ready(() => {
         $('.input-email-cont').removeClass('d-none')
         $(e.target).addClass('d-none')
         $('#form-email').addClass('d-none')
+    })
+
+    // For change pin
+    $('.change-pin-input').on('input', (e) => {
+        let val = $(e.target).val()
+        val = val.replaceAll(/[^0-9]+/g, "")
+        val = val.substr(0,6)
+
+        $(e.target).val(val)
     })
 })

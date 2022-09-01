@@ -17,7 +17,7 @@
         <form method="POST" class="mt-5" id="login-form" action="{{ route('login') }}">
             @csrf
             {{-- email --}}
-            <span type="text" id="form-email">{{ $user->email }}</span>
+            <span type="text" id="form-email">{{ old('email', $user->email) }}</span>
             <span class="times">&times;</span>
 
             <div class="input-group mb-3 input-email-cont d-none">
@@ -25,10 +25,14 @@
                 <button class="btn btn-outline-secondary" type="button" id="confirm-button"><span>&#10004;</span></button>
             </div>
 
-            <input type="hidden" name="email" id="email" value="{{ $user->email }}">
+            <input type="hidden" name="email" id="email" value="{{ old('email', $user->email) }}">
+
 
             {{-- password --}}
             <div class="mt-5">
+                <div class="mb-3">
+                    <label for="">Enter your PIN</label>
+                </div>
                 <div class="pass-dots"></div>
                 <div class="pass-dots"></div>
                 <div class="pass-dots"></div>
@@ -36,7 +40,19 @@
                 <div class="pass-dots"></div>
                 <div class="pass-dots"></div>
             </div>
-            <input type="password" class="position-absolute password-field" id="password" name="password">
+
+            @if (!$errors->isEmpty())
+                <span class="invalid-feedback d-block" role="alert">
+                    <strong><small>*Invalid PIN or email</small></strong>
+                </span>
+            @endif
+
+            <input type="password" class="position-absolute password-field" style="opacity: 0" id="password" name="password">
+
+            {{-- forgot password --}}
+            <div class="container-fluid mt-5">
+                <span><a href="">Forgot password?</a></span>
+            </div>
         </form>
     </div>
 </div>
