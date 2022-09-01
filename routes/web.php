@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +16,18 @@ use App\Http\Controllers\LightingController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes([
     'register' => false
 ]);
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
+
+    // change pin
+    Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');
+    Route::get('/auth/change-pin', [LoginController::class, 'showChangePinForm'])->name('change-pin.form');
 
     Route::get('/lighting/{lighting}', [LightingController::class, 'show'])->name('lighting.show');
 });
