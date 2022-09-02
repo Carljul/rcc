@@ -1,11 +1,16 @@
 $(document).ready(() => {
+
+    /*======================================================================
+     * DOM Manipulation
+     *======================================================================*/
+
     $('input#password').focus();
 
     $(document).click(() => $('input#password').focus());
 
     $('#login-form').keyup((e) => {
         if (e.which == 13) {
-            $('#login-form').submit()
+            reflectEmail(e)
         }
     })
 
@@ -42,24 +47,7 @@ $(document).ready(() => {
         e.stopPropagation()
     })
 
-    $('#confirm-button').click((e) => {
-        e.stopPropagation()
-
-        let email = $('#new-email').val()
-        $('#new-email').val('')
-
-        if (email.length) {
-            $('#form-email').text(email)
-            $('#email').val(email)
-        }
-
-        $('.input-email-cont').addClass('d-none')
-        $('.times').removeClass('d-none')
-        $('#form-email').removeClass('d-none')
-
-        // focus the pass input
-        $('input#password').focus();
-    })
+    $('#confirm-button').click(reflectEmail)
 
     $('.times').on('click', (e) => {
         $('.input-email-cont').removeClass('d-none')
@@ -75,4 +63,51 @@ $(document).ready(() => {
 
         $(e.target).val(val)
     })
+
+
+    /*======================================================================
+     * Method
+     *======================================================================*/
+
+    /**
+     * Reflect new email value
+     * @param {*} e
+     * @returns
+     */
+    function reflectEmail(e) {
+        e.stopPropagation()
+
+        let email = $('#new-email').val()
+
+        if (email.length) {
+            $('#form-email').text(email)
+            $('#email').val(email)
+
+            if (!isEmail(email)) {
+                $('#new-email').parent().find('#invalid-email').addClass('d-block')
+                $('#new-email').val(email)
+                setTimeout(() => {
+                    $('#new-email').parent().find('#invalid-email').removeClass('d-block')
+                }, 2000)
+                return
+            }
+        }
+
+        $('#new-email').val('')
+        $('.input-email-cont').addClass('d-none')
+        $('.times').removeClass('d-none')
+        $('#form-email').removeClass('d-none')
+
+        // focus the pass input
+        $('input#password').focus();
+    }
+
+    /**
+     * Check string if email
+     */
+    function isEmail(email) {
+        const regexPatt = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regexPatt.test(email);
+    }
+
 })
