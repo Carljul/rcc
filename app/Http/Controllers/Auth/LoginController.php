@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use DB;
+use Hash;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordRequest;
@@ -31,16 +32,6 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/deceased';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
 
     /**
      * Override login form
@@ -74,9 +65,10 @@ class LoginController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request->user()->update(['password' => $request->password]);
+            $password = Hash::make($request->password);
+            $request->user()->update(['password' => $password]);
             DB::commit();
-            return redirect()->route('home')->with('success', ['Successfully updated!', 'success']);
+            return redirect()->back()->with('success', ['Successfully updated!', 'success']);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('danger', ['Failed to update!', 'danger']);

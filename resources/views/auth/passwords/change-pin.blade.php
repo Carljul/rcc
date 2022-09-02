@@ -8,6 +8,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            <div class="mt-5">
+                {{-- alert message --}}
+                @include('common.template_alert')
+            </div>
+
             <div class="card mt-5">
                 <div class="card-header">{{ __('Change PIN') }}</div>
                 <div class="card-body">

@@ -23,6 +23,9 @@
             <div class="input-group mb-3 input-email-cont d-none">
                 <input type="email" class="form-control" id="new-email" placeholder="Enter email . . ." aria-label="Email" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="confirm-button"><span>&#10004;</span></button>
+                <span class="invalid-feedback" id="invalid-email" role="alert">
+                    <strong><small>*Invalid email</small></strong>
+                </span>
             </div>
 
             <input type="hidden" name="email" id="email" value="{{ old('email', $user->email) }}">

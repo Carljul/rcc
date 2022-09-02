@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Auth;
+use App\Rules\MatchCurrentPass;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordRequest extends FormRequest
@@ -25,7 +26,7 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'current_password'      => 'required|max:6',
+            'current_password'      => ['required', 'max:6', new MatchCurrentPass],
             'password'              => 'required|confirmed|max:6',
             'password_confirmation' => 'required|max:6'
         ];
