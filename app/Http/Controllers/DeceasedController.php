@@ -20,13 +20,26 @@ class DeceasedController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the deleted records.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function deleted()
     {
-        //
+        $deleted = Deceased::onlyTrashed()
+            ->with(['person' => function ($query) {
+                $query->onlyTrashed();
+            }])
+            ->with(['relative' => function ($query) {
+                $query->onlyTrashed();
+            }])
+            ->with('payment')
+            ->with('approvedBy')
+            ->with('createdBy')
+            ->with('updatedBy')
+            ->with('deletedBy')
+            ->get();
+        return view('pages.deceased.deleted', compact('deleted'));
     }
 
     /**

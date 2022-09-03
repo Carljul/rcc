@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
+    Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
     Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
 
     // change pin

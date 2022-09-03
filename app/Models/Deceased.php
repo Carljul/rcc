@@ -242,8 +242,11 @@ class Deceased extends Model
             }
 
             $deceased->deletedBy = Auth::user()->id;
+            $deceased->save();
 
             $deceased->delete();
+
+            // Note do not delete payment record
 
             DB::commit();
 

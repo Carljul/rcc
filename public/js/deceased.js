@@ -274,10 +274,10 @@ $(document).ready(function() {
             success: function (response) {
                 console.log(response);
                 if (!response.error) {
-                    alert('Record is Deleted');
-                    window.location.reload();
+                    generateTable();
+                    $('#deleteModal').modal('hide');
                 } else {
-                    alert('Something is wrong');
+                    console.log(e);
                 }
             }, error: function (e) {
                 console.log(e);
