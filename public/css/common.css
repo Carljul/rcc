@@ -1,0 +1,7 @@
+.modal:nth-of-type(odd) {
+    z-index: 1057 !important;
+}
+.modal-backdrop.show:nth-of-type(odd) {
+    z-index: 1056 !important;
+}
+

@@ -20,4 +20,9 @@ class Lighting extends Model
         'amount',
         'ORNumber'
     ];
+
+    public function deceased()
+    {
+        return $this->hasOne('App\Models\Deceased', 'id', 'deceased_id');
+    }
 }

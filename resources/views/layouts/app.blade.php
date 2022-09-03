@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/common.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
 
     <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
@@ -95,7 +96,7 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/jquery.dataTables.min.js?'.strtotime(now()))}}"></script>
     @stack('js')
 </body>
 </html>

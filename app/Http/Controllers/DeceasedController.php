@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Deceased;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeceasedRequest;
@@ -120,7 +121,7 @@ class DeceasedController extends Controller
         $params = $request->all();
         $params['id'] = $id;
 
-        $rtn = Deceased::updateRecord($params);
+        $rtn = Deceased::updater($params);
 
         if ($rtn['error']) {
             return response()->json([
@@ -158,5 +159,45 @@ class DeceasedController extends Controller
             'error' => false,
             'message' => $rtn['message']
         ]);
+    }
+
+    /**
+     * Approve specified resource.
+     *
+     * @param  Deceased $deceased
+     * @return \Illuminate\Http\Response
+     */
+    public function approve(Deceased $deceased)
+    {
+        \DB::beginTransaction();
+        try {
+            $status = $deceased->isApprove;
+
+            if ($status == 0) {
+                $deceased->isApprove = 1;
+                $deceased->approvedBy = Auth::user()->id;
+            } else {
+                $deceased->isApprove = 0;
+                $deceased->approvedBy = null;
+            }
+
+            $deceased->save();
+
+            \DB::commit();
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Approved'
+            ]);
+        } catch (\Exception $e) {
+            \Log::erro(get_class().' '.$e);
+
+            \DB::rollback();
+
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong'
+            ]);
+        }
     }
 }

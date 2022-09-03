@@ -132,7 +132,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="relativeFirstname" class="col-md-4 col-form-label text-md-right">{{ __('Relative first name') }}</label>
-        <input id="relativeFirstname" type="text" class="form-control @error('relativeFirstname') is-invalid @enderror" name="relativeFirstname" />
+        <input id="relativeFirstname" type="text" class="form-control @error('relativeFirstname') is-invalid @enderror" name="relativeFirstname"/>
     </div>
     <div class="col-md-6">
         <label for="relativeMiddlename" class="col-md-4 col-form-label text-md-right">{{ __('Relative middle name') }}</label>
@@ -142,7 +142,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="relativeLastname" class="col-md-4 col-form-label text-md-right">{{ __('Relative last name') }}</label>
-        <input id="relativeLastname" type="text" class="form-control @error('relativeLastname') is-invalid @enderror" name="relativeLastname" />
+        <input id="relativeLastname" type="text" class="form-control @error('relativeLastname') is-invalid @enderror" name="relativeLastname"/>
     </div>
     <div class="col-md-6">
         <label for="relativeContactNumber" class="col-md-4 col-form-label text-md-right">{{ __('Relative Contact Number') }}</label>
@@ -150,8 +150,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
-        <label for="remarks" class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
+    <div class="col-md-12">
+        <label for="remarks" class="col-md-12 col-form-label text-md-right">{{ __('Remarks') }}</label>
         <input id="remarks" type="text" class="form-control @error('remarks') is-invalid @enderror" name="remarks" />
     </div>
 </div>
@@ -274,21 +274,14 @@
                 <input id="viewcod" type="text" class="form-control @error('cod') is-invalid @enderror" name="cod" />
             </div>
         </div>
-    </div>
-    <div class="col-sm-6">
         <div class="row">
             <div class="col-md-12">
                 <label for="viewlocation" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}</label>
                 <input id="viewlocation" type="text" class="form-control @error('location') is-invalid @enderror" name="location" />
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Payment</h5>
-                <hr>
-            </div>
-        </div>
+    </div>
+    <div class="col-sm-6">
         <div class="row">
             <div class="col-md-6">
                 <label for="viewamount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
@@ -303,13 +296,6 @@
             <div class="col-md-12">
                 <label for="viewdatepaid" class="col-md-4 col-form-label text-md-right">{{ __('Date paid') }}</label>
                 <input id="viewdatepaid" type="date" class="form-control @error('datepaid') is-invalid @enderror" name="datepaid" />
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <h5>Relative</h5>
-                <hr>
             </div>
         </div>
         <div class="row">
@@ -330,6 +316,20 @@
             <div class="col-md-6">
                 <label for="viewrelativeContactNumber" class="col-md-4 col-form-label text-md-right">{{ __('Relative Contact Number') }}</label>
                 <input id="viewrelativeContactNumber" type="text" class="form-control @error('relativeContactNumber') is-invalid @enderror" name="relativeContactNumber" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="viewRemarks" class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
+                <input id="viewRemarks" type="text" class="form-control @error('viewRemarks') is-invalid @enderror" name="viewRemarks" />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <strong><p id="isApprove"></p></strong>
+                <p id="recordLogCreated"></p>
+                <p id="recordLogUpdated"></p>
             </div>
         </div>
     </div>

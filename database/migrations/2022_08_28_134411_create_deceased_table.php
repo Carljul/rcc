@@ -25,6 +25,11 @@ class CreateDeceasedTable extends Migration
             $table->string('causeOfDeath')->nullable();
             $table->string('location')->nullable();
             $table->string('remarks', 1000)->nullable();
+            $table->boolean('isApprove')->default(0);
+            $table->integer('approvedBy')->nullable();
+            $table->integer('createdBy')->nullable();
+            $table->integer('updatedBy')->nullable();
+            $table->integer('deletedBy')->nullable();
             $table->foreign('person_id')->references('id')->on('person');
             $table->foreign('relative_id')->references('id')->on('relative');
             $table->foreign('payment_id')->references('id')->on('payments');

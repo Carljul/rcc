@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DB;
+use Auth;
 use Exception;
 use App\Models\Person;
 use App\Models\Payment;
@@ -27,6 +28,12 @@ class Deceased extends Model
         'expiryDate',
         'causeOfDeath',
         'location',
+        'remarks',
+        'isApprove',
+        'approvedBy',
+        'createdBy',
+        'updatedBy',
+        'deletedBy',
     ];
 
     public function person()
@@ -42,6 +49,26 @@ class Deceased extends Model
     public function payment()
     {
         return $this->hasOne('App\Models\Payment', 'id', 'payment_id');
+    }
+
+    public function approvedBy()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'approvedBy');
+    }
+
+    public function createdBy()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'createdBy');
+    }
+
+    public function updatedBy()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'updatedBy');
+    }
+
+    public function deletedBy()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'deletedBy');
     }
 
     public static function register($params)
@@ -88,7 +115,8 @@ class Deceased extends Model
                 'expiryDate' => $params['expiryDate'],
                 'causeOfDeath' => $params['cod'],
                 'location' => $params['location'],
-                'remarks' => $params['remarks']
+                'remarks' => $params['remarks'],
+                'createdBy' => Auth::user()->id
             ]);
 
             DB::commit();
@@ -111,23 +139,24 @@ class Deceased extends Model
         }
     }
 
-    public static function updateRecord($params)
+    public static function updater($params)
     {
         DB::beginTransaction();
         try {
-            $deceased = self::find($params['id'])->first();
+            $deceased = self::where('id', $params['id'])->first();
 
-            $person = Person::find($deceased->person_id)->first();
+            $person = Person::where('id', $deceased->person_id)->first();
 
-            if (empty($deceased->relative_id)) {
+            $relative= null;
+            if (empty($deceased->relative_id) && ($params['relativeFirstname'] != '' && $params['relativeLastname'] != '')) {
                 $relative = Relative::create([
                     'firstname' => $params['relativeFirstname'],
                     'middlename' => $params['relativeMiddlename'],
                     'lastname' => $params['relativeLastname'],
                     'contact_number' => $params['relativeContactNumber']
                 ]);
-            } else {
-                $relative = Relative::find($deceased->relative_id)->fist();
+            } elseif($params['relativeFirstname'] != '' && $params['relativeLastname'] != '') {
+                $relative = Relative::where('id', $deceased->relative_id)->first();
                 $relative->firstname = $params['relativeFirstname'];
                 $relative->middlename = $params['relativeMiddlename'];
                 $relative->lastname = $params['relativeLastname'];
@@ -135,30 +164,33 @@ class Deceased extends Model
                 $relative->save();
             }
 
-            if (empty($deceased->payment_id)) {
+            $payment = null;
+            if (empty($deceased->payment_id) && $params['amount'] != '') {
                 $payment = Payment::create([
                     'amount' => $params['amount'],
                     'ORNumber' => $params['ornumber'],
                     'datePaid' => $params['datepaid']
                 ]);
-            } else {
-                $payment = Payment::find($deceased->payment_id)->fist();
+            } elseif ($params['amount'] != '') {
+                $payment = Payment::where('id', $deceased->payment_id)->first();
                 $payment->amount = $params['amount'];
                 $payment->ORNumber = $params['ornumber'];
                 $payment->datePaid = $params['datepaid'];
                 $payment->save();
             }
+
             $deceased->person_id = $person->id;
-            $deceased->relative_id = $relative->id;
-            $deceased->payment_id = $payment->id;
+            $deceased->relative_id = empty($relative) ? $relative : $relative->id;
+            $deceased->payment_id = empty($payment) ? $payment : $payment->id;
             $deceased->dateDied = $params['dateDied'];
             $deceased->internmentDate = $params['internmentDate'];
             $deceased->internmentTime = $params['internmentTime'];
             $deceased->expiryDate = $params['expiryDate'];
-            $deceased->causeOfDeath = $params['causeOfDeath'];
+            $deceased->causeOfDeath = $params['cod'];
             $deceased->location = $params['location'];
-            $deceased->remarks = $params['remarks'];
-            dd($deceased);
+            $deceased->remarks = $params['viewRemarks'];
+            $deceased->updatedBy = Auth::user()->id;
+            $deceased->save();
 
             DB::commit();
             return [
@@ -186,6 +218,10 @@ class Deceased extends Model
             ->with('person')
             ->with('relative')
             ->with('payment')
+            ->with('approvedBy')
+            ->with('createdBy')
+            ->with('updatedBy')
+            ->with('deletedBy')
             ->get();
     }
 
@@ -204,6 +240,8 @@ class Deceased extends Model
                 $person = Relative::find($deceased->person_id);
                 $person->delete();
             }
+
+            $deceased->deletedBy = Auth::user()->id;
 
             $deceased->delete();
 

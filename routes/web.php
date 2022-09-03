@@ -22,14 +22,18 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
+    Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
 
     // change pin
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');
     Route::get('/auth/change-pin', [LoginController::class, 'showChangePinForm'])->name('change-pin.form');
 
+    Route::post('/lighting', [LightingController::class, 'store'])->name('lighting.store');
     Route::get('/lighting/{lighting}', [LightingController::class, 'show'])->name('lighting.show');
+    Route::get('/lighting/{lighting}/pasuga', [LightingController::class, 'lighting'])->name('lighting.lighting');
+    Route::delete('/lighting/{lighting}', [LightingController::class, 'delete'])->name('lighting.delete');
 });
