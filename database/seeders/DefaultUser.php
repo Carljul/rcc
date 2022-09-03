@@ -21,6 +21,7 @@ class DefaultUser extends Seeder
             'email_verified_at' => now(),
             'password'          => Hash::make('092322'),
             'role'              => 1,
+            'isActive'          => 1,
             'created_at'        => now()
         ]);
 
@@ -30,6 +31,7 @@ class DefaultUser extends Seeder
             'email_verified_at' => now(),
             'password'          => Hash::make('082822'),
             'role'              => 2,
+            'isActive'          => 1,
             'created_at'        => now()
         ]);
     }

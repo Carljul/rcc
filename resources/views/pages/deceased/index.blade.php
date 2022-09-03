@@ -25,7 +25,7 @@
 @endpush
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid mt-2 mb-2">
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card card-form">

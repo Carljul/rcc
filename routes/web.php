@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -16,13 +18,16 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Auth::routes([
-    'register' => false
-]);
+Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+    Route::group(['midleware' => 'can:view'], function() {
+        Route::resource('user', UserController::class);
+        Route::resource('reports', ReportsController::class);
+    });
 
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
