@@ -51,11 +51,6 @@
             @endif
 
             <input type="password" class="position-absolute password-field" style="opacity: 0" id="password" name="password">
-
-            {{-- forgot password --}}
-            <div class="container-fluid mt-5">
-                <span><a href="">Forgot password?</a></span>
-            </div>
         </form>
     </div>
 </div>

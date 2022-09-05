@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
+@push('css')
+    <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.css')}}">
+@endpush
+
 @push('js')
     <script src="{{asset('js/reports.js')}}"></script>
+    <script src="{{asset('summernote/summernote-bs4.js')}}"></script>
 @endpush
 
 @section('content')

@@ -5,3 +5,57 @@
     z-index: 1056 !important;
 }
 
+html, body, #app {
+    height: 100%;
+}
+main {
+    height: 90%;
+}
+.h-100p {
+    height: 100%;
+}
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 100%;
+    font-family: sans-serif;
+    padding: 20px;
+}
+#drop-area.highlight {
+    border-color: purple;
+}
+
+p {
+    margin-top: 0;
+}
+.my-form {
+    margin-bottom: 10px;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 95%;
+}
+#gallery {
+    margin-top: 10px;
+}
+#gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.button:hover {
+    background: #ddd;
+}
+#fileElem,
+.hide {
+    display: none;
+}
