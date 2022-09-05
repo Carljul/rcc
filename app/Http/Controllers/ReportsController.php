@@ -61,9 +61,9 @@ class ReportsController extends Controller
      * @param  \App\Models\Reports  $reports
      * @return \Illuminate\Http\Response
      */
-    public function show(Reports $reports)
+    public function show(Reports $report)
     {
-        return view('pages.reports.show', compact('reports'));
+        return view('pages.reports.show', compact('report'));
     }
 
     /**
@@ -84,17 +84,26 @@ class ReportsController extends Controller
      * @param  \App\Models\Reports  $reports
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reports $reports)
+    public function update(Request $request, Reports $report)
     {
         \DB::beginTransaction();
 
         try {
             $params = $request->all();
 
-            $reports->name = $params['name'];
-            $reports->htmlReport = $params['htmlReport'];
+            if (isset($params['isActiveOnly'])) {
+                $isActive = $report->isActive;
+                if ($isActive == 1) {
+                    $report->isActive = 0;
+                } else {
+                    $report->isActive = 1;
+                }
+            } else {
+                $report->name = $params['name'];
+                $report->htmlReport = $params['htmlReport'];
+            }
 
-            $reports->save();
+            $report->save();
             \DB::commit();
             return redirect()->back()->with(['message' => 'Saved']);
         } catch (\Exception $e) {
@@ -112,34 +121,20 @@ class ReportsController extends Controller
      * @param  \App\Models\Reports  $reports
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reports $reports)
-    {
-        //
-    }
-
-    /**
-     * Activate the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reports  $reports
-     * @return \Illuminate\Http\Response
-     */
-    public function activateTemplate(Request $request, Reports $reports)
+    public function destroy(Reports $report)
     {
         \DB::beginTransaction();
         try {
-            $isActive = $resports->isActive;
-            if ($isActive == 1) {
-                $reports->isActive = 0;
-            } else {
-                $reports->isActive = 1;
-            }
-            $reports->save();
+            $report->delete();
+
             \DB::commit();
-            return redirect()->back()->with(['message' => 'Saved']);
+
+            return redirect()->back()->with(['message' => 'Deleted']);
         } catch (\Exception $e) {
             \Log::error(get_class().' '.$e);
+
             \DB::rollback();
+
             return redirect()->back()->withErrors(['message' => 'Something went wrong']);
         }
     }

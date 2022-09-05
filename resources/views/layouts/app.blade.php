@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -22,6 +19,8 @@
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap/bootstrap.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
+
+    <script src="{{asset('js/bootstrap/popper.min.js')}}"></script>
 
     @stack('css')
 </head>

@@ -29,7 +29,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('user', UserController::class);
         // Reports
         Route::resource('reports', ReportsController::class);
-        Route::put('reports/{$reports}/template/activate', [ReportsController::class, 'activateTemplate'])->name('reports.activate');
     });
 
     // Deceased

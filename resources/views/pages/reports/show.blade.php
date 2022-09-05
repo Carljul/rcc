@@ -1,1 +1,1 @@
-@dd($reports)
+{!!$report->htmlReport!!}

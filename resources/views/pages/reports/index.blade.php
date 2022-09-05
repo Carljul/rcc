@@ -62,18 +62,19 @@
                                             @php($icon = $item->isActive ? 'times':'check')
                                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#activateTemplate{{$item->id}}"><i class="fa fa-{{$icon}}"></i></button>
                                             <!-- Modal -->
-                                            <div class="modal fade" id="activateTemplate{{$item->id}}" tabindex="-1" aria-labelledby="ctivateTemplate{{$item->id}}Label" aria-hidden="true">
+                                            <div class="modal fade" id="activateTemplate{{$item->id}}" tabindex="-1" aria-labelledby="activateTemplate{{$item->id}}Label" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h6 class="modal-title" id="ctivateTemplate{{$item->id}}Label">Update template</h6>
+                                                            <h6 class="modal-title" id="activateTemplate{{$item->id}}Label">Update template</h6>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <p>Are you sure you want to update this template?</p>
-                                                            <form action="{{route('reports.activate', $item->id)}}" method="post">
+                                                            <form action="{{route('reports.update', $item->id)}}" method="post">
                                                                 @csrf
                                                                 {{method_field('PUT')}}
+                                                                <input type="hidden" name="isActiveOnly" value="true" />
                                                                 <button type="submit" class="btn btn-success">{{$item->isActive ? 'Deactivate' : 'Activate'}}</button>
                                                             </form>
                                                         </div>
@@ -84,7 +85,29 @@
                                                 </div>
                                             </div>
 
-                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTemplate{{$item->id}}"><i class="fa fa-trash"></i></button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteTemplate{{$item->id}}" tabindex="-1" aria-labelledby="deleteTemplate{{$item->id}}Label" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h6 class="modal-title" id="deleteTemplate{{$item->id}}Label">Delete template Confirmation</h6>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete this template?</p>
+                                                            <form action="{{route('reports.destroy', $item->id)}}" method="post">
+                                                                @csrf
+                                                                {{method_field('DELETE')}}
+                                                                <button type="submit" class="btn btn-success">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
