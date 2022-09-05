@@ -26,8 +26,8 @@
 
 
 {{-- Showing Details Modal --}}
-<div class="modal fade modal-xl" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="detailModalLabel">Viewing Record</h5>
@@ -232,20 +232,6 @@
         </div>
         <div class="modal-body" id="printModalBody">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            First Document
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            Second Document
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="modal-footer">

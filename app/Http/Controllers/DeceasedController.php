@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Models\Reports;
 use App\Models\Deceased;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeceasedRequest;
@@ -94,7 +95,8 @@ class DeceasedController extends Controller
                 ->with('relative')
                 ->with('payment')
                 ->orderBy('created_at', 'DESC')
-                ->get()
+                ->get(),
+            'reports' => Reports::where('isActive', 1)->get()
         ]);
     }
 

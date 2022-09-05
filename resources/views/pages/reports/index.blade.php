@@ -5,12 +5,12 @@
 @endpush
 
 @push('js')
-    <script src="{{asset('js/reports.js')}}"></script>
     <script src="{{asset('summernote/summernote-bs4.js')}}"></script>
+    <script src="{{asset('js/reports.js')}}"></script>
 @endpush
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -48,7 +48,6 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Template</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,11 +56,34 @@
                                 @foreach ($reports as $item)
                                     <tr>
                                         <td>{{$item->name}}</td>
-                                        <td>{{$item->htmlReport}}</td>
                                         <td>{{$item->isActive ? 'Active':'Deactivated'}}</td>
                                         <td>
                                             <button class="btn btn-success"><i class="fa fa-edit"></i></button>
-                                            <button class="btn btn-warning"><i class="fa fa-check"></i></button>
+                                            @php($icon = $item->isActive ? 'times':'check')
+                                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#activateTemplate{{$item->id}}"><i class="fa fa-{{$icon}}"></i></button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="activateTemplate{{$item->id}}" tabindex="-1" aria-labelledby="ctivateTemplate{{$item->id}}Label" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h6 class="modal-title" id="ctivateTemplate{{$item->id}}Label">Update template</h6>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to update this template?</p>
+                                                            <form action="{{route('reports.activate', $item->id)}}" method="post">
+                                                                @csrf
+                                                                {{method_field('PUT')}}
+                                                                <button type="submit" class="btn btn-success">{{$item->isActive ? 'Deactivate' : 'Activate'}}</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>

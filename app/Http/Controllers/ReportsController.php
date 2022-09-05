@@ -63,7 +63,7 @@ class ReportsController extends Controller
      */
     public function show(Reports $reports)
     {
-        //
+        return view('pages.reports.show', compact('reports'));
     }
 
     /**
@@ -115,5 +115,32 @@ class ReportsController extends Controller
     public function destroy(Reports $reports)
     {
         //
+    }
+
+    /**
+     * Activate the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reports  $reports
+     * @return \Illuminate\Http\Response
+     */
+    public function activateTemplate(Request $request, Reports $reports)
+    {
+        \DB::beginTransaction();
+        try {
+            $isActive = $resports->isActive;
+            if ($isActive == 1) {
+                $reports->isActive = 0;
+            } else {
+                $reports->isActive = 1;
+            }
+            $reports->save();
+            \DB::commit();
+            return redirect()->back()->with(['message' => 'Saved']);
+        } catch (\Exception $e) {
+            \Log::error(get_class().' '.$e);
+            \DB::rollback();
+            return redirect()->back()->withErrors(['message' => 'Something went wrong']);
+        }
     }
 }

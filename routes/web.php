@@ -25,10 +25,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
     Route::group(['midleware' => 'can:view'], function() {
+        // Users
         Route::resource('user', UserController::class);
+        // Reports
         Route::resource('reports', ReportsController::class);
+        Route::put('reports/{$reports}/template/activate', [ReportsController::class, 'activateTemplate'])->name('reports.activate');
     });
 
+    // Deceased
     Route::resource('deceased', DeceasedController::class);
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
     Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
@@ -39,6 +43,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');
     Route::get('/auth/change-pin', [LoginController::class, 'showChangePinForm'])->name('change-pin.form');
 
+    // Lighting
     Route::post('/lighting', [LightingController::class, 'store'])->name('lighting.store');
     Route::get('/lighting/{lighting}', [LightingController::class, 'show'])->name('lighting.show');
     Route::get('/lighting/{lighting}/pasuga', [LightingController::class, 'lighting'])->name('lighting.lighting');

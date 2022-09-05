@@ -18,11 +18,10 @@
     <link rel="stylesheet" href="{{asset('font/css/font-awesome.css')}}">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap/bootstrap.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
-
-    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
 
     @stack('css')
 </head>
@@ -34,7 +33,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -110,7 +109,11 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{asset('js/jquery.dataTables.min.js?'.strtotime(now()))}}"></script>
+    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
+    {{-- Bootstrap js --}}
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap/bootstrap.js')}}"></script>
+    <script src="{{asset('js/common.js?'.strtotime(now()))}}"></script>
     @stack('js')
 </body>
 </html>

@@ -54,7 +54,7 @@ $(document).ready(function() {
                 });
                 viewRecord();
                 deleteModal();
-                printingRecord();
+                printingRecord(response.reports);
                 approveRecord();
             }, error: function (e) {
                 console.log(e);
@@ -221,10 +221,23 @@ $(document).ready(function() {
         });
     }
 
-    function printingRecord()
+    function printingRecord(reports)
     {
         $('.btn-print').on('click', function () {
-            let id = $(this).data('id');
+            let html = '';
+            for (let i = 0; i < reports.length; i++) {
+                const element = reports[i];
+                html += `<a href="reports/`+element.id+`">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                `+element.name+`
+                            </div>
+                        </div>
+                    </div>
+                </a>`;
+            }
+            $('#printModalBody div.row').html(html);
             $('#printingModal').modal('show');
         });
     }
