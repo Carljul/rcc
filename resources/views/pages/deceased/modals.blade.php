@@ -55,8 +55,8 @@
 </div>
 
 {{-- Showing lighting modal --}}
-<div class="modal fade modal-xl" id="lightingModal" tabindex="-1" role="dialog" aria-labelledby="lightingModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="lightingModal" tabindex="-1" role="dialog" aria-labelledby="lightingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="lightingModalLabel">Apply PASUGA</h5>
