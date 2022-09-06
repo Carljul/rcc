@@ -227,20 +227,32 @@ $(document).ready(function() {
             let html = '';
             for (let i = 0; i < reports.length; i++) {
                 const element = reports[i];
-                html += `<a href="reports/`+element.id+`">
-                    <div class="col">
+                html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
                         <div class="card">
                             <div class="card-body">
                                 `+element.name+`
                             </div>
                         </div>
-                    </div>
-                </a>`;
+                    </div>`;
             }
-            $('#printModalBody div.row').html(html);
+            $('#printModalBody div.row#templates').html(html);
             $('#printingModal').modal('show');
+
+            $('.card-contract').on('click', function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+
+                $('.reportSelected').val(id);
+                $('.reportSelectedText').html(name);
+                $('#formReport').attr('action', '/reports');
+            });
+
+            $('#createPDF').on('click', function () {
+                $('#formReport').submit();
+            });
         });
     }
+
 
     function dateTimeFormatter(date)
     {

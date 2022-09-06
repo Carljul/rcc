@@ -19,16 +19,6 @@ class ReportsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -63,18 +53,12 @@ class ReportsController extends Controller
      */
     public function show(Reports $report)
     {
+        if (request()->ajax()) {
+            return response()->json([
+                'data' => $report
+            ]);
+        }
         return view('pages.reports.show', compact('report'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reports  $reports
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reports $reports)
-    {
-        //
     }
 
     /**
@@ -113,6 +97,11 @@ class ReportsController extends Controller
 
             return redirect()->back()->withErrors(['message' => 'Something went wrong']);
         }
+    }
+
+    public function report(Request $request)
+    {
+        dd($report);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -74,12 +75,25 @@ class UserController extends Controller
     {
         \DB::beginTransaction();
         try {
-            $active = $user->isActive;
+            $params = $request->all();
+            if (isset($params['resetPassword'])) {
+                $user->password = Hash::make('123456');
+            } elseif (isset($params['userRole'])) {
+                $role = $user->role;
 
-            if ($active == 1) {
-                $user->isActive = 0;
-            } else {
-                $user->isActive = 1;
+                if ($role == 1) {
+                    $user->role = 2;
+                } else {
+                    $user->role = 1;
+                }
+            }else {
+                $active = $user->isActive;
+
+                if ($active == 1) {
+                    $user->isActive = 0;
+                } else {
+                    $user->isActive = 1;
+                }
             }
 
             $user->save();

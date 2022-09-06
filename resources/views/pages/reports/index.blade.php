@@ -2,6 +2,14 @@
 
 @push('css')
     <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.css')}}">
+    <style>
+        .btn-cancel{
+            display: none;
+        }
+        .btn-cancel.active{
+            display: initial;
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -16,7 +24,7 @@
                 <div class="card">
                     <div class="card-header">Add Report Template</div>
                     <div class="card-body">
-                        <form action="{{route('reports.store')}}" method="post">
+                        <form action="{{route('reports.store')}}" method="post" id="templateForm">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -34,6 +42,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button class="btn btn-success" type="submit">Save</button>
+                                    <a href="{{route('reports.index')}}" class="btn btn-warning btn-cancel">Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -58,7 +67,7 @@
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->isActive ? 'Active':'Deactivated'}}</td>
                                         <td>
-                                            <button class="btn btn-success"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-success btn-update" data-id="{{$item->id}}"><i class="fa fa-edit"></i></button>
                                             @php($icon = $item->isActive ? 'times':'check')
                                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#activateTemplate{{$item->id}}"><i class="fa fa-{{$icon}}"></i></button>
                                             <!-- Modal -->

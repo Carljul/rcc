@@ -231,12 +231,53 @@
           </button>
         </div>
         <div class="modal-body" id="printModalBody">
-            <div class="row">
+            <div class="row" id="templates">
             </div>
+            <hr>
+            <form action="" method="POST" id="formReport">
+                @csrf
+                <input type="hidden" name="report" id="reportSelected" />
+                <div class="row">
+                    <div class="col-sm-12">
+                        Selected: <p class="reportSelectedText"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="contractNo" class="col-md-4 col-form-label text-md-right">{{ __('Contract No') }}</label>
+                        <input id="contractNo" type="text" class="form-control @error('contractNo') is-invalid @enderror" name="contractNo" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="lessor" class="col-md-4 col-form-label text-md-right">{{ __('Lessor') }}</label>
+                        <input id="lessor" type="text" class="form-control @error('lessor') is-invalid @enderror" name="lessor" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="lesse" class="col-md-4 col-form-label text-md-right">{{ __('Lesse') }}</label>
+                        <input id="lesse" type="text" class="form-control @error('lesse') is-invalid @enderror" name="lesse" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="moderator" class="col-md-4 col-form-label text-md-right">{{ __('Parish Team Moderator') }}</label>
+                        <input id="moderator" type="text" class="form-control @error('moderator') is-invalid @enderror" name="moderator" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="member" class="col-md-4 col-form-label text-md-right">{{ __('Parish Team Member') }}</label>
+                        <input id="member" type="text" class="form-control @error('member') is-invalid @enderror" name="member" />
+                    </div>
+                </div>
+
+            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Print</button>
+          <button type="button" class="btn btn-primary" id="createPDF">Create</button>
         </div>
       </div>
     </div>

@@ -104,13 +104,25 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <th>{{$user->name}}</th>
-                                    <th>{{$user->email}}</th>
-                                    <th>{{$user->role == 1 ? 'Administrator':'Staff'}}</th>
-                                    <th>
+                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <td>{{$user->role == 1 ? 'Administrator':'Staff'}}</td>
+                                    <td>
                                         @php($label = $user->isActive ? 'Deactivate' : 'Activate')
                                         <button class="btn btn-{{$label == 'Activate' ? 'warning':'info'}} btn-update" data-id="{{$user->id}}" data-name="{{$user->name}}">{{$label}}</button>
-                                    </th>
+                                        <form action="{{route('user.update', $user->id)}}" method="post">
+                                            @csrf
+                                            {{method_field('PUT')}}
+                                            <input type="hidden" name="userRole" value="true">
+                                            <button type="submit" class="btn btn-danger">{{$user->role != 1 ? 'Administrator':'Staff'}}</button>
+                                        </form>
+                                        <form action="{{route('user.update', $user->id)}}" method="post">
+                                            @csrf
+                                            {{method_field('PUT')}}
+                                            <input type="hidden" name="resetPassword" value="true">
+                                            <button type="submit" class="btn btn-success">Reset password</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
