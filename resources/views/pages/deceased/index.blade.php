@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @push('js')
+    <script>
+        const lightingStore = '{!! route('lighting.store') !!}'
+        const lightingUpdate = '{!! route('lighting.update', '') !!}'
+        const lightingOne = '{!! route('lighting.lighting', "pasugaId") !!}'
+    </script>
     <script src="{{asset('js/deceased.js')}}"></script>
+    <script src="{{asset('js/pasuga.js')}}"></script>
 @endpush
 
 @push('css')

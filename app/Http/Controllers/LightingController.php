@@ -43,6 +43,34 @@ class LightingController extends Controller
             ]);
         }
     }
+
+    public function update(Request $request, Lighting $lighting)
+    {
+        DB::beginTransaction();
+        try {
+            $params = $request->all();
+            $lighting->update($params);
+            DB::commit();
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Successfully updated!',
+                'data' => $lighting
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error(get_class().' '.$e);
+
+            DB::rollback();
+
+            return response()->json([
+                'error' => true,
+                'message' => 'Something Went Wrong',
+                'data' => []
+            ]);
+        }
+    }
+
     public function show($deceasedId)
     {
         return response()->json([

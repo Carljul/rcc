@@ -177,7 +177,7 @@ $(document).ready(function() {
                                 <td>`+element['ORNumber']+`</td>
                                 <td>`+status+`</td>
                                 <td>
-                                    <button class="btn btn-success btn-edit-lighting" data-id="`+element['id']+`" data-deceased-id="`+element['deceased_id']+`"><i class="fa fa-edit white" aria-hidden="true"></i></button>
+                                    <button class="btn btn-success btn-edit-lighting" data-id="`+element['id']+`" data-deceased-id="`+element['deceased_id']+`"><i data-id="`+element['id']+`" class="fa fa-edit white" aria-hidden="true"></i></button>
                                     <button class="btn btn-danger btn-delete-lighting" data-id="`+element['id']+`" data-deceased-id="`+element['deceased_id']+`"><i class="fa fa-trash white" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
@@ -352,7 +352,7 @@ $(document).ready(function() {
             success: function (response) {
                 if (!response.error) {
                     lightingRecord(response.data.deceased_id);
-                    alert('Saved');
+                    alert(response.message);
                     $('#lightingForm')[0].reset();
                 } else {
                     console.log(response.message);
