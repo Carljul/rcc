@@ -28,7 +28,14 @@ Route::group(['middleware' => 'auth'], function() {
         // Users
         Route::resource('user', UserController::class);
         // Reports
-        Route::resource('reports', ReportsController::class);
+        Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
+            Route::get('/', [ReportsController::class, 'index'])->name('index');
+            Route::post('/', [ReportsController::class, 'store'])->name('store');
+            Route::get('/{report}', [ReportsController::class, 'show'])->name('show');
+            Route::put('/{report}', [ReportsController::class, 'update'])->name('update');
+            Route::delete('/{report}', [ReportsController::class, 'destroy'])->name('destroy');
+            Route::post('/template', [ReportsController::class, 'report'])->name('report');
+        });
     });
 
     // Deceased
