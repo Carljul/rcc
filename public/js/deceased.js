@@ -224,16 +224,23 @@ $(document).ready(function() {
     function printingRecord(reports)
     {
         $('.btn-print').on('click', function () {
-            let html = '';
-            for (let i = 0; i < reports.length; i++) {
-                const element = reports[i];
-                html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
-                        <div class="card">
-                            <div class="card-body">
-                                `+element.name+`
+            let html = '<p>Sorry no certificate available!</p>';
+            if(reports.length > 0) {
+                for (let i = 0; i < reports.length; i++) {
+                    const element = reports[i];
+                    html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
+                            <div class="card">
+                                <div class="card-body">
+                                    `+element.name+`
+                                </div>
                             </div>
-                        </div>
-                    </div>`;
+                        </div>`;
+                }
+                $('#formReport').show();
+                $('#createPDF').show();
+            } else {
+                $('#formReport').hide();
+                $('#createPDF').hide();
             }
             $('#printModalBody div.row#templates').html(html);
             $('#printingModal').modal('show');

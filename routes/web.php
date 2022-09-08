@@ -6,6 +6,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DefaultCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['midleware' => 'can:view'], function() {
         // Users
         Route::resource('user', UserController::class);
+        Route::resource('defaults', DefaultCertificateController::class);
         // Reports
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
             Route::get('/', [ReportsController::class, 'index'])->name('index');

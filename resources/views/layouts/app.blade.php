@@ -65,6 +65,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('reports.index') }}">{{ __('Reports') }}</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('defaults.index') }}">{{ __('Defaults') }}</a>
+                                    </li>
                                 @endcan
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('deceased.index') }}">{{ __('Deceased') }}</a>
