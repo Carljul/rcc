@@ -109,19 +109,69 @@
                                     <td>{{$user->role == 1 ? 'Administrator':'Staff'}}</td>
                                     <td>
                                         @php($label = $user->isActive ? 'Deactivate' : 'Activate')
-                                        <button class="btn btn-{{$label == 'Activate' ? 'warning':'info'}} btn-update" data-id="{{$user->id}}" data-name="{{$user->name}}">{{$label}}</button>
-                                        <form action="{{route('user.update', $user->id)}}" method="post">
-                                            @csrf
-                                            {{method_field('PUT')}}
-                                            <input type="hidden" name="userRole" value="true">
-                                            <button type="submit" class="btn btn-danger">{{$user->role != 1 ? 'Administrator':'Staff'}}</button>
-                                        </form>
-                                        <form action="{{route('user.update', $user->id)}}" method="post">
-                                            @csrf
-                                            {{method_field('PUT')}}
-                                            <input type="hidden" name="resetPassword" value="true">
-                                            <button type="submit" class="btn btn-success">Reset password</button>
-                                        </form>
+                                        <button class="btn btn-{{$label == 'Activate' ? 'warning':'info'}} btn-update" data-id="{{$user->id}}" data-name="{{$user->name}}">{{$label}}</button>                                        
+
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#userRoleModal{{$user->id}}">
+                                            Set to {{$user->role != 1 ? 'Administrator':'Staff'}}
+                                        </button>
+
+                                        <div class="modal fade" id="userRoleModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="userRoleModal{{$user->id}}Label" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="userRoleModal{{$user->id}}Label">Change Role Confirmation</h5>
+                                                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body" id="userRoleModal{{$user->id}}">
+                                                    <p>Are you sure you want to change role of user {{$user->name}}?</p>
+                                                    <p>User will have a role of {{$user->role != 1 ? 'Administrator':'Staff'}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        
+                                                    <form action="{{route('user.update', $user->id)}}" method="post">
+                                                        @csrf
+                                                        {{method_field('PUT')}}
+                                                        <input type="hidden" name="userRole" value="true">
+                                                        <button type="submit" class="btn btn-danger">Update</button>
+                                                    </form>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#resetPasswordModal{{$user->id}}">
+                                            Reset password
+                                        </button>
+
+                                        <div class="modal fade" id="resetPasswordModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModal{{$user->id}}Label" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="resetPasswordModal{{$user->id}}Label">Reset Password Confirmation</h5>
+                                                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body" id="resetPasswordModal{{$user->id}}">
+                                                    <p>Are you sure you want to reset the password of {{$user->name}}?</p>
+                                                    <p>User will have <strong>123456</strong> as its new password.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        
+                                                  <form action="{{route('user.update', $user->id)}}" method="post">
+                                                      @csrf
+                                                      {{method_field('PUT')}}
+                                                      <input type="hidden" name="resetPassword" value="true">
+                                                      <button type="submit" class="btn btn-success">Reset</button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

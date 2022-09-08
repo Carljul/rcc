@@ -34,6 +34,18 @@ class LoginController extends Controller
     protected $redirectTo = '/deceased';
 
     /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        // return $request->only($this->username(), 'password');
+        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'isActive' => 1];
+    }
+
+    /**
      * Override login form
      *
      * @return void

@@ -241,10 +241,13 @@ $(document).ready(function() {
             $('.card-contract').on('click', function () {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
+                $('.card-contract .card').removeClass('active');
+                $($(this)[0].children[0]).addClass('active');
+                
 
                 $('.reportSelected').val(id);
                 $('.reportSelectedText').html(name);
-                $('#formReport').attr('action', '/reports');
+                $('#formReport').attr('action', '/reports/'+id);
             });
 
             $('#createPDF').on('click', function () {

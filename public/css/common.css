@@ -60,6 +60,9 @@ p {
     display: none;
 }
 
-.card-contract{
+.card-contract {
     cursor: pointer;
+}
+.card-contract .card.active {
+    border: 2px solid grey
 }

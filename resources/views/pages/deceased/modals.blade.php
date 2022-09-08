@@ -231,10 +231,15 @@
           </button>
         </div>
         <div class="modal-body" id="printModalBody">
+            <div class="row">
+              <div class="col-sm-12">
+                <p><strong>Please select certificate</strong></p>
+              </div>
+            </div>
             <div class="row" id="templates">
             </div>
             <hr>
-            <form action="" method="POST" id="formReport">
+            <form action="" method="GET" id="formReport">
                 @csrf
                 <input type="hidden" name="report" id="reportSelected" />
                 <div class="row">

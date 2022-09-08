@@ -77,7 +77,8 @@ class UserController extends Controller
         try {
             $params = $request->all();
             if (isset($params['resetPassword'])) {
-                $user->password = Hash::make('123456');
+                $newPassword = '123456';
+                $user->password = Hash::make($newPassword);
             } elseif (isset($params['userRole'])) {
                 $role = $user->role;
 
@@ -86,7 +87,7 @@ class UserController extends Controller
                 } else {
                     $user->role = 1;
                 }
-            }else {
+            } else {
                 $active = $user->isActive;
 
                 if ($active == 1) {
@@ -97,7 +98,9 @@ class UserController extends Controller
             }
 
             $user->save();
+            
             \DB::commit();
+
             return redirect()->back()->with(['message' => 'Updated']);
         } catch (\Exception $e) {
             \Log::error(get_class().' '.$e);

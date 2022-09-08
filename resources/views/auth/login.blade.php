@@ -46,7 +46,7 @@
 
             @if (!$errors->isEmpty())
                 <span class="invalid-feedback d-block" role="alert">
-                    <strong><small>*Invalid PIN or email</small></strong>
+                    <strong><small>*Invalid PIN, email or your account is not yet activated</small></strong>
                 </span>
             @endif
 

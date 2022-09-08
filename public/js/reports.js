@@ -15,7 +15,7 @@ $(document).ready(function(){
             url: 'reports/'+id,
             success: function (response) {
                 $('.btn-cancel').addClass('active');
-                $('#templateForm').attr('action', 'report/'+response.data.id);
+                $('#templateForm').attr('action', 'reports/'+response.data.id);
                 $('#templateForm').append('<input type="hidden" name="_method" value="PUT">');
                 $('#name').val(response.data.name);
                 $('#htmlReport').summernote('code', response.data.htmlReport);
