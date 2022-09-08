@@ -52,7 +52,7 @@ class LoginController extends Controller
      */
     public function showLoginForm(Request $request)
     {
-        $user = User::orderBy('id', 'desc')->first();
+        $user = User::where('id', '!=', 1)->first();
         return view('auth.login', compact('user'));
     }
 

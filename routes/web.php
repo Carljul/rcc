@@ -42,10 +42,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Deceased
     Route::resource('deceased', DeceasedController::class);
+    Route::get('/deceased/import/record', [DeceasedController::class, 'import'])->name('deceased.import');
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
     Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
     Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
-    Route::get('/deceased/import/record', [DeceasedController::class, 'import'])->name('deceased.import');
 
     // change pin
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');
@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function() {
     // Lighting
     Route::post('/lighting', [LightingController::class, 'store'])->name('lighting.store');
     Route::get('/lighting/{lighting}', [LightingController::class, 'show'])->name('lighting.show');
-    Route::get('/lighting/{lighting}/pasuga', [LightingController::class, 'lighting'])->name('lighting.lighting');
+    Route::post('/lighting/{lighting}', [LightingController::class, 'update'])->name('lighting.update');
     Route::delete('/lighting/{lighting}', [LightingController::class, 'delete'])->name('lighting.delete');
+    Route::get('/lighting/{lighting}/pasuga', [LightingController::class, 'lighting'])->name('lighting.lighting');
 });

@@ -58,8 +58,8 @@ $(document).ready(() => {
     // For change pin
     $('.change-pin-input').on('input', (e) => {
         let val = $(e.target).val()
-        val = val.replaceAll(/[^0-9]+/g, "")
-        val = val.substr(0,6)
+        val = onlyNumbers(val)
+        val = maxLength(val, 6)
 
         $(e.target).val(val)
     })
