@@ -15,50 +15,7 @@ class DefaultCertificateController extends Controller
     public function index()
     {
         $defaults = DefaultCertificate::first();
-        dd($defaults);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DefaultCertificate  $defaultCertificate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DefaultCertificate $defaultCertificate)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DefaultCertificate  $defaultCertificate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DefaultCertificate $defaultCertificate)
-    {
-        //
+        return view('pages.defaults.index', compact('defaults'));
     }
 
     /**
@@ -68,9 +25,29 @@ class DefaultCertificateController extends Controller
      * @param  \App\Models\DefaultCertificate  $defaultCertificate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DefaultCertificate $defaultCertificate)
+    public function update(Request $request, DefaultCertificate $default)
     {
-        //
+        \DB::beginTransaction();
+        try {
+            $params = $request->all();
+
+            $default->cemetery_administrator = $params['cemetery_administrator'];
+            $default->parish_office_staff = $params['parish_office_staff'];
+            $default->parish_team_moderator = $params['parish_team_moderator'];
+            $default->parish_team_member = $params['parish_team_member'];
+            $default->save();
+
+            \DB::commit();
+
+            return redirect()->back()->with(['message' => 'Saved']);
+        } catch (\Exception $e) {
+            \Log::error(get_class().' update() '.$e);
+
+            \DB::rollback();
+
+            return redirect()->back()->withErrors(['message' => 'Something Went Wrong']);
+
+        }
     }
 
     /**

@@ -226,6 +226,7 @@ $(document).ready(function() {
         $('.btn-print').on('click', function () {
             let html = '<p>Sorry no certificate available!</p>';
             if(reports.length > 0) {
+                html ='';
                 for (let i = 0; i < reports.length; i++) {
                     const element = reports[i];
                     html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
@@ -250,7 +251,7 @@ $(document).ready(function() {
                 let name = $(this).data('name');
                 $('.card-contract .card').removeClass('active');
                 $($(this)[0].children[0]).addClass('active');
-                
+
 
                 $('.reportSelected').val(id);
                 $('.reportSelectedText').html(name);
