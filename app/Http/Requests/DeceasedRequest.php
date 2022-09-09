@@ -26,8 +26,7 @@ class DeceasedRequest extends FormRequest
     {
         return [
             'firstname' => ['required'],
-            'lastname' => ['required'],
-            'dateDied' => ['required']
+            'lastname' => ['required']
         ];
     }
 }

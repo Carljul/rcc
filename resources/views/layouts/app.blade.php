@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{asset('font/css/font-awesome.css')}}">
 
     <!-- Styles -->
@@ -76,7 +76,7 @@
                                     <a class="nav-link" href="{{ route('deceased.deleted') }}">{{ __('Deleted') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deceased.import') }}">{{ __('Import') }}</a>
+                                    <a class="nav-link" id="import-nav" href="{{ route('deceased.import') }}">{{ __('Import') }}</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -23,7 +23,7 @@ function highlight(e) {
 
 function unhighlight(e) {
     dropArea.classList.remove('highlight')
-} 
+}
 
 dropArea.addEventListener('drop', handleDrop, false)
 
@@ -37,35 +37,69 @@ function handleDrop(e) {
 function handleFiles(files) {
     let list = [...files];
     createFileList(list)
-    list.forEach(uploadFile)
+
+    setTimeout(function(){
+        if (localStorage.getItem('excels') != null) {
+            let excels = JSON.parse(localStorage.getItem('excels'));
+
+            if (excels.length == list.length) {
+                uploadFile();
+            }
+        }
+    },3000);
 }
 
-function uploadFile(file) {
-    // let url = 'YOUR URL HERE'
-    // let formData = new FormData()
-    
-    // formData.append('file', file)
-    
-    // fetch(url, {
-    //   method: 'POST',
-    //   body: formData
-    // })
-    // .then(() => { /* Done. Inform the user */ })
-    // .catch(() => { /* Error. Inform the user */ })
-}
+var parseExcel = function(file, id) {
+    var reader = new FileReader();
 
-function createFileList(files)
+    reader.onload = function(e) {
+        var data = e.target.result;
+        var workbook = XLSX.read(data, {
+            type: 'binary'
+        });
+
+        workbook.SheetNames.forEach(function(sheetName) {
+            // Here is your object
+            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+            var json_object = JSON.stringify(XL_row_object);
+            var setJson = [{
+                'id': id,
+                'name': file.name,
+                'data': JSON.parse(json_object)
+            }];
+
+            if (localStorage.getItem('excels') === null) {
+                localStorage.setItem('excels', JSON.stringify(setJson));
+            } else {
+                let excels = JSON.parse(localStorage.getItem('excels'));
+                excels.push(setJson[0]);
+                localStorage.setItem('excels', JSON.stringify(excels));
+            }
+        })
+
+    };
+
+    reader.onerror = function(ex) {
+        console.log(ex);
+    };
+
+    reader.readAsBinaryString(file);
+};
+
+
+function createFileList(files, fromStorage = false)
 {
     let html = '';
     for (let i = 0; i < files.length; i++) {
         const element = files[i];
-        html += `<tr id="`+i+`">
+        let id = fromStorage ? element.id : Date.now();
+        if (!fromStorage) {
+            parseExcel(element, id);
+        }
+        html += `<tr id="`+id+`">
             <td>`+element.name+`</td>
-            <td>
-                <!-- <div class="progress">
-                    <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>-->
-                Processing. . .
+            <td class="import-progress">
+                Pending . . .
             </td>
         </tr>`;
     }
@@ -75,3 +109,11 @@ function createFileList(files)
     $('#drop-area').addClass('hide');
     $('#progress-area').removeClass('hide');
 }
+
+function renderStorage() {
+    if (localStorage.getItem('excels') != null) {
+        let files = JSON.parse(localStorage.getItem('excels'));
+        createFileList(files, true);
+    }
+}
+renderStorage();
