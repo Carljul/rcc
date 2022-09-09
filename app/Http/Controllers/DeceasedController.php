@@ -53,21 +53,20 @@ class DeceasedController extends Controller
     {
         $params = $request->all();
         $rtn = Deceased::register($params);
-        return $rtn;
 
-        // if ($rtn['error']) {
-        //     return response()->json([
-        //         'error' => true,
-        //         'message' => $rtn['message'],
-        //         'data' => []
-        //     ]);
-        // }
+        if ($rtn['error']) {
+            return response()->json([
+                'error' => true,
+                'message' => $rtn['message'],
+                'data' => []
+            ]);
+        }
 
-        // return response()->json([
-        //     'error' => false,
-        //     'message' => $rtn['message'],
-        //     'data' => $rtn['data']
-        // ]);
+        return response()->json([
+            'error' => false,
+            'message' => $rtn['message'],
+            'data' => $rtn['data']
+        ]);
     }
 
     /**

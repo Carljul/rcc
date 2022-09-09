@@ -8,6 +8,7 @@ use Exception;
 use App\Models\Person;
 use App\Models\Payment;
 use App\Models\Relative;
+use App\Models\Lighting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,51 +76,63 @@ class Deceased extends Model
     {
         DB::beginTransaction();
         try {
-            // $person = Person::create([
-            //     'firstname' => $params['firstname'],
-            //     'middlename' => $params['middlename'],
-            //     'lastname' => $params['lastname'],
-            //     'extension' => $params['extension'],
-            //     'gender' => $params['gender'] != 'null' ? $params['gender']:null,
-            //     'birthdate' => $params['birthdate'],
-            //     'address' => $params['address']
-            // ]);
+            $person = Person::create([
+                'firstname' => $params['firstname'],
+                'middlename' => $params['middlename'],
+                'lastname' => $params['lastname'],
+                'extension' => $params['extension'],
+                'gender' => $params['gender'] != 'null' ? $params['gender']:null,
+                'birthdate' => $params['birthdate'],
+                'address' => $params['address']
+            ]);
 
-            // $relative = null;
-            // if (isset($params['relativeFirstname'])) {
-            //     $relative = Relative::create([
-            //         'firstname' => $params['relativeFirstname'],
-            //         'middlename' => $params['relativeMiddlename'],
-            //         'lastname' => $params['relativeLastname'],
-            //         'contact_number' => $params['relativeContactNumber']
-            //     ]);
-            // }
+            $relative = null;
+            if (isset($params['relativeFirstname'])) {
+                $relative = Relative::create([
+                    'firstname' => $params['relativeFirstname'],
+                    'middlename' => $params['relativeMiddlename'],
+                    'lastname' => $params['relativeLastname'],
+                    'contact_number' => $params['relativeContactNumber']
+                ]);
+            }
 
-            // $payment = null;
-            // if (isset($params['amount'])) {
-            //     $payment = Payment::create([
-            //         'amount' => $params['amount'],
-            //         'ORNumber' => $params['ornumber'],
-            //         'datePaid' => $params['datepaid']
-            //     ]);
-            //     $payment = $payment->id;
-            // }
+            $payment = null;
+            if (isset($params['amount'])) {
+                $payment = Payment::create([
+                    'amount' => $params['amount'],
+                    'ORNumber' => $params['ornumber'],
+                    'datePaid' => $params['datepaid']
+                ]);
+                $payment = $payment->id;
+            }
 
-            // $data = self::create([
-            //     'person_id' => $person->id,
-            //     'relative_id' => empty($relative) ? $relative : $relative->id,
-            //     'payment_id' => $payment,
-            //     'dateDied' => $params['dateDied'],
-            //     'internmentDate' => $params['internmentDate'],
-            //     'internmentTime' => $params['internmentTime'],
-            //     'expiryDate' => $params['expiryDate'],
-            //     'causeOfDeath' => $params['cod'],
-            //     'location' => $params['location'],
-            //     'remarks' => $params['remarks'],
-            //     'createdBy' => Auth::user()->id
-            // ]);
+            $data = self::create([
+                'person_id' => $person->id,
+                'relative_id' => empty($relative) ? $relative : $relative->id,
+                'payment_id' => $payment,
+                'dateDied' => $params['dateDied'],
+                'internmentDate' => $params['internmentDate'],
+                'internmentTime' => $params['internmentTime'],
+                'expiryDate' => $params['expiryDate'],
+                'causeOfDeath' => $params['cod'],
+                'location' => $params['location'],
+                'remarks' => $params['remarks'],
+                'isApprove' => array_key_exists('is_approve', $params) ? $params['is_approve'] : 0,
+                'createdBy' => Auth::user()->id
+            ]);
 
-            // DB::commit();
+            if (array_key_exists('pasuga_payer', $params)) {
+                Lighting::create([
+                    'deceased_id' => $data->id,
+                    'name' => $params['pasuga_payer'],
+                    'dateOfConnection' => $params['pasuga_date_connection'],
+                    'expiryDate' => $params['pasuga_expiry_date'],
+                    'amount' => $params['pasuga_amount'],
+                    'ORNumber' => $params['pasuga_or_number']
+                ]);
+            }
+
+            DB::commit();
 
             return [
                 'error' => false,

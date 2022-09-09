@@ -85,31 +85,32 @@ function savingRecord(file)
     let data = file.data;
     let toInsert = {
         firstname: data[0].firstname,
-        middlename: data[0].middlename,
-        lastname: data[0].lastname,
-        extension: data[0].extension,
-        gender: data[0].gender,
-        birthdate: data[0].birthdate,
-        address: data[0].address,
-        dateDied: data[0].date_died,
-        internmentDate: data[0].date_internment,
-        internmentTime: data[0].time_internment,
-        expiryDate: data[0].expiry_date,
-        cod: data[0].cause_of_death,
-        location: data[0].location,
-        amount: data[0].amount,
-        ornumber: data[0].or_number,
-        datepaid: data[0].date_paid,
-        relativeFirstname: data[0].relative_firstname,
-        relativeMiddlename: data[0].relative_middlename,
-        relativeLastname: data[0].relative_lastname,
-        relativeContactNumber: data[0].relative_contact_number,
-        remarks: data[0].remarks,
-        pasuga_payer: data[0].pasuga_payer,
-        pasuga_date_connection: data[0].pasuga_date_connection,
-        pasuga_expiry_date: data[0].pasuga_expiry_date,
-        pasuga_amount: data[0].pasuga_amount,
-        pasuga_or_number: data[0].pasuga_or_number,
+        middlename: typeof(data[0].middlename) != 'undefined' ? data[0].middlename : null,
+        lastname: typeof(data[0].lastname) != 'undefined' ? data[0].lastname : null,
+        extension: typeof(data[0].extension) != 'undefined' ? data[0].extension : null,
+        gender: typeof(data[0].gender) != 'undefined' ? (data[0].gender).toLowerCase() == 'female' ? 1:0:null,
+        birthdate: typeof(data[0].birthdate) != 'undefined' ? dateFormatter(data[0].birthdate) : null,
+        address:  typeof(data[0].address) != 'undefined' ? data[0].address : null,
+        dateDied:  typeof(data[0].date_died) != 'undefined' ? dateFormatter(data[0].date_died) : null,
+        internmentDate:  typeof(data[0].date_internment) != 'undefined' ? dateFormatter(data[0].date_internment) : null,
+        internmentTime:  typeof(data[0].date_internment) != 'undefined' ? data[0].time_internment : null,
+        expiryDate:  typeof(data[0].expiry_date) != 'undefined' ? dateFormatter(data[0].expiry_date) : null,
+        cod:  typeof(data[0].cause_of_death) != 'undefined' ? data[0].cause_of_death : null,
+        location:  typeof(data[0].location) != 'undefined' ? data[0].location : null,
+        amount:  typeof(data[0].amount) != 'undefined' ? data[0].amount : null,
+        ornumber:  typeof(data[0].or_number) != 'undefined' ? data[0].or_number : null,
+        datepaid:  typeof(data[0].date_paid) != 'undefined' ? dateFormatter(data[0].date_paid) : null,
+        relativeFirstname:  typeof(data[0].relative_firstname) != 'undefined' ? data[0].relative_firstname : null,
+        relativeMiddlename:  typeof(data[0].relative_middlename) != 'undefined' ? data[0].relative_middlename : null,
+        relativeLastname:  typeof(data[0].relative_lastname) != 'undefined' ? data[0].relative_lastname : null,
+        relativeContactNumber:  typeof(data[0].relative_contact_number) != 'undefined' ? data[0].relative_contact_number : null,
+        remarks:  typeof(data[0].remarks) != 'undefined' ? data[0].remarks : null,
+        pasuga_payer:  typeof(data[0].pasuga_payer) != 'undefined' ? data[0].pasuga_payer : null,
+        pasuga_date_connection:  typeof(data[0].pasuga_date_connection) != 'undefined' ? dateFormatter(data[0].pasuga_date_connection) : null,
+        pasuga_expiry_date:  typeof(data[0].pasuga_expiry_date) != 'undefined' ? dateFormatter(data[0].pasuga_expiry_date) : null,
+        pasuga_amount:  typeof(data[0].pasuga_amount) != 'undefined' ? data[0].pasuga_amount : null,
+        pasuga_or_number:  typeof(data[0].pasuga_or_number) != 'undefined' ? data[0].pasuga_or_number : null,
+        is_approve: 1
     };
     $.ajax({
         type: 'POST',
@@ -144,4 +145,12 @@ function savingRecord(file)
             uploadFile()
         }
     })
+}
+
+function dateFormatter(date) {
+    let newDate = new Date(date);
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    return year+'-'+month+'-'+day;
 }

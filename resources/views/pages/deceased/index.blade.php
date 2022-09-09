@@ -54,10 +54,9 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Internment</th>
+                                <th>Date Died</th>
+                                <th>Expiry</th>
                                 <th>Location</th>
-                                <th>OR #</th>
-                                <th>Approved</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

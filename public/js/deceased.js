@@ -14,20 +14,10 @@ $(document).ready(function() {
                     let name = element['person']['firstname']+` `+(element['person']['middlename'] == null ? '':element['person']['middlename'])+` `+element['person']['lastname']+` `+(element['person']['extension'] == null ? '' : element['person']['extension']);
                     html += `<tr>
                         <td>`+name+`</td>
-                        <td>`+(element['internmentDate'] == null ? '' : element['internmentDate'])+` `+(element['internmentTime'] == null ? '' : element['internmentTime'])+`</td>
-
-                        <td>`+(element['location'] == null ? '' : element['location'])+`</td>`;
-                    if (element['payment'] == null) {
-                        html += `
-                        <td></td>
-                        `;
-                    } else {
-                        html += `
-                            <td>`+element['payment']['ORNumber']+`</td>
-                        `;
-                    }
-                    html += `<td>`+(element['isApprove'] ? 'Approved' : 'For Approval')+`</td>`;
-                    html +=`<td><button class="btn btn-success btn-edit" data-id="`+element['id']+`"><i class="fa fa-eye white" aria-hidden="true"></i></button>
+                        <td>`+(element['dateDied'] == null ? '' : element['dateDied'])+`</td>
+                        <td>`+(element['expiryDate'] == null ? '' : element['expiryDate'])+`</td>
+                        <td>`+(element['location'] == null ? '' : element['location'])+`</td>
+                        <td><button class="btn btn-success btn-edit" data-id="`+element['id']+`"><i class="fa fa-eye white" aria-hidden="true"></i></button>
                         <button class="btn btn-warning btn-ligthings" data-id="`+element['id']+`"><i class="fa fa-lightbulb-o white" aria-hidden="true"></i></button>
                         <button class="btn btn-danger btn-delete" data-id="`+element['id']+`" data-name="`+name+`"><i class="fa fa-trash white" aria-hidden="true"></i></button>
                         <button class="btn btn-primary btn-print" data-id="`+element['id']+`"><i class="fa fa-print white" aria-hidden="true"></i></button>
@@ -42,8 +32,7 @@ $(document).ready(function() {
                         { "width": "20%" },
                         null,
                         null,
-                        null,
-                        null,
+                        { "width": "25%" },
                         { "width": "24%" }
                     ]
                 });
@@ -167,6 +156,10 @@ $(document).ready(function() {
                         if (today > expiry) {
                             status = 'Expired';
                         }
+                        let orNumber = '';
+                        if (element['ORNumber'] === 'null') {
+                            orNumber = element['ORNumber'];
+                        }
                         html += `
                             <tr>
                                 <td>`+element['id']+`</td>
@@ -174,7 +167,7 @@ $(document).ready(function() {
                                 <td>`+element['dateOfConnection']+`</td>
                                 <td>`+element['expiryDate']+`</td>
                                 <td>Php `+numberWithCommas(element['amount'])+`</td>
-                                <td>`+element['ORNumber']+`</td>
+                                <td>`+orNumber+`</td>
                                 <td>`+status+`</td>
                                 <td>
                                     <button class="btn btn-success btn-edit-lighting" data-id="`+element['id']+`" data-deceased-id="`+element['deceased_id']+`"><i data-id="`+element['id']+`" class="fa fa-edit white" aria-hidden="true"></i></button>
