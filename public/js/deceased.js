@@ -255,7 +255,7 @@ $(document).ready(function() {
 
                 $('.reportSelected').val(id);
                 $('.reportSelectedText').html(name);
-                $('#formReport').attr('action', '/reports/'+id);
+                $('#formReport').attr('action', '/pdf/'+id);
             });
 
             $('#createPDF').on('click', function () {
