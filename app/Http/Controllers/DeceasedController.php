@@ -110,17 +110,6 @@ class DeceasedController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -220,5 +209,29 @@ class DeceasedController extends Controller
     public function import()
     {
         return view('pages.deceased.import');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function expired()
+    {
+        $years = Deceased::selectRaw('YEAR(expiryDate) AS expiry')
+            ->whereNull('deleted_at')
+            ->whereNotNull('expiryDate')
+            ->groupBy('expiry')
+            ->orderBy('expiry')
+            ->get()
+            ->pluck('expiry')
+            ->toArray();
+
+        if(!in_array(date('Y'), $years))
+        {
+            array_push($years, date('Y'));
+        }
+
+        return view('pages.deceased.expire', compact('years'));
     }
 }
