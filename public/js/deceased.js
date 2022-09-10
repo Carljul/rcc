@@ -99,11 +99,6 @@ $(document).ready(function() {
                     $('#viewcod').val(data.causeOfDeath);
                     $('#viewlocation').val(data.location);
                     $('#viewRemarks').val(data.remarks);
-                    if (data.payment != null) {
-                        $('#viewamount').val(data.payment.amount);
-                        $('#viewornumber').val(data.payment.ORNumber);
-                        $('#viewdatepaid').val(data.payment.datePaid);
-                    }
 
                     if (data.relative != null) {
                         $('#viewrelativeFirstname').val(data.relative.firstname);
@@ -117,6 +112,8 @@ $(document).ready(function() {
                     } else {
                         $('#isApprove').html('Record still needs approval');
                     }
+
+                    $('#amountTable').dataTable();
 
                     $('#recordLogCreated').html('Record was created last <strong>'+dateTimeFormatter(data.created_at)+'</strong>');
                     $('#recordLogUpdated').html('Record was updated last <strong>'+dateTimeFormatter(data.updated_at)+'</strong>');
@@ -248,7 +245,7 @@ $(document).ready(function() {
 
                 $('.reportSelected').val(id);
                 $('.reportSelectedText').html(name);
-                $('#formReport').attr('action', '/pdf/'+id);
+                $('#formReport').attr('action', '/reports/'+id);
             });
 
             $('#createPDF').on('click', function () {

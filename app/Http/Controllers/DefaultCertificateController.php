@@ -56,8 +56,10 @@ class DefaultCertificateController extends Controller
      * @param  \App\Models\DefaultCertificate  $defaultCertificate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DefaultCertificate $defaultCertificate)
+    public function list()
     {
-        //
+        return response()->json([
+            'data' => DefaultCertificate::first()
+        ]);
     }
 }

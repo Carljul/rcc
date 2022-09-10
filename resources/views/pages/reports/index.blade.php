@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.css')}}">
     <style>
         .btn-cancel{
             display: none;
@@ -13,7 +12,6 @@
 @endpush
 
 @push('js')
-    <script src="{{asset('summernote/summernote-bs4.js')}}"></script>
     <script src="{{asset('js/reports.js')}}"></script>
 @endpush
 

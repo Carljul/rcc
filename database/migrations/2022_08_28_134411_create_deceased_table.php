@@ -16,14 +16,14 @@ class CreateDeceasedTable extends Migration
         Schema::create('deceased', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('relative_id')->nullable();
-            $table->unsignedBigInteger('payment_id')->nullable();
             $table->date('dateDied')->nullable();
             $table->date('internmentDate')->nullable();
             $table->string('internmentTime')->nullable();
             $table->date('expiryDate')->nullable();
             $table->string('causeOfDeath')->nullable();
             $table->string('location')->nullable();
+            $table->string('vicinity')->nullable();
+            $table->string('area')->nullable();
             $table->string('remarks', 1000)->nullable();
             $table->boolean('isApprove')->default(0);
             $table->integer('approvedBy')->nullable();
@@ -31,8 +31,6 @@ class CreateDeceasedTable extends Migration
             $table->integer('updatedBy')->nullable();
             $table->integer('deletedBy')->nullable();
             $table->foreign('person_id')->references('id')->on('person');
-            $table->foreign('relative_id')->references('id')->on('relative');
-            $table->foreign('payment_id')->references('id')->on('payments');
             $table->timestamps();
             $table->softDeletes();
         });

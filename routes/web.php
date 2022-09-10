@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportsController;
+// use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -31,7 +32,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['midleware' => 'can:view'], function() {
         // Users
         Route::resource('user', UserController::class);
-        Route::resource('defaults', DefaultCertificateController::class);
+        Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {
+            Route::get('/', [DefaultCertificateController::class, 'index'])->name('index');
+            Route::get('/list/json', [DefaultCertificateController::class, 'list'])->name('list');
+            Route::put('/{default}', [DefaultCertificateController::class, 'update'])->name('update');
+        });
         // Reports
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
             Route::get('/', [ReportsController::class, 'index'])->name('index');

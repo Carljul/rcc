@@ -115,8 +115,9 @@
     {{-- Bootstrap js --}}
     <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/bootstrap/bootstrap.js')}}"></script>
+    <script src="{{asset('js/common.js?'.strtotime(now()))}}"></script>
     @if(Auth::check())
-        <script src="{{asset('js/common.js?'.strtotime(now()))}}"></script>
+        <script src="{{asset('js/import.js?'.strtotime(now()))}}"></script>
     @endif
     @stack('js')
 </body>

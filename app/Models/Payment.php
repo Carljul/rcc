@@ -13,8 +13,14 @@ class Payment extends Model
     protected $table = 'payments';
 
     protected $fillable = [
+        'deceased_id',
+        'payer',
+        'contact_number',
         'amount',
         'ORNumber',
+        'balance',
+        'terms_of_payment',
+        'remarks',
         'datePaid'
     ];
 }
