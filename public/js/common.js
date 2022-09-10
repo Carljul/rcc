@@ -50,5 +50,10 @@ function dateFormatter(date) {
     let day = newDate.getDate();
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
-    return year+'-'+month+'-'+day;
+    let resultDate = year+'-'+month+'-'+day;
+    if (resultDate == 'NaN-NaN-NaN') {
+        console.log(resultDate, date);
+    }
+
+    return resultDate == 'NaN-NaN-NaN' ? null : resultDate;
 }

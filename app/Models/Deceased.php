@@ -106,7 +106,7 @@ class Deceased extends Model
                     'balance' => $params['balance'],
                     'terms_of_payment' => $params['terms_of_payment'],
                     'datePaid' => $params['datepaid'],
-                    'remarks' => isset($params['remarks']) ? $params['remarks'] : 'First Payment'
+                    'remarks' => isset($params['remarks']) ? $params['remarks'] : 'Payment'
                 ]);
                 $payment = $payment->id;
             }
