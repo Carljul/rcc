@@ -23,4 +23,9 @@ class Payment extends Model
         'remarks',
         'datePaid'
     ];
+
+    public function deceased()
+    {
+        return $this->hasOne('App\Models\Deceased', 'id', 'deceased_id');
+    }
 }

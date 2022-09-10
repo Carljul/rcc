@@ -37,13 +37,9 @@
         </div>
         <div class="modal-body" id="detailModalBody">
             <div class="container-fluid">
-                <form action="" method="POST" id="updateFormDeceased">
-                    @csrf
-                    {{ method_field('PUT') }}
-                    @include('pages.common.template_deceased_form', [
-                        'isEdit' => true
-                    ])
-                </form>
+                @include('pages.common.template_deceased_form', [
+                    'isEdit' => true
+                ])
             </div>
         </div>
       </div>

@@ -37,12 +37,10 @@ $(document).ready(function() {
                     ]
                 });
 
-                $('.btn-ligthings').on('click', function () {
-                    let id = $(this).data('id');
-                    lightingRecord(id);
-                });
+
                 viewRecord();
                 deleteModal();
+                lightingButton();
                 printingRecord(response.reports);
                 approveRecord();
             }, error: function (e) {
@@ -50,10 +48,15 @@ $(document).ready(function() {
             }
         })
     }
-
+    function lightingButton() {
+        $(document).on('click', '.btn-ligthings', function () {
+            let id = $(this).data('id');
+            lightingRecord(id);
+        });
+    }
     function approveRecord()
     {
-        $('.btn-approve').on('click', function () {
+        $(document).on('click', '.btn-approve', function () {
             let id = $(this).data('id');
             let name = $(this).data('name');
             $('#approveDeceasedModalBody p').html('Are you sure you want to update approve status of '+name+'\'s record?');
@@ -64,7 +67,7 @@ $(document).ready(function() {
 
     function deleteModal()
     {
-        $('.btn-delete').on('click', function () {
+        $(document).on('click', '.btn-delete', function () {
             let id = $(this).data('id');
             let name = $(this).data('name');
             $('#deleteModal #deleteModalBody p').html('Are you sure you want to delete the record of '+name+'?');
@@ -75,7 +78,7 @@ $(document).ready(function() {
 
     function viewRecord()
     {
-        $('.btn-edit').on('click', function () {
+        $(document).on('click', '.btn-edit', function () {
             let id = $(this).data('id');
 
             $.ajax({
@@ -83,8 +86,9 @@ $(document).ready(function() {
                 url: 'deceased/'+id,
                 success: function (response) {
                     let data = response.data;
-                    $('#detailModalBody form')[0].reset();
-                    $('#detailModalBody form').attr('action', 'deceased/'+data.id)
+                    let payment = data.payment;
+                    $('#detailModalBody form#updateFormDeceased')[0].reset();
+                    $('#detailModalBody form#updateFormDeceased').attr('action', 'deceased/'+data.id)
                     $('#viewfirstname').val(data.person.firstname);
                     $('#viewmiddlename').val(data.person.middlename);
                     $('#viewlastname').val(data.person.lastname);
@@ -98,7 +102,10 @@ $(document).ready(function() {
                     $('#viewexpiryDate').val(data.expiryDate);
                     $('#viewcod').val(data.causeOfDeath);
                     $('#viewlocation').val(data.location);
+                    $('#viewVicinity').val(data.vicinity);
+                    $('#viewArea').val(data.area);
                     $('#viewRemarks').val(data.remarks);
+                    $('#deceasedPerson').val(data.id);
 
                     if (data.relative != null) {
                         $('#viewrelativeFirstname').val(data.relative.firstname);
@@ -113,7 +120,11 @@ $(document).ready(function() {
                         $('#isApprove').html('Record still needs approval');
                     }
 
-                    $('#amountTable').dataTable();
+                    if (!isArray(payment)) {
+                        payment = [payment];
+                    }
+
+                    paymentList(payment);
 
                     $('#recordLogCreated').html('Record was created last <strong>'+dateTimeFormatter(data.created_at)+'</strong>');
                     $('#recordLogUpdated').html('Record was updated last <strong>'+dateTimeFormatter(data.updated_at)+'</strong>');
@@ -122,6 +133,76 @@ $(document).ready(function() {
                 }, error: function (error) {
                     console.log(error);
                 }
+            });
+        });
+    }
+    let isArray = function(a) {
+        return (!!a) && (a.constructor === Array);
+    };
+
+    function paymentList(payment)
+    {
+        let html = '';
+        for (let i = 0; i < payment.length; i++) {
+            const element = payment[i];
+            html+= `<tr>
+                <td>`+(element['payer'] ?? '')+`</td>
+                <td>`+(element['contact_number'] ?? '')+`</td>
+                <td>`+(element['amount'] ?? '')+`</td>
+                <td>`+(element['balance'] ?? '')+`</td>
+                <td>`+(element['ORNumber'] ?? '')+`</td>
+                <td>`+(element['terms_of_payment'] ?? '')+`</td>
+                <td>`+(element['datePaid'] ?? '')+`</td>
+                <td>
+                    <button class="btn btn-small btn-success" data-payment-id="`+element['id']+`">Modify</button>
+                </td>
+            </tr>`;
+        }
+
+        $('#amountTable tbody').html(html);
+
+        $('#amountTable').dataTable();
+    }
+
+    function printingRecord(reports)
+    {
+        $(document).on('click', '.btn-print', function () {
+            let html = '<p>Sorry no certificate available!</p>';
+            if(reports.length > 0) {
+                html ='';
+                for (let i = 0; i < reports.length; i++) {
+                    const element = reports[i];
+                    html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
+                            <div class="card">
+                                <div class="card-body">
+                                    `+element.name+`
+                                </div>
+                            </div>
+                        </div>`;
+                }
+                $('#formReport').show();
+                $('#createPDF').show();
+            } else {
+                $('#formReport').hide();
+                $('#createPDF').hide();
+            }
+            $('#printModalBody div.row#templates').html(html);
+            $('#printingModal').modal('show');
+
+            $('.card-contract').on('click', function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+                $('.card-contract .card').removeClass('active');
+                $($(this)[0].children[0]).addClass('active');
+
+
+                $('.reportSelected').val(id);
+                $('.reportSelectedText').html(name);
+                $('#formReport').attr('action', '/reports/'+id);
+            });
+
+            $('#createPDF').on('click', function () {
+                $('#formReport').submit();
             });
         });
     }
@@ -211,50 +292,6 @@ $(document).ready(function() {
         });
     }
 
-    function printingRecord(reports)
-    {
-        $('.btn-print').on('click', function () {
-            let html = '<p>Sorry no certificate available!</p>';
-            if(reports.length > 0) {
-                html ='';
-                for (let i = 0; i < reports.length; i++) {
-                    const element = reports[i];
-                    html += `<div class="col card-contract" data-id="`+element.id+`" data-name="`+element.name+`">
-                            <div class="card">
-                                <div class="card-body">
-                                    `+element.name+`
-                                </div>
-                            </div>
-                        </div>`;
-                }
-                $('#formReport').show();
-                $('#createPDF').show();
-            } else {
-                $('#formReport').hide();
-                $('#createPDF').hide();
-            }
-            $('#printModalBody div.row#templates').html(html);
-            $('#printingModal').modal('show');
-
-            $('.card-contract').on('click', function () {
-                let id = $(this).data('id');
-                let name = $(this).data('name');
-                $('.card-contract .card').removeClass('active');
-                $($(this)[0].children[0]).addClass('active');
-
-
-                $('.reportSelected').val(id);
-                $('.reportSelectedText').html(name);
-                $('#formReport').attr('action', '/reports/'+id);
-            });
-
-            $('#createPDF').on('click', function () {
-                $('#formReport').submit();
-            });
-        });
-    }
-
-
     function dateTimeFormatter(date)
     {
         date = new Date(date);
@@ -282,6 +319,21 @@ $(document).ready(function() {
                 } else {
                     console.log(e);
                 }
+            }, error: function (e) {
+                console.log(e);
+            }
+        })
+    });
+
+    $('#paymentForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (response) {
+                alert('Data Saved');
+                $('#amountTable').dataTable();
             }, error: function (e) {
                 console.log(e);
             }

@@ -7,7 +7,6 @@ use Auth;
 use Exception;
 use App\Models\Person;
 use App\Models\Payment;
-use App\Models\Relative;
 use App\Models\Lighting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -42,14 +41,9 @@ class Deceased extends Model
         return $this->hasOne('App\Models\Person', 'id', 'person_id');
     }
 
-    public function relative()
-    {
-        return $this->hasOne('App\Models\Relative', 'id', 'relative_id');
-    }
-
     public function payment()
     {
-        return $this->hasOne('App\Models\Payment', 'id', 'payment_id');
+        return $this->hasMany('App\Models\Payment', 'deceased_id', 'id');
     }
 
     public function approvedBy()
@@ -88,7 +82,6 @@ class Deceased extends Model
 
             $data = self::create([
                 'person_id' => $person->id,
-                'relative_id' => empty($relative) ? $relative : $relative->id,
                 'dateDied' => $params['dateDied'],
                 'internmentDate' => $params['internmentDate'],
                 'internmentTime' => $params['internmentTime'],
@@ -160,7 +153,6 @@ class Deceased extends Model
             $person = Person::where('id', $deceased->person_id)->first();
 
             $deceased->person_id = $person->id;
-            $deceased->relative_id = empty($relative) ? $relative : $relative->id;
             $deceased->dateDied = $params['dateDied'];
             $deceased->internmentDate = $params['internmentDate'];
             $deceased->internmentTime = $params['internmentTime'];
@@ -197,7 +189,6 @@ class Deceased extends Model
         return self::where('id', $id)
             ->whereNull('deleted_at')
             ->with('person')
-            ->with('relative')
             ->with('payment')
             ->with('approvedBy')
             ->with('createdBy')
@@ -214,11 +205,6 @@ class Deceased extends Model
 
             if (!empty($deceased->person_id)) {
                 $person = Person::find($deceased->person_id);
-                $person->delete();
-            }
-
-            if (!empty($deceased->relative_id)) {
-                $person = Relative::find($deceased->person_id);
                 $person->delete();
             }
 

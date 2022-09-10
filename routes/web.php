@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportsController;
-// use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -26,8 +26,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
-    // PDF
-    Route::get('/pdf/{report}', [PDFController::class, 'streamPDF'])->name('stream.pdf');
 
     Route::group(['midleware' => 'can:view'], function() {
         // Users
@@ -55,6 +53,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
     Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
 
+    // Payment
+    Route::resource('payment', PaymentController::class);
 
     // change pin
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');

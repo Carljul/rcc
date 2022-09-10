@@ -81,8 +81,6 @@ class DeceasedController extends Controller
             return response()->json([
                 'data' => Deceased::whereNotNull('deleted_at')
                     ->with('person')
-                    ->with('relative')
-                    ->with('payment')
                     ->orderBy('created_at')
                     ->get()
             ]);
@@ -90,9 +88,8 @@ class DeceasedController extends Controller
 
         return response()->json([
             'data' => Deceased::whereNull('deleted_at')
-                ->with('person')
-                ->with('relative')
                 ->with('payment')
+                ->with('person')
                 ->orderBy('created_at', 'DESC')
                 ->get(),
             'reports' => Reports::where('isActive', 1)->get()
