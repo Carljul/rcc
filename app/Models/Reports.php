@@ -14,6 +14,8 @@ class Reports extends Model
     protected $fillable = [
         'name',
         'htmlReport',
-        'isActive',
+        'fields',
+        'reportType',
+        'isActive'
     ];
 }

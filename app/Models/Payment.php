@@ -14,6 +14,7 @@ class Payment extends Model
 
     protected $fillable = [
         'deceased_id',
+        'payment_type',
         'payer',
         'contact_number',
         'amount',

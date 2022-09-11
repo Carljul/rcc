@@ -51,9 +51,12 @@ function dateFormatter(date) {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
     let resultDate = year+'-'+month+'-'+day;
-    if (resultDate == 'NaN-NaN-NaN') {
-        console.log(resultDate, date);
-    }
 
     return resultDate == 'NaN-NaN-NaN' ? null : resultDate;
+}
+
+function stringFormatter(str) {
+    return str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+        return letter.toUpperCase();
+    });
 }

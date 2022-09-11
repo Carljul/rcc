@@ -40,6 +40,7 @@ class PaymentController extends Controller
             $params = $request->all();
             $data = Payment::create([
                 'deceased_id' => $params['id'],
+                'payment_type' => $params['payment_type'],
                 'payer' => $params['payer'],
                 'contact_number' => $params['contact_number'],
                 'amount' => $params['amount'],
@@ -54,8 +55,8 @@ class PaymentController extends Controller
 
             return response()->json([
                 'error' => false,
-                'message' => $rtn['message'],
-                'data' => $data
+                'message' => 'Saved',
+                'data' => Payment::where('deceased_id', $params['id'])->get()
             ]);
         } catch (\Exception $e) {
             \Log::error(get_class().' '.$e);
@@ -86,24 +87,56 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Payment $payment)
     {
-        //
+        return response()->json([
+            'data' => $payment
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Payment $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Payment $payment)
     {
-        //
+        \DB::beginTransaction();
+        try {
+            $params = $request->all();
+
+            $payment->payment_type = $params['payment_type'];
+            $payment->payer = $params['payer'];
+            $payment->contact_number = $params['contact_number'];
+            $payment->amount = $params['amount'];
+            $payment->ORNumber = $params['ornumber'];
+            $payment->balance = $params['balance'];
+            $payment->terms_of_payment = $params['terms_of_payment'];
+            $payment->remarks = $params['remarks'];
+            $payment->datePaid = $params['datePaid'];
+            $payment->save();
+
+            \DB::commit();
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Saved',
+                'data' => Payment::where('deceased_id', $payment->deceased_id)->get()
+            ]);
+        } catch (\Exception $e) {
+            \Log::error(get_class().' update() '.$e);
+            \DB::rollback();
+            return response()->json([
+                'error' => true,
+                'message' => 'Something Went Wrong',
+                'data' => []
+            ]);
+        }
     }
 
     /**

@@ -105,6 +105,7 @@ class Deceased extends Model
             if (isset($params['amount'])) {
                 $payment = Payment::create([
                     'deceased_id' => $data->id,
+                    'payment_type' => $params['payment_type'],
                     'payer' => $params['payer'],
                     'contact_number' => $params['contact_number'],
                     'amount' => $params['amount'],

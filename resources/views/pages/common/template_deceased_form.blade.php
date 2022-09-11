@@ -95,6 +95,16 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-12">
+        <label for="payment_type" class="col-md-4 col-form-label text-md-right">{{__('Payment Type')}}</label>
+        <select name="payment_type" id="payment_type" class="form-control">
+            @foreach (config('const.payment.index') as $key => $item)
+                <option value="{{$key}}">{{$item}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-6">
         <label for="payer" class="col-md-4 col-form-label text-md-right">{{ __('Payer') }}</label>
         <input id="payer" type="text" class="form-control" name="payer" />
@@ -298,53 +308,66 @@
                     <input type="hidden" value="" id="deceasedPerson" name="id" />
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="payer" class="col-md-4 col-form-label text-md-right">{{ __('Payer *') }}</label>
-                            <input id="payer" type="text" class="form-control" name="payer" />
+                            <label for="payment_payment_type" class="col-md-4 col-form-label text-md-right">{{__('Payment Type')}}</label>
+                            <select name="payment_type" id="payment_payment_type" class="form-control">
+                                @foreach (config('const.payment.index') as $key => $item)
+                                    <option value="{{$key}}">{{$item}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="contact_number" class="col-md-4 col-form-label text-md-right">{{ __('Contact Number') }}</label>
-                            <input id="contact_number" type="text" class="form-control" name="contact_number" />
+                            <label for="payment_payer" class="col-md-4 col-form-label text-md-right">{{ __('Payer *') }}</label>
+                            <input id="payment_payer" type="text" class="form-control" name="payer" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="payment_contact_number" class="col-md-4 col-form-label text-md-right">{{ __('Contact Number') }}</label>
+                            <input id="payment_contact_number" type="text" class="form-control" name="contact_number" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="amount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
-                            <input id="amount" type="text" class="form-control" name="amount" />
+                            <label for="payment_amount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
+                            <input id="payment_amount" type="text" class="form-control" name="amount" />
                         </div>
                         <div class="col-md-6">
-                            <label for="balance" class="col-md-4 col-form-label text-md-right">{{ __('Balance') }}</label>
-                            <input id="balance" type="text" class="form-control" name="balance" />
+                            <label for="payment_balance" class="col-md-4 col-form-label text-md-right">{{ __('Balance') }}</label>
+                            <input id="payment_balance" type="text" class="form-control" name="balance" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="ornumber" class="col-md-4 col-form-label text-md-right">{{ __('OR Number') }}</label>
-                            <input id="ornumber" type="text" class="form-control" name="ornumber" />
+                            <label for="payment_ornumber" class="col-md-4 col-form-label text-md-right">{{ __('OR Number') }}</label>
+                            <input id="payment_ornumber" type="text" class="form-control" name="ornumber" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="temrs_of_payment" class="col-md-4 col-form-label text-md-right">{{ __('Terms of Payment') }}</label>
-                            <input id="temrs_of_payment" type="text" class="form-control" name="temrs_of_payment" />
+                            <label for="payment_terms_of_payment" class="col-md-4 col-form-label text-md-right">{{ __('Terms of Payment') }}</label>
+                            <input id="payment_terms_of_payment" type="text" class="form-control" name="terms_of_payment" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="remarks" class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
-                            <input id="remarks" type="text" class="form-control" name="remarks" />
+                            <label for="payment_remarks" class="col-md-4 col-form-label text-md-right">{{ __('Remarks') }}</label>
+                            <input id="payment_remarks" type="text" class="form-control" name="remarks" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="datePaid" class="col-md-4 col-form-label text-md-right">{{ __('Date Paid') }}</label>
-                            <input id="datePaid" type="date" class="form-control" name="datePaid" />
+                            <label for="payment_datePaid" class="col-md-4 col-form-label text-md-right">{{ __('Date Paid') }}</label>
+                            <input id="payment_datePaid" type="date" class="form-control" name="datePaid" />
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-md-12">
+                        <div class="col">
                             <button type="submit" class="form-control btn btn-primary">Save</button>
+                        </div>
+                        <div class="col">
+                            <button class="form-control btn btn-warning" id="btn-cancel-payment">Cancel</button>
                         </div>
                     </div>
                 </form>

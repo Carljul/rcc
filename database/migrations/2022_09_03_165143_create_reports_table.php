@@ -17,6 +17,8 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('htmlReport');
+            $table->longText('fields')->nullable();
+            $table->tinyInteger('reportType');
             $table->boolean('isActive')->default(0);
             $table->timestamps();
         });

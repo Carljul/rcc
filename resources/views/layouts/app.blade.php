@@ -63,9 +63,6 @@
                                         <a class="nav-link" href="{{ route('user.index') }}">{{ __('Users') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('reports.index') }}">{{ __('Reports') }}</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="{{ route('defaults.index') }}">{{ __('Defaults') }}</a>
                                     </li>
                                 @endcan
@@ -76,7 +73,7 @@
                                     <a class="nav-link" id="import-nav" href="{{ route('deceased.import') }}">{{ __('Import') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deceased.expired') }}">{{ __('Expired') }}</a>
+                                    <a class="nav-link" href="{{ route('deceased.expired.index') }}">{{ __('Expired') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('deceased.deleted') }}">{{ __('Deleted') }}</a>

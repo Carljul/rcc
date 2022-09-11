@@ -56,6 +56,7 @@ function savingRecord(file)
         area:  typeof(data[0].area) != 'undefined' ? data[0].area : null,
         payer:  typeof(data[0].payer) != 'undefined' ? data[0].payer : null,
         contact_number:  typeof(data[0].contact_number) != 'undefined' ? data[0].contact_number : null,
+        payment_type:  1,
         amount:  typeof(data[0].amount) != 'undefined' ? data[0].amount : null,
         ornumber:  typeof(data[0].or_number) != 'undefined' ? data[0].or_number : null,
         balance:  typeof(data[0].balance) != 'undefined' ? data[0].balance : null,
@@ -91,7 +92,6 @@ function savingRecord(file)
                 $('#'+removeRow).remove();
             }
             uploadFile()
-            console.log('Testings');
         }, error: function(e) {
             data.shift();
             let shifted = {

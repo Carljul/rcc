@@ -14,6 +14,8 @@ $(document).ready(function(){
                 $('#templateForm').append('<input type="hidden" name="_method" value="PUT">');
                 $('#name').val(response.data.name);
                 $('#htmlReport').val(response.data.htmlReport);
+                $('#fields').val(response.data.fields);
+                $('#reportType').val(response.data.reportType);
             }, error: function (e) {
                 console.log(e);
             }
