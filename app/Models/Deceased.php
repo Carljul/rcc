@@ -34,6 +34,7 @@ class Deceased extends Model
         'createdBy',
         'updatedBy',
         'deletedBy',
+        'deleted_at',
     ];
 
     public function person()
@@ -44,6 +45,11 @@ class Deceased extends Model
     public function payment()
     {
         return $this->hasMany('App\Models\Payment', 'deceased_id', 'id');
+    }
+
+    public function lighting()
+    {
+        return $this->hasMany('App\Models\Lighting', 'deceased_id', 'id');
     }
 
     public function approvedBy()
@@ -149,21 +155,28 @@ class Deceased extends Model
         DB::beginTransaction();
         try {
             $deceased = self::where('id', $params['id'])->first();
-
             $person = Person::where('id', $deceased->person_id)->first();
-
-            $deceased->person_id = $person->id;
-            $deceased->dateDied = $params['dateDied'];
-            $deceased->internmentDate = $params['internmentDate'];
-            $deceased->internmentTime = $params['internmentTime'];
-            $deceased->expiryDate = $params['expiryDate'];
-            $deceased->causeOfDeath = $params['cod'];
-            $deceased->location = $params['location'];
-            $deceased->vicinity = $params['vicinity'];
-            $deceased->area = $params['area'];
-            $deceased->remarks = $params['viewRemarks'];
-            $deceased->updatedBy = Auth::user()->id;
-            $deceased->save();
+            if (array_key_exists('expiredUpdate', $params)) {
+                $deceased->deletedBy = Auth::user()->id;
+                $deceased->remarks = $params['remarks'];
+                $deceased->updated_at = now();
+                $deceased->save();
+                $person->delete();
+                $deceased->delete();
+            } else {
+                $deceased->person_id = $person->id;
+                $deceased->dateDied = $params['dateDied'];
+                $deceased->internmentDate = $params['internmentDate'];
+                $deceased->internmentTime = $params['internmentTime'];
+                $deceased->expiryDate = $params['expiryDate'];
+                $deceased->causeOfDeath = $params['cod'];
+                $deceased->location = $params['location'];
+                $deceased->vicinity = $params['vicinity'];
+                $deceased->area = $params['area'];
+                $deceased->remarks = $params['viewRemarks'];
+                $deceased->updatedBy = Auth::user()->id;
+                $deceased->save();
+            }
 
             DB::commit();
             return [

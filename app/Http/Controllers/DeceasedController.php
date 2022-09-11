@@ -31,9 +31,6 @@ class DeceasedController extends Controller
             ->with(['person' => function ($query) {
                 $query->onlyTrashed();
             }])
-            ->with(['relative' => function ($query) {
-                $query->onlyTrashed();
-            }])
             ->with('payment')
             ->with('approvedBy')
             ->with('createdBy')
@@ -116,12 +113,16 @@ class DeceasedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DeceasedRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $params = $request->all();
         $params['id'] = $id;
 
         $rtn = Deceased::updater($params);
+
+        if (!request()->ajax()) {
+            return redirect()->back()->with('result', $rtn);
+        }
 
         if ($rtn['error']) {
             return response()->json([
@@ -216,8 +217,17 @@ class DeceasedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function expired()
+    public function expired(Request $request)
     {
+        $param = $request->all();
+        $year = date('Y');
+
+        if (array_key_exists('year', $param)) {
+            $year = $param['year'];
+        }
+
+        $selected = $year;
+
         $years = Deceased::selectRaw('YEAR(expiryDate) AS expiry')
             ->whereNull('deleted_at')
             ->whereNotNull('expiryDate')
@@ -227,11 +237,17 @@ class DeceasedController extends Controller
             ->pluck('expiry')
             ->toArray();
 
+        $data = Deceased::whereYear('expiryDate', $year)
+            ->with('person')
+            ->with('payment')
+            ->with('lighting')
+            ->get();
+
         if(!in_array(date('Y'), $years))
         {
             array_push($years, date('Y'));
         }
 
-        return view('pages.deceased.expire', compact('years'));
+        return view('pages.deceased.expire', compact('years', 'selected', 'data'));
     }
 }

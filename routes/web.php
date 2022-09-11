@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
     Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
     Route::get('/deceased/list/expired', [DeceasedController::class, 'expired'])->name('deceased.expired');
+    Route::post('/deceased/list/expired', [DeceasedController::class, 'expired'])->name('deceased.expired');
 
     // Payment
     Route::resource('payment', PaymentController::class);
