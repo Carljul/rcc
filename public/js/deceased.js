@@ -537,6 +537,7 @@ $(document).ready(function() {
                 let table = $('#amountTable').DataTable();
                 table.destroy();
                 let data = response.data;
+                $('#paymentForm')[0].reset();
                 paymentList(data);
                 $('#btn-cancel-payment').trigger('click');
             }, error: function (e) {
@@ -564,7 +565,6 @@ $(document).ready(function() {
             dataType: 'JSON',
             data: $(this).serialize(),
             success: function (response) {
-                console.log(response);
                 if (!response.error) {
                     generateTable();
                     $('#deleteModal').modal('hide');
