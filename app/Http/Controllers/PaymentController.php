@@ -46,7 +46,7 @@ class PaymentController extends Controller
                 'amount' => $params['amount'],
                 'ORNumber' => $params['ornumber'],
                 'balance' => $params['balance'],
-                'terms_of_payment' => $params['temrs_of_payment'],
+                'terms_of_payment' => $params['terms_of_payment'],
                 'remarks' => $params['remarks'],
                 'datePaid' => $params['datePaid'],
             ]);
