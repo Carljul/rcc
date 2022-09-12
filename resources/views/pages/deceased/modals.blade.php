@@ -236,6 +236,7 @@
                     <form action="" method="GET" id="formReport">
                         @csrf
                         <input type="hidden" name="report" id="reportSelected" />
+                        <input type="hidden" name="deceased_id_form" id="deceased_id_form" />
                         <div class="row">
                             <div class="col-sm-12">
                                 Selected: <p class="reportSelectedText"></p>

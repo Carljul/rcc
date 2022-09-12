@@ -17,6 +17,7 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('deceased_id');
             $table->unsignedBigInteger('reports_id');
+            $table->unsignedBigInteger('payment_id');
             $table->string('lessee')->nullable();
             $table->string('niche_identification_number')->nullable();
             $table->string('contract_number')->nullable();
@@ -24,6 +25,7 @@ class CreateContractsTable extends Migration
             $table->string('remarks')->nullable();
             $table->foreign('deceased_id')->references('id')->on('deceased');
             $table->foreign('reports_id')->references('id')->on('reports');
+            $table->foreign('payment_id')->references('id')->on('payments');
             $table->timestamps();
         });
     }

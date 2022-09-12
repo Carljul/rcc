@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-    Route::group(['midleware' => 'can:view'], function() {
+    Route::group(['middleware' => 'can:view'], function() {
         // Users
         Route::resource('user', UserController::class);
         Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {

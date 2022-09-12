@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    const paymentTypes = [
+        'CONTRACT OF LEASE AND BURIAL PERMIT PAYMENT',
+        'BONE CHAMBER',
+        'PAHABWA'
+    ];
     generateTable();
     function generateTable() {
         let table = $('#deceasedTable').DataTable();
@@ -11,7 +16,7 @@ $(document).ready(function() {
                 let html = '';
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
-                    let name = element['person']['firstname']+` `+(element['person']['middlename'] == null ? '':element['person']['middlename'])+` `+element['person']['lastname']+` `+(element['person']['extension'] == null ? '' : element['person']['extension']);
+                    let name = element['person']['firstname']+` `+(element['person']['middlename'] == null ? '':element['person']['middlename'])+` `+(element['person']['lastname'] == null ? '':element['person']['lastname'])+` `+(element['person']['extension'] == null ? '' : element['person']['extension']);
                     html += `<tr>
                         <td>`+name+`</td>
                         <td>`+(element['dateDied'] == null ? '' : element['dateDied'])+`</td>
@@ -228,6 +233,7 @@ $(document).ready(function() {
 
                 $('.reportSelected').val(id);
                 $('.reportSelectedText').html(name);
+                $('#deceased_id_form').val(deceased_id);
 
                 let html = '';
                 if (fields.length > 0) {
@@ -236,7 +242,7 @@ $(document).ready(function() {
                     html += `<div class="row">`;
                     for (let i = 0; i < fields.length; i++) {
                         let element = fields[i];
-                        let name = stringFormatter((element.replace(/_/g, ' ')).replace('field', '').replace('disabled', ''));
+                        let name = stringFormatter((element.replace(/_/g, ' ')).replace('field', '').replace('disabled', '').replace('select', ''));
                         let dataType = 'text';
                         let fieldDisabled = '';
 
@@ -248,10 +254,20 @@ $(document).ready(function() {
                             fieldDisabled = 'disabled';
                         }
 
-                        html += `<div class="col-md-6">
-                            <label for="`+element+`" class="col-form-label">`+name+`</label>
-                            <input id="`+element+`" type="`+dataType+`" class="form-control" name="`+element+`" `+fieldDisabled+`/>
-                        </div>`;
+                        if (element.includes('select')) {
+                            html += `<div class="col-md-6">
+                                <label for="`+element+`" class="col-form-label">`+name+`</label>
+                                <select name="`+element+`" id="`+element+`" class="form-control" `+fieldDisabled+`>
+                                    <option value="null" selected disabled>Please select `+name+`</option>
+                                </select>
+                            </div>`;
+                        } else {
+                            html += `<div class="col-md-6">
+                                <label for="`+element+`" class="col-form-label">`+name+`</label>
+                                <input id="`+element+`" type="`+dataType+`" class="form-control" name="`+element+`" `+fieldDisabled+`/>
+                            </div>`;
+                        }
+
                     }
                     html += `</div>
                     <div class="row mt-3">
@@ -391,7 +407,25 @@ $(document).ready(function() {
                                     }
                                 }
                             }
-                            $('#formReport').attr('action', '/reports/'+id);
+
+                            if (fields.indexOf('lease_amount_select_field') !== -1) {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: 'payment/'+$('#deceased_id_form').val(),
+                                    success: function (response) {
+                                        let data = response.data;
+                                        let html = '';
+                                        for (let i = 0; i < data.length; i++) {
+                                            const element = data[i];
+                                            html+= '<option value="'+element.id+'">Php '+element.amount+' - '+paymentTypes[element.payment_type-1]+'</option>';
+                                        }
+                                        $('#lease_amount_select_field').append(html);
+                                        $('#formReport').attr('action', '/reports/'+id);
+                                    }, error: function (e) {
+                                        console.log();
+                                    }
+                                })
+                            }
                         }, error: function (e) {
                             console.log(e);
                         }
