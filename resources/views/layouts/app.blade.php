@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{asset('font/css/font-awesome.css')}}">
 
     <!-- Styles -->
@@ -63,17 +63,20 @@
                                         <a class="nav-link" href="{{ route('user.index') }}">{{ __('Users') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('reports.index') }}">{{ __('Reports') }}</a>
+                                        <a class="nav-link" href="{{ route('defaults.index') }}">{{ __('Defaults') }}</a>
                                     </li>
                                 @endcan
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('deceased.index') }}">{{ __('Deceased') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deceased.deleted') }}">{{ __('Deleted') }}</a>
+                                    <a class="nav-link" id="import-nav" href="{{ route('deceased.import') }}">{{ __('Import') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deceased.import') }}">{{ __('Import') }}</a>
+                                    <a class="nav-link" href="{{ route('deceased.expired.index') }}">{{ __('Expired') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('deceased.deleted') }}">{{ __('Deleted') }}</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -113,6 +116,9 @@
     <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/bootstrap/bootstrap.js')}}"></script>
     <script src="{{asset('js/common.js?'.strtotime(now()))}}"></script>
+    @if(Auth::check())
+        <script src="{{asset('js/exporting.js?'.strtotime(now()))}}"></script>
+    @endif
     @stack('js')
 </body>
 </html>

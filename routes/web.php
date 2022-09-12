@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DefaultCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +27,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-    Route::group(['midleware' => 'can:view'], function() {
+    Route::group(['middleware' => 'can:view'], function() {
         // Users
         Route::resource('user', UserController::class);
+        Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {
+            Route::get('/', [DefaultCertificateController::class, 'index'])->name('index');
+            Route::get('/list/json', [DefaultCertificateController::class, 'list'])->name('list');
+            Route::put('/{default}', [DefaultCertificateController::class, 'update'])->name('update');
+        });
         // Reports
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
             Route::get('/', [ReportsController::class, 'index'])->name('index');
@@ -44,6 +52,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/deceased/list/all/{isDeleted?}', [DeceasedController::class, 'list'])->name('deceased.list');
     Route::get('/deceased/deleted/records', [DeceasedController::class, 'deleted'])->name('deceased.deleted');
     Route::put('/deceased/approval/{deceased}', [DeceasedController::class, 'approve'])->name('deceased.approve');
+    Route::get('/deceased/list/expired', [DeceasedController::class, 'expired'])->name('deceased.expired.index');
+    Route::post('/deceased/list/expired', [DeceasedController::class, 'expired'])->name('deceased.expired');
+
+    // Payment
+    Route::resource('payment', PaymentController::class);
 
     // change pin
     Route::post('/auth/change-pin', [LoginController::class, 'changePIN'])->name('change-pin');

@@ -31,9 +31,6 @@ class DeceasedController extends Controller
             ->with(['person' => function ($query) {
                 $query->onlyTrashed();
             }])
-            ->with(['relative' => function ($query) {
-                $query->onlyTrashed();
-            }])
             ->with('payment')
             ->with('approvedBy')
             ->with('createdBy')
@@ -52,7 +49,6 @@ class DeceasedController extends Controller
     public function store(DeceasedRequest $request)
     {
         $params = $request->all();
-
         $rtn = Deceased::register($params);
 
         if ($rtn['error']) {
@@ -82,8 +78,6 @@ class DeceasedController extends Controller
             return response()->json([
                 'data' => Deceased::whereNotNull('deleted_at')
                     ->with('person')
-                    ->with('relative')
-                    ->with('payment')
                     ->orderBy('created_at')
                     ->get()
             ]);
@@ -91,9 +85,8 @@ class DeceasedController extends Controller
 
         return response()->json([
             'data' => Deceased::whereNull('deleted_at')
-                ->with('person')
-                ->with('relative')
                 ->with('payment')
+                ->with('person')
                 ->orderBy('created_at', 'DESC')
                 ->get(),
             'reports' => Reports::where('isActive', 1)->get()
@@ -114,29 +107,22 @@ class DeceasedController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DeceasedRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $params = $request->all();
         $params['id'] = $id;
 
         $rtn = Deceased::updater($params);
+
+        if (!request()->ajax()) {
+            return redirect()->back()->with('result', $rtn);
+        }
 
         if ($rtn['error']) {
             return response()->json([
@@ -224,5 +210,44 @@ class DeceasedController extends Controller
     public function import()
     {
         return view('pages.deceased.import');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function expired(Request $request)
+    {
+        $param = $request->all();
+        $year = date('Y');
+
+        if (array_key_exists('year', $param)) {
+            $year = $param['year'];
+        }
+
+        $selected = $year;
+
+        $years = Deceased::selectRaw('YEAR(expiryDate) AS expiry')
+            ->whereNull('deleted_at')
+            ->whereNotNull('expiryDate')
+            ->groupBy('expiry')
+            ->orderBy('expiry')
+            ->get()
+            ->pluck('expiry')
+            ->toArray();
+
+        $data = Deceased::whereYear('expiryDate', $year)
+            ->with('person')
+            ->with('payment')
+            ->with('lighting')
+            ->get();
+
+        if(!in_array(date('Y'), $years))
+        {
+            array_push($years, date('Y'));
+        }
+
+        return view('pages.deceased.expire', compact('years', 'selected', 'data'));
     }
 }

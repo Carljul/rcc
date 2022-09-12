@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(document).ready(function () {
     // field validators
     function onlyNumbers(value)
@@ -38,3 +44,19 @@ $(document).ready(function () {
         $(e.target).val(val)
     })
 });
+
+function dateFormatter(date) {
+    let newDate = new Date(date);
+    let day = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+    let resultDate = year+'-'+month+'-'+day;
+
+    return resultDate == 'NaN-NaN-NaN' ? null : resultDate;
+}
+
+function stringFormatter(str) {
+    return str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+        return letter.toUpperCase();
+    });
+}

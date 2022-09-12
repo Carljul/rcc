@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @push('js')
-    <script src="{{asset('js/import.js')}}"></script>
+    <script src="{{asset('js/jszip.js')}}"></script>
+    <script src="{{asset('js/xlsx.js')}}"></script>
+    <script src="{{asset('js/import.js?'.strtotime(now()))}}"></script>
 @endpush
 
 @section('content')
@@ -26,7 +28,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>

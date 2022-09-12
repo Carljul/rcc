@@ -13,8 +13,20 @@ class Payment extends Model
     protected $table = 'payments';
 
     protected $fillable = [
+        'deceased_id',
+        'payment_type',
+        'payer',
+        'contact_number',
         'amount',
         'ORNumber',
+        'balance',
+        'terms_of_payment',
+        'remarks',
         'datePaid'
     ];
+
+    public function deceased()
+    {
+        return $this->hasOne('App\Models\Deceased', 'id', 'deceased_id');
+    }
 }

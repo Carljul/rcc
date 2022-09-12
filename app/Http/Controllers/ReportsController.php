@@ -32,6 +32,8 @@ class ReportsController extends Controller
             Reports::create([
                 'name' => $params['name'],
                 'htmlReport' => $params['htmlReport'],
+                'fields' => $params['fields'],
+                'reportType' => $params['reportType']
             ]);
 
             \DB::commit();
@@ -85,6 +87,8 @@ class ReportsController extends Controller
             } else {
                 $report->name = $params['name'];
                 $report->htmlReport = $params['htmlReport'];
+                $report->fields = $params['fields'];
+                $report->reportType = $params['reportType'];
             }
 
             $report->save();

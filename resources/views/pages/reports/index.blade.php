@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{asset('summernote/summernote-bs4.css')}}">
     <style>
         .btn-cancel{
             display: none;
@@ -13,7 +12,6 @@
 @endpush
 
 @push('js')
-    <script src="{{asset('summernote/summernote-bs4.js')}}"></script>
     <script src="{{asset('js/reports.js')}}"></script>
 @endpush
 
@@ -38,6 +36,18 @@
                                     <textarea class="form-control" name="htmlReport" id="htmlReport" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="fields">Fields</label>
+                                    <input type="text" name="fields" id="fields" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="reportType">Report Type</label>
+                                    <input type="text" name="reportType" id="reportType" class="form-control"/>
+                                </div>
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-12">
@@ -57,6 +67,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Report Type</th>
                                     <th>Active</th>
                                     <th>Action</th>
                                 </tr>
@@ -65,6 +76,7 @@
                                 @foreach ($reports as $item)
                                     <tr>
                                         <td>{{$item->name}}</td>
+                                        <td>{{$item->reportType}}</td>
                                         <td>{{$item->isActive ? 'Active':'Deactivated'}}</td>
                                         <td>
                                             <button class="btn btn-success btn-update" data-id="{{$item->id}}"><i class="fa fa-edit"></i></button>

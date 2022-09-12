@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
-                DefaultUser::class
+                DefaultUser::class,
+                DefaultCertificateSettings::class
             ]
         );
     }

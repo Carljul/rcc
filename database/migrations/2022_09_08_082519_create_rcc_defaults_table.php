@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateRccDefaultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('rcc_defaults', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->longText('htmlReport');
-            $table->longText('fields')->nullable();
-            $table->tinyInteger('reportType');
-            $table->boolean('isActive')->default(0);
+            $table->string('cemetery_administrator')->nullable();
+            $table->string('parish_office_staff')->nullable();
+            $table->string('parish_team_moderator')->nullable();
+            $table->string('parish_team_member')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('rcc_defaults');
     }
 }
