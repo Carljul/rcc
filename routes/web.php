@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\LightingController;
@@ -68,4 +69,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/lighting/{lighting}', [LightingController::class, 'update'])->name('lighting.update');
     Route::delete('/lighting/{lighting}', [LightingController::class, 'delete'])->name('lighting.delete');
     Route::get('/lighting/{lighting}/pasuga', [LightingController::class, 'lighting'])->name('lighting.lighting');
+
+    // Contract
+    Route::resource('contract', ContractController::class);
+    Route::group(['prefix' => 'contract', 'as' => 'contract.'], function () {
+        Route::get('/contract/{id?}', [ContractController::class, 'index'])->name('index');
+        Route::post('/contract', [ContractController::class, 'store'])->name('store');
+        Route::get('/contract/create', [ContractController::class, 'create'])->name('create');
+        Route::put('/contract/{contract}', [ContractController::class, 'update'])->name('update');
+        Route::delete('/contract/{contract}', [ContractController::class, 'destroy'])->name('destroy');
+        Route::get('/contract/{id}/edit', [ContractController::class, 'edit'])->name('edit');
+    });
 });

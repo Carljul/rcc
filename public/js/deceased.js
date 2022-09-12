@@ -4,6 +4,7 @@ $(document).ready(function() {
         'BONE CHAMBER',
         'PAHABWA'
     ];
+    const pesoSign = '&#8369;';
     generateTable();
     function generateTable() {
         let table = $('#deceasedTable').DataTable();
@@ -193,6 +194,7 @@ $(document).ready(function() {
     {
         $(document).on('click', '.btn-print', function () {
             let id = $(this).data('id');
+            contractTableList(id);
             let html = '<p>Sorry no certificate available!</p>';
 
             $('#formReport')[0].reset();
@@ -211,13 +213,10 @@ $(document).ready(function() {
                         </div>`;
                 }
                 $('#formReport').show();
-                $('#createPDF').show();
             } else {
                 $('#formReport').hide();
-                $('#createPDF').hide();
             }
 
-            $('#contractTable').dataTable();
             $('#printModalBody div.row#templates').html(html);
             $('#printingModal').modal('show');
 
@@ -231,7 +230,7 @@ $(document).ready(function() {
                 $('.card-contract .card').removeClass('active');
                 $($(this)[0].children[0]).addClass('active');
 
-                $('.reportSelected').val(id);
+                $('#reportSelected').val(id);
                 $('.reportSelectedText').html(name);
                 $('#deceased_id_form').val(deceased_id);
 
@@ -277,167 +276,261 @@ $(document).ready(function() {
                     </div>`;
                     $('#formReport .fields').html(html);
                 }
-                // setTimeout(function () {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'deceased/'+deceased_id,
-                        success: function (response) {
-                            let data = response.data;
-                            for (let i = 0; i < fields.length; i++) {
-                                let element = fields[i];
-                                if (element == 'date_of_death_disabled_field') {
-                                    $('#'+element).val(data.dateDied);
-                                }
-                                if (element == 'internment_date_disabled_field') {
-                                    $('#'+element).val(data.internmentDate);
-                                }
-                                if (element == 'expiry_date_disabled_field') {
-                                    $('#'+element).val(data.expiryDate);
-                                }
-                                if (element == 'location_disabled_field') {
-                                    $('#'+element).val(data.location);
-                                }
-                                if (element == 'vicinity_disabled_field') {
-                                    $('#'+element).val(data.vicinity);
-                                }
-                                if (element == 'area_disabled_field') {
-                                    $('#'+element).val(data.area);
-                                }
+                $.ajax({
+                    type: 'GET',
+                    url: 'deceased/'+deceased_id,
+                    success: function (response) {
+                        let data = response.data;
+                        for (let i = 0; i < fields.length; i++) {
+                            let element = fields[i];
+                            if (element == 'date_of_death_disabled_field') {
+                                $('#'+element).val(data.dateDied);
+                            }
+                            if (element == 'internment_date_disabled_field') {
+                                $('#'+element).val(data.internmentDate);
+                            }
+                            if (element == 'expiry_date_disabled_field') {
+                                $('#'+element).val(data.expiryDate);
+                            }
+                            if (element == 'location_disabled_field') {
+                                $('#'+element).val(data.location);
+                            }
+                            if (element == 'vicinity_disabled_field') {
+                                $('#'+element).val(data.vicinity);
+                            }
+                            if (element == 'area_disabled_field') {
+                                $('#'+element).val(data.area);
+                            }
 
-                                if (element == 'lease_amount_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.amount);
+                            if (element == 'lease_amount_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
                                         }
                                     }
-                                }
 
-                                if (element == 'receipt_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.ORNumber);
-                                        }
-                                    }
-                                }
-
-                                if (element == 'date_paid_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.datePaid);
-                                        }
-                                    }
-                                }
-
-                                if (element == 'balance_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.balance);
-                                        }
-                                    }
-                                }
-
-                                if (element == 'terms_of_payment_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.terms_of_payment);
-                                        }
-                                    }
-                                }
-
-                                if (element == 'remarks_disabled_field') {
-                                    if (data.payment.length > 0) {
-                                        let payments = data.payment;
-                                        let selectedPayment = '';
-                                        for (let x = 0; x < payments.length; x++) {
-                                            const payment = payments[x];
-                                            if (payment.payment_type == reportType) {
-                                                selectedPayment = payment;
-                                                break;
-                                            }
-                                        }
-                                        if (selectedPayment != '') {
-                                            $('#'+element).val(selectedPayment.remarks);
-                                        }
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.amount);
                                     }
                                 }
                             }
 
-                            if (fields.indexOf('lease_amount_select_field') !== -1) {
-                                $.ajax({
-                                    type: 'GET',
-                                    url: 'payment/'+$('#deceased_id_form').val(),
-                                    success: function (response) {
-                                        let data = response.data;
-                                        let html = '';
-                                        for (let i = 0; i < data.length; i++) {
-                                            const element = data[i];
-                                            html+= '<option value="'+element.id+'">Php '+element.amount+' - '+paymentTypes[element.payment_type-1]+'</option>';
+                            if (element == 'receipt_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
                                         }
-                                        $('#lease_amount_select_field').append(html);
-                                        $('#formReport').attr('action', '/reports/'+id);
-                                    }, error: function (e) {
-                                        console.log();
                                     }
-                                })
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.ORNumber);
+                                    }
+                                }
+                            }
+
+                            if (element == 'date_paid_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
+                                        }
+                                    }
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.datePaid);
+                                    }
+                                }
+                            }
+
+                            if (element == 'balance_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
+                                        }
+                                    }
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.balance);
+                                    }
+                                }
+                            }
+
+                            if (element == 'terms_of_payment_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
+                                        }
+                                    }
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.terms_of_payment);
+                                    }
+                                }
+                            }
+
+                            if (element == 'remarks_disabled_field') {
+                                if (data.payment.length > 0) {
+                                    let payments = data.payment;
+                                    let selectedPayment = '';
+                                    for (let x = 0; x < payments.length; x++) {
+                                        const payment = payments[x];
+                                        if (payment.payment_type == reportType) {
+                                            selectedPayment = payment;
+                                            break;
+                                        }
+                                    }
+                                    if (selectedPayment != '') {
+                                        $('#'+element).val(selectedPayment.remarks);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (fields.indexOf('lease_amount_select_field') !== -1) {
+                            $.ajax({
+                                type: 'GET',
+                                url: 'payment/'+$('#deceased_id_form').val(),
+                                success: function (response) {
+                                    let data = response.data;
+                                    let html = '';
+                                    let recordType = $('#reportSelected').val();
+                                    for (let i = 0; i < data.length; i++) {
+                                        const element = data[i];
+                                        if (element.payment_type == recordType) {
+                                            html+= '<option value="'+element.id+'">'+pesoSign+' '+element.amount+' - ('+element.ORNumber+') '+paymentTypes[element.payment_type-1]+'</option>';
+                                        }
+                                    }
+                                    $('#lease_amount_select_field').append(html);
+                                    $('#formReport').attr('action', '/contract');
+                                }, error: function (e) {
+                                    console.log();
+                                }
+                            })
+                        }
+                    }, error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        });
+    }
+
+    function contractTableList(id)
+    {
+        let contract = $('#contractTable').DataTable();
+        contract.destroy();
+        $.ajax({
+            type: 'GET',
+            url : '/contract/'+id+'/edit',
+            success: function (response) {
+                let data = response.data;
+                let html = '';
+                for (let i = 0; i < data.length; i++) {
+                    const element = data[i];
+                    html += `<tr>
+                        <td>`+element.lessee+`</td>
+                        <td>`+(element.contract_number == null ? '':element.contract_number)+`</td>
+                        <td>`+(element.niche_identification_number == null ? '':element.niche_identification_number)+`</td>
+                        <td>`+(element.payment == null ? '':element.payment.ORNumber)+`</td>
+                        <td>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteContractModal`+element.id+`">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <div class="modal fade" id="deleteContractModal`+element.id+`" tabindex="-1" role="dialog" aria-labelledby="deleteContractModal`+element.id+`Label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteContractModal`+element.id+`Label">Delete Contract Confirmation</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this contract?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button class="btn btn-warning btn-delete-contract" data-id="`+element.id+`" data-deceased-id="`+id+`">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-info btn-print-contract" data-id="`+element.id+`" data-report-type="`+element.reports_id+`"><i class="fa fa-print"></i></button>
+                        </td>
+                    </tr>`;
+                }
+                $('#contractTable tbody').html(html);
+                $('#contractTable').dataTable();
+
+                $('.btn-delete-contract').on('click', function() {
+                    let contractId = $(this).data('id');
+                    let deceased_id = $(this).data('deceased-id');
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/contract/'+contractId,
+                        success: function (response) {
+                            if (!response.error) {
+                                contractTableList(deceased_id);
                             }
                         }, error: function (e) {
                             console.log(e);
                         }
-                    });
-                // },1000);
-            });
+                    })
+                });
 
-            $('#createPDF').on('click', function () {
-                $('#formReport').submit();
-            });
-        });
+                $('.btn-print-contract').on('click', function () {
+                    let id = $(this).data('id');
+                    let report = $(this).data('report-type');
+
+                    window.location.href= '/reports/'+report+'?report_type='+report+'&contract='+id;
+                });
+            }, error: function (e) {
+                console.log(e);
+            }
+        })
     }
+
+    $('#formReport').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (response) {
+                $('#formReport')[0].reset();
+                if (!response.error) {
+                    alert(response.message);
+                    console.log(response.data);
+                    contractTableList(response.data[0].deceased_id);
+                } else {
+                    alert(response.message);
+                }
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
+    });
 
     function lightingRecord(id)
     {

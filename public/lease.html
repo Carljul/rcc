@@ -1,4 +1,4 @@
-lesse_field,address_field,niche_identification_field,date_of_death_disabled_field,internment_date_disabled_field,expiry_date_disabled_field,location_disabled_field,vicinity_disabled_field,area_field,lease_amount_select_field
+lesse_field,address_field,niche_identification_field,lease_amount_select_field,date_of_death_disabled_field,internment_date_disabled_field,expiry_date_disabled_field,location_disabled_field,vicinity_disabled_field,area_disabled_field
 <html>
 <head>
 <title>CONTRACT OF LEASE AND BURIAL PERMIT</title>
@@ -168,8 +168,6 @@ Terms of Payment</span>
 n/a</span>
 </div>
 <div class="pos" id="_311:547" style="top:547;left:311">
-<span id="_16.3" style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000">
-Cemetery</span>
 </div>
 <div class="pos" id="_100:605" style="top:605;left:100">
 <span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
@@ -330,7 +328,7 @@ PARISH SEAL</span>
 <script src="/js/jquery-3.6.1.min.js"></script>
 <script>
     $(document).ready(function() {
-
+        const pesoSign = '&#8369;';
         $.ajax({
             type: 'GET',
             url: '/defaults/list/json',
@@ -339,16 +337,62 @@ PARISH SEAL</span>
                 $('.parish_office').html(response.data.parish_office_staff);
                 $('.parish_moderator').html(response.data.parish_team_moderator);
                 $('.parish_member').html(response.data.parish_team_member);
-
-                print();
-                setTimeout(function(){
-                    location.href="/deceased";
-                },500);
             } , error: function(e) {
                 alert('Something Went Wrong');
                 location.href="/deceased";
             }
         })
+
+
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+
+        $.ajax({
+            type: 'GET',
+            url: '/contract/'+getUrlParameter('contract'),
+            success: function (response) {
+                console.log(response);
+                let data = response.data;
+                let person = data.deceased.person;
+                let name = person.firstname+' '+(person.middlename == null ? '':person.middlename)+' '+(person.lastname == null ? '':person.lastname)+' '+(person.extension == null ? '':person.extension);
+                $('.lessee').html(data.lessee);
+                $('.address').html(data.address);
+                $('.niche_identification').html(data.niche_identification_number);
+                $('.date_of_death').html(data.deceased.dateDied);
+                $('.date_internment').html(data.deceased.internmentDate);
+                $('.lease_expiry_date').html(data.deceased.expiryDate);
+                $('.location').html(data.deceased.location);
+                $('.vicinity').html(data.deceased.vicinity);
+                $('.area').html(data.deceased.area);
+                $('.amount_paid').html(pesoSign+''+(data.payment.amount).toFixed(2));
+                $('.lease_amount').html(pesoSign+''+(data.payment.amount).toFixed(2));
+                $('.official_receipt_no').html(data.payment.ORNumber);
+                $('.official_receipt_date').html(data.payment.datePaid);
+                $('.deceased_name').html(name);
+
+
+                print();
+                setTimeout(function(){
+                    // location.href="/deceased";
+                },500);
+            }, error: function (e) {
+                console.log(e);
+            }
+        });
     });
 </script>
 </body>
