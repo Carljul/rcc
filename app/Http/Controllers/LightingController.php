@@ -6,11 +6,18 @@ use DB;
 use App\Models\Lighting;
 use App\Models\Deceased;
 use Illuminate\Http\Request;
+use App\Http\Requests\LightingRequest;
 
 class LightingController extends Controller
 {
-    public function store(Request $request)
+    public function store(LightingRequest $request)
     {
+        // validator
+        $validator = $request->validateApi();
+        if ($validator['error']) {
+            return $validator;
+        }
+
         DB::beginTransaction();
         try {
             $params = $request->all();
@@ -44,8 +51,14 @@ class LightingController extends Controller
         }
     }
 
-    public function update(Request $request, Lighting $lighting)
+    public function update(LightingRequest $request, Lighting $lighting)
     {
+        // validator
+        $validator = $request->validateApi();
+        if ($validator['error']) {
+            return $validator;
+        }
+
         DB::beginTransaction();
         try {
             $params = $request->all();
