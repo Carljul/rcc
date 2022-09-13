@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->tinyInteger('payment_type')->nullable();
             $table->string('payer')->nullable();
             $table->string('contact_number')->nullable();
+            $table->float('lease_amount', 8, 2)->nullable();
             $table->float('amount', 8, 2)->nullable();
             $table->string('ORNumber')->nullable();
             $table->float('balance', 8, 2)->nullable();

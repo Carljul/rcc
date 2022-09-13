@@ -43,6 +43,7 @@ class PaymentController extends Controller
                 'payment_type' => $params['payment_type'],
                 'payer' => $params['payer'],
                 'contact_number' => $params['contact_number'],
+                'lease_amount' => $params['lease_amount'],
                 'amount' => $params['amount'],
                 'ORNumber' => $params['ornumber'],
                 'balance' => $params['balance'],
@@ -113,6 +114,7 @@ class PaymentController extends Controller
             $payment->payment_type = $params['payment_type'];
             $payment->payer = $params['payer'];
             $payment->contact_number = $params['contact_number'];
+            $payment->lease_amount = $params['lease_amount'];
             $payment->amount = $params['amount'];
             $payment->ORNumber = $params['ornumber'];
             $payment->balance = $params['balance'];

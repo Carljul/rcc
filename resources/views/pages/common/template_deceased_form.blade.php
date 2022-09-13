@@ -115,19 +115,23 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <label for="lease_amount" class="col-md-4 col-form-label text-md-right">{{ __('Lease Amount') }}</label>
+        <input id="lease_amount" type="text" class="form-control" name="lease_amount" />
+    </div>
+    <div class="col-md-4">
         <label for="amount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
         <input id="amount" type="text" class="form-control" name="amount" />
     </div>
-    <div class="col-md-6">
-        <label for="ornumber" class="col-md-4 col-form-label text-md-right">{{ __('OR #') }}</label>
-        <input id="ornumber" type="text" class="form-control" name="ornumber" />
+    <div class="col-md-4">
+        <label for="balance" class="col-md-4 col-form-label text-md-right">{{ __('Balance') }}</label>
+        <input id="balance" type="text" class="form-control" name="balance" />
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <label for="balance" class="col-md-4 col-form-label text-md-right">{{ __('Balance') }}</label>
-        <input id="balance" type="text" class="form-control" name="balance" />
+        <label for="ornumber" class="col-md-4 col-form-label text-md-right">{{ __('OR #') }}</label>
+        <input id="ornumber" type="text" class="form-control" name="ornumber" />
     </div>
     <div class="col-md-6">
         <label for="terms_of_payment" class="col-md-4 col-form-label text-md-right">{{ __('Terms of Payment') }}</label>
@@ -329,11 +333,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <label for="payment_lease_amount" class="col-md-4 col-form-label text-md-right">{{ __('Lease Amount') }}</label>
+                            <input id="payment_lease_amount" type="text" class="form-control" name="lease_amount" />
+                        </div>
+                        <div class="col-md-4">
                             <label for="payment_amount" class="col-md-4 col-form-label text-md-right">{{ __('Amount') }}</label>
                             <input id="payment_amount" type="text" class="form-control" name="amount" />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="payment_balance" class="col-md-4 col-form-label text-md-right">{{ __('Balance') }}</label>
                             <input id="payment_balance" type="text" class="form-control" name="balance" />
                         </div>
@@ -378,6 +386,7 @@
                         <tr>
                             <th>Payer</th>
                             <th>Contact #</th>
+                            <th>Lease</th>
                             <th>Amount</th>
                             <th>Balance</th>
                             <th>OR #</th>

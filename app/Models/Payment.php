@@ -17,6 +17,7 @@ class Payment extends Model
         'payment_type',
         'payer',
         'contact_number',
+        'lease_amount',
         'amount',
         'ORNumber',
         'balance',

@@ -57,6 +57,7 @@ function savingRecord(file)
         payer:  typeof(data[0].payer) != 'undefined' ? data[0].payer : null,
         contact_number:  typeof(data[0].contact_number) != 'undefined' ? data[0].contact_number : null,
         payment_type:  1,
+        lease_amount:  typeof(data[0].lease_amount) != 'undefined' ? data[0].lease_amount : null,
         amount:  typeof(data[0].amount) != 'undefined' ? data[0].amount : null,
         ornumber:  typeof(data[0].or_number) != 'undefined' ? data[0].or_number : null,
         balance:  typeof(data[0].balance) != 'undefined' ? data[0].balance : null,

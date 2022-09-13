@@ -147,6 +147,7 @@ $(document).ready(function() {
             html+= `<tr>
                 <td>`+(element['payer'] ?? '')+`</td>
                 <td>`+(element['contact_number'] ?? '')+`</td>
+                <td>`+(element['lease_amount'] ?? '')+`</td>
                 <td>`+(element['amount'] ?? '')+`</td>
                 <td>`+(element['balance'] ?? '')+`</td>
                 <td>`+(element['ORNumber'] ?? '')+`</td>
