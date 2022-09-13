@@ -417,7 +417,8 @@ $(document).ready(function() {
                                     for (let i = 0; i < data.length; i++) {
                                         const element = data[i];
                                         if (element.payment_type == recordType) {
-                                            html+= '<option value="'+element.id+'">'+pesoSign+' '+element.amount+' - ('+element.ORNumber+') '+paymentTypes[element.payment_type-1]+'</option>';
+                                            let ornumber = element.ORNumber == null ? '': '('+element.ORNumber+')';
+                                            html+= '<option value="'+element.id+'">'+pesoSign+' '+element.amount+' - '+ornumber+' '+paymentTypes[element.payment_type-1]+'</option>';
                                         }
                                     }
                                     $('#lease_amount_select_field').append(html);
@@ -451,7 +452,7 @@ $(document).ready(function() {
                         <td>`+element.lessee+`</td>
                         <td>`+(element.contract_number == null ? '':element.contract_number)+`</td>
                         <td>`+(element.niche_identification_number == null ? '':element.niche_identification_number)+`</td>
-                        <td>`+(element.payment == null ? '':element.payment.ORNumber)+`</td>
+                        <td>`+(element.payment == null ? '' : element.payment.ORNumber == null ? '':element.payment.ORNumber)+`</td>
                         <td>
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteContractModal`+element.id+`">
                                 <i class="fa fa-trash"></i>
