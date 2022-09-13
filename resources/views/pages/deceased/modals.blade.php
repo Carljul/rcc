@@ -254,7 +254,7 @@
                                 <th>Lesse</th>
                                 <th>Contract #</th>
                                 <th>Niche #</th>
-                                <th>Address</th>
+                                <th>OR #</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -264,10 +264,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="createPDF">Create</button>
         </div>
       </div>
     </div>

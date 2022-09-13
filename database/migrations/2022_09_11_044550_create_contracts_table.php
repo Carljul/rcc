@@ -17,7 +17,7 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('deceased_id');
             $table->unsignedBigInteger('reports_id');
-            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('payment_id')->nullable();
             $table->string('lessee')->nullable();
             $table->string('niche_identification_number')->nullable();
             $table->string('contract_number')->nullable();

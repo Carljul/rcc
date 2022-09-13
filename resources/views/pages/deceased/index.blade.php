@@ -6,8 +6,8 @@
         const lightingUpdate = '{!! route('lighting.update', '') !!}'
         const lightingOne = '{!! route('lighting.lighting', "pasugaId") !!}'
     </script>
-    <script src="{{asset('js/deceased.js')}}"></script>
-    <script src="{{asset('js/pasuga.js')}}"></script>
+    <script src="{{asset('js/deceased.js?'.strtotime(now()))}}"></script>
+    <script src="{{asset('js/pasuga.js?'.strtotime(now()))}}"></script>
 @endpush
 
 @push('css')
