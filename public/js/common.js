@@ -8,7 +8,16 @@ $(document).ready(function () {
     // field validators
     function onlyNumbers(value)
     {
-        return value.replaceAll(/[^0-9]+/g, "")
+        return value.replaceAll(/[^.0-9]+/g, "")
+    }
+
+    function limitDots(value, limit = 1) {
+        let occur = 0
+        if (value.replace(/[^.]/g, '').length > limit) {
+            return value.replace(/[.]/g, match => ++occur > limit ? '' : match)
+        }
+
+        return value
     }
 
     function maxLength(value, max)
@@ -20,12 +29,33 @@ $(document).ready(function () {
     // deceased form
     $('#deceasedForm #amount').on('input', (e) => {
         let val = $(e.target).val()
+        val = limitDots(val, 1)
+        $(e.target).val(onlyNumbers(val))
+    })
+
+    $('#deceasedForm #balance').on('input', (e) => {
+        let val = $(e.target).val()
+        val = limitDots(val, 1)
         $(e.target).val(onlyNumbers(val))
     })
 
     // lighting form
     $('#lightingForm #amount').on('input', (e) => {
         let val = $(e.target).val()
+        val = limitDots(val, 1)
+        $(e.target).val(onlyNumbers(val))
+    })
+
+    // payment form
+    $('#paymentForm #payment_amount').on('input', (e) => {
+        let val = $(e.target).val()
+        val = limitDots(val, 1)
+        $(e.target).val(onlyNumbers(val))
+    })
+
+    $('#paymentForm #payment_balance').on('input', (e) => {
+        let val = $(e.target).val()
+        val = limitDots(val, 1)
         $(e.target).val(onlyNumbers(val))
     })
 
@@ -33,13 +63,15 @@ $(document).ready(function () {
     $('#registerForm #password').on('input', (e) => {
         let val = $(e.target).val()
         val = onlyNumbers(val)
+        val = limitDots(val, 0)
         val = maxLength(val, 6)
         $(e.target).val(val)
     })
 
-    $('registerForm #password-confirm').on('input', (e) => {
+    $('#registerForm #password-confirm').on('input', (e) => {
         let val = $(e.target).val()
         val = onlyNumbers(val)
+        val = limitDots(val, 0)
         val = maxLength(val, 6)
         $(e.target).val(val)
     })

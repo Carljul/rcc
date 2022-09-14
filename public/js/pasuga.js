@@ -1,4 +1,8 @@
 $(document).ready(() => {
+    /*============================================
+    * DOM
+    ==============================================*/
+
     // input fields
     let name = $('#lightingModal #name')
     let expiryDate = $('#lightingModal #expiryDate')
@@ -27,4 +31,29 @@ $(document).ready(() => {
                 lightingForm.attr('action', `${lightingUpdate}/${id}`);
             })
     })
+
+    // lighting modal
+    $('#lightingModal .modal-content').on('click', (e) => {
+        e.stopPropagation()
+    })
+
+    $('#lightingModal, #lightingModal button[type=button]').on('click', () => {
+        $('#lightingFormMessagePanel').addClass('d-none')
+        resetFields()
+    })
+
+    /*============================================
+    * METHOD
+    ==============================================*/
+    /**
+     * Reset lighting form fields
+     */
+    function resetFields()
+    {
+        name.val('')
+        amount.val('')
+        ornumber.val('')
+        expiryDate.val('')
+        dateOfConnection.val('')
+    }
 })

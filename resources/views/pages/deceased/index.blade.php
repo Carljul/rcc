@@ -38,6 +38,9 @@
                 <div class="card-header"><p>{{ __('Add Record') }}</p><p class="right-text">Fields with * are required</p></div>
 
                 <div class="card-body">
+
+                    <div class="alert alert-danger d-none" role="alert" id="deceasedFormMessagePanel"></div>
+
                     <form action="{{route('deceased.store')}}" method="POST" id="deceasedForm">
                         @csrf
                         @include('pages.common.template_deceased_form')

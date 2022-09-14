@@ -48,6 +48,12 @@ class DeceasedController extends Controller
      */
     public function store(DeceasedRequest $request)
     {
+        // validator
+        $validateRequest = $request->validateApi();
+        if ($validateRequest['error']) {
+            return $validateRequest;
+        }
+
         $params = $request->all();
         $rtn = Deceased::register($params);
 
@@ -113,8 +119,14 @@ class DeceasedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeceasedRequest $request, $id)
     {
+        // validator
+        $validateRequest = $request->validateApi();
+        if ($validateRequest['error']) {
+            return $validateRequest;
+        }
+
         $params = $request->all();
         $params['id'] = $id;
 

@@ -513,6 +513,19 @@ $(document).ready(function() {
         })
     }
 
+    function generateErrorMessage(messages) {
+        let messageHtml = '<ul>'
+        for(key in messages) {
+            messageHtml += '<li>' + messages[key][0] + '</li>'
+        }
+
+        return messageHtml + '</ul>'
+    }
+
+    function fadeSuccessMessage(alertId) {
+        $(alertId).fadeOut(2000)
+    }
+
     $('#formReport').on('submit', function(e) {
         e.preventDefault();
         $.ajax({
@@ -544,9 +557,8 @@ $(document).ready(function() {
             url: 'lighting/'+id,
             success: function (response) {
                 $('#recordOf').html('');
-                $('#deceasedPerson').val(0);
-
-                $('#deceasedPerson').val(response.recordOf.id);
+                $('#lightingForm #deceasedPerson').val(0);
+                $('#lightingForm #deceasedPerson').val(response.recordOf.id);
                 $('#recordOf').html('Record of: '+response.recordOf.person.firstname+' '+response.recordOf.person.lastname);
 
                 let html = '';
@@ -715,14 +727,22 @@ $(document).ready(function() {
             url: 'deceased',
             data: data,
             success: function (response) {
+                $('#deceasedFormMessagePanel').removeClass('d-none')
                 if (!response.error) {
                     generateTable();
                     $('#deceasedForm')[0].reset();
+                    $('#deceasedFormMessagePanel').empty()
+                    $('#deceasedFormMessagePanel').removeClass('alert-danger')
+                    $('#deceasedFormMessagePanel').addClass('alert-success')
+                    $('#deceasedFormMessagePanel').append('<span>Saved!</span>')
+                    fadeSuccessMessage('#deceasedFormMessagePanel')
                 } else {
-                    alert('Something went wrong');
+                    $('#deceasedFormMessagePanel').empty()
+                    $('#deceasedFormMessagePanel').append(generateErrorMessage(response.message))
                 }
             }, error: function (e) {
-                alert('Something went wrong');
+                $('#deceasedFormMessagePanel').empty()
+                $('#deceasedFormMessagePanel').append(generateErrorMessage({message: 'Something wen\'t wrong!'}))
             }
         })
     });
@@ -739,16 +759,32 @@ $(document).ready(function() {
             url : action,
             data: $(this).serialize(),
             success: function (response) {
+                $('#deceasedUpdateFormMessagePanel').removeClass('d-none')
                 if (!response.error) {
-                    generateTable();
+                    generateTable(); // deceasedUpdateFormMessagePanel
+                    $('#deceasedUpdateFormMessagePanel').empty()
+                    $('#deceasedUpdateFormMessagePanel').removeClass('alert-danger')
+                    $('#deceasedUpdateFormMessagePanel').addClass('alert-success')
+                    $('#deceasedUpdateFormMessagePanel').append('<span>Saved!</span>')
+                    fadeSuccessMessage('#deceasedUpdateFormMessagePanel')
                 } else {
-                    alert('Something went wrong');
+                    $('#deceasedUpdateFormMessagePanel').empty()
+                    $('#deceasedUpdateFormMessagePanel').append(generateErrorMessage(response.message))
                 }
             }, error: function (e) {
-                console.log(e);
+                $('#deceasedUpdateFormMessagePanel').empty()
+                $('#deceasedUpdateFormMessagePanel').append(generateErrorMessage({message: 'Something wen\'t wrong!'}))
             }
         });
     });
+
+    $('#detailModal .modal-content').on('click', (e) => {
+        e.stopPropagation()
+    })
+
+    $('#detailModal, #detailModal .close').on('click', function () {
+        $('#deceasedUpdateFormMessagePanel').addClass('d-none')
+    })
 
     $('#lightingForm').on('submit', function (e) {
         e.preventDefault();
@@ -758,15 +794,22 @@ $(document).ready(function() {
             url: action,
             data: $(this).serialize(),
             success: function (response) {
+                $('#lightingFormMessagePanel').removeClass('d-none')
                 if (!response.error) {
                     lightingRecord(response.data.deceased_id);
-                    alert(response.message);
                     $('#lightingForm')[0].reset();
+                    $('#lightingFormMessagePanel').empty()
+                    $('#lightingFormMessagePanel').removeClass('alert-danger')
+                    $('#lightingFormMessagePanel').addClass('alert-success')
+                    $('#lightingFormMessagePanel').append('<span>Saved!</span>')
+                    fadeSuccessMessage('#lightingFormMessagePanel')
                 } else {
-                    console.log(response.message);
+                    $('#lightingFormMessagePanel').empty()
+                    $('#lightingFormMessagePanel').append(generateErrorMessage(response.message))
                 }
             }, error: function (error) {
-                console.log(error);
+                $('#lightingFormMessagePanel').empty()
+                $('#lightingFormMessagePanel').append(generateErrorMessage({message: 'Something wen\t wrong'}))
             }
         });
     });
