@@ -45,6 +45,30 @@
       </div>
     </div>
 </div>
+{{-- Delete Lighting Confirmation Modal --}}
+<div class="modal fade" id="deleteLightingModal" tabindex="1" role="dialog" aria-labelledby="deleteLightingModalabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteLightingModalLabel">Delete PASUGA Confirmation</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="deleteLightingModalBody">
+            <p></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <form id="formLightingDelete">
+                @csrf
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
 
 {{-- Showing lighting modal --}}
 <div class="modal fade" id="lightingModal" tabindex="-1" role="dialog" aria-labelledby="lightingModalLabel" aria-hidden="true">
@@ -165,30 +189,6 @@
     </div>
 </div>
 
-{{-- Delete Lighting Confirmation Modal --}}
-<div class="modal fade" id="deleteLightingModal" tabindex="1" role="dialog" aria-labelledby="deleteLightingModalabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteLightingModalLabel">Delete PASUGA Confirmation</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="deleteLightingModalBody">
-            <p></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <form id="formLightingDelete">
-                @csrf
-                {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-primary">Delete</button>
-          </form>
-        </div>
-      </div>
-    </div>
-</div>
 
 {{-- Approval Confirmation Modal --}}
 <div class="modal fade" id="approveDeceasedModal" tabindex="1" role="dialog" aria-labelledby="approveDeceasedModalLabel" aria-hidden="true">
@@ -254,6 +254,7 @@
                     <table class="table table-striped" id="contractTable">
                         <thead>
                             <tr>
+                                <th>Certificate</th>
                                 <th>Lesse</th>
                                 <th>Contract #</th>
                                 <th>Niche #</th>

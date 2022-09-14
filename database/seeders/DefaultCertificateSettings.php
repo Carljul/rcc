@@ -15,7 +15,7 @@ class DefaultCertificateSettings extends Seeder
     public function run()
     {
         DefaultCertificate::create([
-            'cemetery_administrator' => 'MA. VICTORIA C. MORANO',
+            'cemetery_administrator' => 'Ma. Victoria C. Morano',
             'parish_office_staff' => 'JOHN E. GIMENEZ',
             'parish_team_moderator' => 'REV. FR. JOSELITO E. DANAO',
             'parish_team_member' => 'REV. FR. LORETO S. JUMAO-AS',

@@ -264,7 +264,7 @@ PARISH SEAL</span>
             type: 'GET',
             url: '/defaults/list/json',
             success: function (response) {
-                $('.cemetery_administrator').html(response.data.cemetery_administrator);
+                $('.cemetery_administrator').html((response.data.cemetery_administrator).toUpperCase());
                 $('.parish_office').html(response.data.parish_office_staff);
                 $('.parish_moderator').html(response.data.parish_team_moderator);
                 $('.parish_member').html(response.data.parish_team_member);

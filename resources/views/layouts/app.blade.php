@@ -62,10 +62,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('user.index') }}">{{ __('Users') }}</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('defaults.index') }}">{{ __('Defaults') }}</a>
-                                    </li>
                                 @endcan
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('defaults.index') }}">{{ __('Defaults') }}</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('deceased.index') }}">{{ __('Deceased') }}</a>
                                 </li>

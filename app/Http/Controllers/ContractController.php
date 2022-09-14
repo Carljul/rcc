@@ -15,7 +15,7 @@ class ContractController extends Controller
     public function index($id)
     {
         return response()->json([
-            'data' => Contract::where('deceased_id', $id)->with('payment')->get()
+            'data' => Contract::where('deceased_id', $id)->with('payment')->with('reports')->get()
         ]);
     }
 
@@ -48,7 +48,9 @@ class ContractController extends Controller
                 'niche_identification_number' => array_key_exists('niche_identification_field', $params) ? $params['niche_identification_field'] : null,
                 'contract_number' => array_key_exists('contract_number_field', $params) ? $params['contract_number_field'] : null,
                 'address' => array_key_exists('address_field', $params) ? $params['address_field'] : null,
-                'remarks' => array_key_exists('remarks', $params) ? $params['remarks'] : null
+                'remarks' => array_key_exists('remarks', $params) ? $params['remarks'] : null,
+                'date_start' => array_key_exists('date_start_field', $params) ? $params['date_start_field'] : null,
+                'date_expire' => array_key_exists('date_expire_field', $params) ? $params['date_expire_field'] : null
             ]);
 
             \DB::commit();
@@ -82,6 +84,7 @@ class ContractController extends Controller
         return response()->json([
             'data' => Contract::where('id', $id)
                 ->with('payment')
+                ->with('reports')
                 ->with(['deceased' => function ($others) {
                     $others->with('person')
                     ->with('approvedBy')
@@ -104,6 +107,7 @@ class ContractController extends Controller
         return response()->json([
             'data' => Contract::where('deceased_id', $id)
                 ->with('payment')
+                ->with('reports')
                 ->get()
         ]);
     }
@@ -126,6 +130,8 @@ class ContractController extends Controller
             $contract->contract_number = array_key_exists('contract_number_field', $params) ? $params['contract_number_field'] : null;
             $contract->address = array_key_exists('address_field', $params) ? $params['address_field'] : null;
             $contract->remarks = array_key_exists('remarks', $params) ? $params['remarks'] : null;
+            $contract->date_start = array_key_exists('date_start_field', $params) ? $params['date_start_field'] : null;
+            $contract->date_expire = array_key_exists('date_expire_field', $params) ? $params['date_expire_field'] : null;
             $contract->save();
 
             \DB::commit();

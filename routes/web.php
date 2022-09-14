@@ -31,11 +31,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'can:view'], function() {
         // Users
         Route::resource('user', UserController::class);
-        Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {
-            Route::get('/', [DefaultCertificateController::class, 'index'])->name('index');
-            Route::get('/list/json', [DefaultCertificateController::class, 'list'])->name('list');
-            Route::put('/{default}', [DefaultCertificateController::class, 'update'])->name('update');
-        });
         // Reports
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
             Route::get('/', [ReportsController::class, 'index'])->name('index');
@@ -45,6 +40,11 @@ Route::group(['middleware' => 'auth'], function() {
             Route::delete('/{report}', [ReportsController::class, 'destroy'])->name('destroy');
             Route::post('/template', [ReportsController::class, 'report'])->name('report');
         });
+    });
+    Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {
+        Route::get('/', [DefaultCertificateController::class, 'index'])->name('index');
+        Route::get('/list/json', [DefaultCertificateController::class, 'list'])->name('list');
+        Route::put('/{default}', [DefaultCertificateController::class, 'update'])->name('update');
     });
 
     // Deceased

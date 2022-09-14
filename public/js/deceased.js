@@ -407,6 +407,7 @@ $(document).ready(function() {
                             }
                         }
 
+                        $('#formReport').attr('action', '/contract');
                         if (fields.indexOf('lease_amount_select_field') !== -1) {
                             $.ajax({
                                 type: 'GET',
@@ -423,9 +424,8 @@ $(document).ready(function() {
                                         }
                                     }
                                     $('#lease_amount_select_field').append(html);
-                                    $('#formReport').attr('action', '/contract');
                                 }, error: function (e) {
-                                    console.log();
+                                    console.log(e);
                                 }
                             })
                         }
@@ -450,6 +450,7 @@ $(document).ready(function() {
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
                     html += `<tr>
+                        <td>`+element.reports.name+`</td>
                         <td>`+element.lessee+`</td>
                         <td>`+(element.contract_number == null ? '':element.contract_number)+`</td>
                         <td>`+(element.niche_identification_number == null ? '':element.niche_identification_number)+`</td>

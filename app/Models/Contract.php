@@ -19,7 +19,9 @@ class Contract extends Model
         'niche_identification_number',
         'contract_number',
         'address',
-        'remarks'
+        'remarks',
+        'date_start',
+        'date_expire'
     ];
 
     public function payment()
@@ -29,5 +31,9 @@ class Contract extends Model
     public function deceased()
     {
         return $this->hasOne('App\Models\Deceased', 'id', 'deceased_id');
+    }
+    public function reports()
+    {
+        return $this->hasOne('App\Models\Reports', 'id', 'reports_id');
     }
 }

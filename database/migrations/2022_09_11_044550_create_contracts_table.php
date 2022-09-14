@@ -23,6 +23,8 @@ class CreateContractsTable extends Migration
             $table->string('contract_number')->nullable();
             $table->string('address')->nullable();
             $table->string('remarks')->nullable();
+            $table->date('date_start')->nullable();
+            $table->date('date_expire')->nullable();
             $table->foreign('deceased_id')->references('id')->on('deceased');
             $table->foreign('reports_id')->references('id')->on('reports');
             $table->foreign('payment_id')->references('id')->on('payments');
