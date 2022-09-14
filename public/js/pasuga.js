@@ -38,6 +38,7 @@ $(document).ready(() => {
     })
 
     $('#lightingModal, #lightingModal button[type=button]').on('click', () => {
+        $('#lightingFormMessagePanel').addClass('d-none')
         resetFields()
     })
 
@@ -53,7 +54,6 @@ $(document).ready(() => {
         amount.val('')
         ornumber.val('')
         expiryDate.val('')
-        deceasedPerson.val('')
         dateOfConnection.val('')
     }
 })

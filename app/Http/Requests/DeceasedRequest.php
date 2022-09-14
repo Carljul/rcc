@@ -39,7 +39,7 @@ class DeceasedRequest extends FormRequest
         return [
             'firstname'      => ['required'],
             'birthdate'      => ['nullable', 'sometimes', 'before_or_equal:'.Carbon::now()],
-            'dateDied'       => ['nullable', 'sometimes', 'before_or_equal:'.Carbon::parse($this->birthdate)],
+            'dateDied'       => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->birthdate)],
             'internmentDate' => ['nullable', 'sometimes', 'after_or_equal:'. Carbon::parse($this->dateDied) ],
             'datepaid'       => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->internmentDate)],
             'expiryDate'     => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->datepaid)]
@@ -73,7 +73,7 @@ class DeceasedRequest extends FormRequest
     {
         return [
             'birthdate.before_or_equal'     => ':attribute should be previous or now',
-            'dateDied.before_or_equal'      => 'The date died must be a date before or equal to birthdate.',
+            'dateDied.after_or_equal'      => 'The date died must be a date after or equal to birthdate.',
             'internmentDate.after_or_equal' => 'The internment date must be a date after or equal to date died.',
             'datepaid.after_or_equal'       => 'The date paid date must be a date after or equal to internment date.',
             'expiryDate.after_or_equal'     => 'The expiry date must be a date after or equal to date paid.',

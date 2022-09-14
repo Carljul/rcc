@@ -59,6 +59,9 @@
         <div class="modal-body" id="lightingModalBody">
             <div class="row">
                 <div class="col-sm-3">
+
+                    <div class="alert alert-danger d-none" role="alert" id="lightingFormMessagePanel"></div>
+
                     <form action="{{route('lighting.store')}}" method="POST" id="lightingForm">
                         @csrf
                         <input type="hidden" value="" id="deceasedPerson" name="id" />
