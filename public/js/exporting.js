@@ -48,7 +48,7 @@ function savingRecord(file)
         address:  typeof(data[0].address) != 'undefined' ? data[0].address : null,
         dateDied:  typeof(data[0].date_died) != 'undefined' ? dateFormatter(data[0].date_died) : null,
         internmentDate:  typeof(data[0].date_internment) != 'undefined' ? dateFormatter(data[0].date_internment) : null,
-        internmentTime:  typeof(data[0].date_internment) != 'undefined' ? data[0].time_internment : null,
+        internmentTime:  typeof(data[0].time_internment) != 'undefined' ? data[0].time_internment : null,
         expiryDate:  typeof(data[0].expiry_date) != 'undefined' ? dateFormatter(data[0].expiry_date) : null,
         cod:  typeof(data[0].cause_of_death) != 'undefined' ? data[0].cause_of_death : null,
         location:  typeof(data[0].location) != 'undefined' ? data[0].location : null,

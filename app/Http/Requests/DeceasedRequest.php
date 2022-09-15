@@ -36,13 +36,19 @@ class DeceasedRequest extends FormRequest
      */
     public function rulesApi()
     {
+        // normalized date validation values
+        $dateDiedVal = $this->birthdate ? Carbon::parse($this->birthdate) : Carbon::parse($this->dateDied);
+        $intermentDateVal = $this->dateDied ? Carbon::parse($this->dateDied) : Carbon::parse($this->internmentDate);
+        $datepaidVal = $this->internmentDate ? Carbon::parse($this->internmentDate) : Carbon::parse($this->datepaid);
+        $expiryDateVal = $this->datepaid ? Carbon::parse($this->datepaid) : Carbon::parse($this->expiryDate);
+
         return [
             'firstname'      => ['required'],
-            'birthdate'      => ['nullable', 'sometimes', 'before_or_equal:'.Carbon::now()],
-            'dateDied'       => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->birthdate)],
-            'internmentDate' => ['nullable', 'sometimes', 'after_or_equal:'. Carbon::parse($this->dateDied) ],
-            'datepaid'       => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->internmentDate)],
-            'expiryDate'     => ['nullable', 'sometimes', 'after_or_equal:'.Carbon::parse($this->datepaid)]
+            'birthdate'      => ['nullable', 'sometimes', 'before_or_equal:'. Carbon::now()],
+            'dateDied'       => ['nullable', 'sometimes', 'after_or_equal:'. $dateDiedVal],
+            'internmentDate' => ['nullable', 'sometimes', 'after_or_equal:'. $intermentDateVal],
+            'datepaid'       => ['nullable', 'sometimes', 'after_or_equal:'. $datepaidVal],
+            'expiryDate'     => ['nullable', 'sometimes', 'after_or_equal:'. $expiryDateVal]
         ];
     }
 
@@ -58,6 +64,7 @@ class DeceasedRequest extends FormRequest
         $validator = Validator::make($this->all(), $this->rulesApi(), $this->messages());
         if ($validator->fails()) {
             $response['error'] = true;
+            $response['data'] = $this->all();
             $response['message'] = $validator->errors();
         }
 
