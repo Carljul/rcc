@@ -246,4 +246,27 @@ class Deceased extends Model
             ];
         }
     }
+    
+    public static function expired($year)
+    {
+        return self::whereYear('expiryDate', $year)
+            ->with('person')
+            ->with('payment')
+            ->with('lighting')
+            ->get();
+    }
+
+    public static function deletedR()
+    {
+        return self::onlyTrashed()
+            ->with(['person' => function ($query) {
+                $query->onlyTrashed();
+            }])
+            ->with('payment')
+            ->with('approvedBy')
+            ->with('createdBy')
+            ->with('updatedBy')
+            ->with('deletedBy')
+            ->get();
+    }
 }
