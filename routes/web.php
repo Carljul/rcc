@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\PaymentController;
@@ -79,5 +80,11 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('/contract/{contract}', [ContractController::class, 'update'])->name('update');
         Route::delete('/contract/{contract}', [ContractController::class, 'destroy'])->name('destroy');
         Route::get('/contract/{id}/edit', [ContractController::class, 'edit'])->name('edit');
+    });
+
+    // Export
+    Route::group(['prefix' => 'export', 'as' => 'export.'], function () {
+        Route::get('/deleted', [ExportController::class, 'deleted'])->name('deleted');
+        Route::get('/expired/{year?}', [ExportController::class, 'expired'])->name('expired');
     });
 });

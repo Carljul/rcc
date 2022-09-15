@@ -27,16 +27,7 @@ class DeceasedController extends Controller
      */
     public function deleted()
     {
-        $deleted = Deceased::onlyTrashed()
-            ->with(['person' => function ($query) {
-                $query->onlyTrashed();
-            }])
-            ->with('payment')
-            ->with('approvedBy')
-            ->with('createdBy')
-            ->with('updatedBy')
-            ->with('deletedBy')
-            ->get();
+        $deleted = Deceased::deletedR();
         return view('pages.deceased.deleted', compact('deleted'));
     }
 
@@ -82,10 +73,7 @@ class DeceasedController extends Controller
     {
         if ($isDeleted) {
             return response()->json([
-                'data' => Deceased::whereNotNull('deleted_at')
-                    ->with('person')
-                    ->orderBy('created_at')
-                    ->get()
+                'data' => Deceased::deletedR()
             ]);
         }
 
@@ -249,14 +237,9 @@ class DeceasedController extends Controller
             ->pluck('expiry')
             ->toArray();
 
-        $data = Deceased::whereYear('expiryDate', $year)
-            ->with('person')
-            ->with('payment')
-            ->with('lighting')
-            ->get();
+        $data = Deceased::expired($year);
 
-        if(!in_array(date('Y'), $years))
-        {
+        if (!in_array(date('Y'), $years)) {
             array_push($years, date('Y'));
         }
 

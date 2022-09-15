@@ -13,6 +13,11 @@
 @section('content')
 <div class="container-fluid">
     <div class="row mt-3 justify-content-center">
+        <div class="col-sm-12 mb-3">
+            <form action="{{route('export.deleted')}}" method="GET">
+                <button type="submit" class="btn btn-success">Export</button>
+            </form>
+        </div>
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">

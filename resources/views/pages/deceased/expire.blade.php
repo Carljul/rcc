@@ -30,6 +30,11 @@
                 </div>
             </form>
         </div>
+        <div class="col-sm-6">
+            <form action="{{route('export.expired', $selected)}}" method="GET">
+                <button type="submit" class="btn btn-success">Export</button>
+            </form>
+        </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-sm-12">
