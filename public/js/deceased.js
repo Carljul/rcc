@@ -536,11 +536,15 @@ $(document).ready(function() {
             success: function (response) {
                 $('#formReport')[0].reset();
                 if (!response.error) {
-                    alert(response.message);
-                    console.log(response.data);
                     contractTableList(response.data[0].deceased_id);
+                    $('#printingFormMessagePanel').empty()
+                    $('#printingFormMessagePanel').removeClass('alert-danger')
+                    $('#printingFormMessagePanel').addClass('alert-success')
+                    $('#printingFormMessagePanel').append('<span>Saved!</span>')
+                    fadeSuccessMessage('#printingFormMessagePanel')
                 } else {
-                    alert(response.message);
+                    $('#printingFormMessagePanel').empty()
+                    $('#printingFormMessagePanel').append(generateErrorMessage(response.message))
                 }
             }, error: function (e) {
                 console.log(e);

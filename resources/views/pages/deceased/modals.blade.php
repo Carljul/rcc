@@ -228,6 +228,7 @@
         <div class="modal-body" id="printModalBody">
             <div class="row">
                 <div class="col-sm-5">
+                  <div class="alert alert-danger d-none" role="alert" id="printingFormMessagePanel"></div>
                     <div class="row">
                       <div class="col-sm-12">
                         <p><strong>Please select certificate</strong></p>
