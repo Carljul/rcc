@@ -92,23 +92,31 @@ function savingRecord(file)
                 localStorage.setItem('excels', JSON.stringify(excels));
                 $('#'+removeRow).remove();
             }
+            if (response.error) {
+                errorExport(data, file, toInsert);
+            }
             uploadFile()
         }, error: function(e) {
             data.shift();
-            let shifted = {
-                'id': file.id,
-                'name': file.name,
-                'data': data
-            };
-            localStorage.setItem('extracting', JSON.stringify(shifted));
-            if (localStorage.getItem('withIssues') === null) {
-                localStorage.setItem('withIssues', JSON.stringify([toInsert]));
-            } else {
-                let withIssues = JSON.parse(localStorage.getItem('withIssues'));
-                withIssues.push(toInsert);
-                localStorage.setItem('withIssues', JSON.stringify(withIssues));
-            }
+            errorExport(data, file, toInsert);
             uploadFile()
         }
     })
+}
+
+function errorExport(data, file, toInsert)
+{
+    let shifted = {
+        'id': file.id,
+        'name': file.name,
+        'data': data
+    };
+    localStorage.setItem('extracting', JSON.stringify(shifted));
+    if (localStorage.getItem('withIssues') === null) {
+        localStorage.setItem('withIssues', JSON.stringify([toInsert]));
+    } else {
+        let withIssues = JSON.parse(localStorage.getItem('withIssues'));
+        withIssues.push(toInsert);
+        localStorage.setItem('withIssues', JSON.stringify(withIssues));
+    }
 }
