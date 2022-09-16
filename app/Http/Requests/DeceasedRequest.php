@@ -42,6 +42,12 @@ class DeceasedRequest extends FormRequest
         $datepaidVal = $this->internmentDate ? Carbon::parse($this->internmentDate) : Carbon::parse($this->datepaid);
         $expiryDateVal = $this->datepaid ? Carbon::parse($this->datepaid) : Carbon::parse($this->expiryDate);
 
+        if (!ENV('ENABLE_DECEASE_REQUEST')) {
+            return [
+                'firstname' => ['required']
+            ];
+        }
+
         return [
             'firstname'      => ['required'],
             'birthdate'      => ['nullable', 'sometimes', 'before_or_equal:'. Carbon::now()],
