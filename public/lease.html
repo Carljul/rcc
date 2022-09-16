@@ -44,7 +44,7 @@ CONTRACT OF LEASE AND BURIAL PERMIT </span>
 <table style="top: 329px;left: 94px;position: absolute;border: 1px solid black;width: 76.5%;border-collapse: collapse;">
     <tbody>
         <tr>
-            <td>Name of Lessee</td>
+            <td style="width: 175px;">Name of Lessee</td>
             <td colspan="3" class="lessee" style=" font-family:Arial; font-size:15.0px; color:#000000;text-align: center;"></td>
         </tr>
         <tr>
@@ -69,8 +69,8 @@ CONTRACT OF LEASE AND BURIAL PERMIT </span>
         <tr>
             <td style=" font-family:Arial; font-size:15.2px; color:#000000">Lease Expiry Date</td>
             <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="lease_expiry_date"></td>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Official Receipt No.</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="official_receipt_no"></td>
+            <td style="font-family:Arial; font-size:15.1px; color:#000000;width: 200px;">Official Receipt No.</td>
+            <td style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000;width: 180px;" class="official_receipt_no"></td>
         </tr>
         <tr>
             <td style=" font-family:Arial; font-size:15.4px; color:#000000">Niche Identification #</td>
@@ -80,7 +80,7 @@ CONTRACT OF LEASE AND BURIAL PERMIT </span>
         </tr>
         <tr>
             <td style=" font-family:Arial; font-size:16.3px; color:#000000">Location</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000" class="location"></td>
+            <td style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000; width: 166px;" class="location"></td>
             <td style=" font-family:Arial; font-size:15.2px; color:#000000">Amount Paid</td>
             <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="amount_paid"></td>
         </tr>
@@ -330,13 +330,13 @@ PARISH SEAL</span>
                 $('.location').html(data.deceased.location ?? 'n/a');
                 $('.vicinity').html(data.deceased.vicinity ?? 'n/a');
                 $('.area').html(data.deceased.area ?? 'n/a');
-                $('.amount_paid').html(data.payment.amount != null ? pesoSign+''+numberWithCommas((data.payment.amount).toFixed(2)) : 'n/a');
-                $('.lease_amount').html(data.payment.lease_amount != null ? pesoSign+''+numberWithCommas((data.payment.lease_amount).toFixed(2)) : 'n/a');
-                $('.official_receipt_no').html(data.payment.ORNumber ?? 'n/a');
-                $('.official_receipt_date').html(dateFormatter(data.payment.datePaid));
+                $('.amount_paid').html(data.payment != null && data.payment.amount != null ? pesoSign+''+numberWithCommas((data.payment.amount).toFixed(2)) : 'n/a');
+                $('.lease_amount').html(data.payment != null && data.payment.lease_amount != null ? pesoSign+''+numberWithCommas((data.payment.lease_amount).toFixed(2)) : 'n/a');
+                $('.official_receipt_no').html(data.payment != null && data.payment.ORNumber != null ? data.payment.ORNumber : 'n/a');
+                $('.official_receipt_date').html(data.payment != null ? dateFormatter(data.payment.datePaid) : 'n/a');
                 $('.deceased_name').html(name.toUpperCase());
-                $('.balance_due').html(data.payment.balance != null ? pesoSign+''+numberWithCommas((data.payment.balance).toFixed(2)):'n/a');
-                $('.terms_of_payment').html(data.payment.terms_of_payment ?? 'n/a');
+                $('.balance_due').html(data.payment != null && data.payment.balance != null ? pesoSign+''+numberWithCommas((data.payment.balance).toFixed(2)):'n/a');
+                $('.terms_of_payment').html(data.payment != null && data.payment.terms_of_payment ? data.payment.terms_of_payment : 'n/a');
 
 
                 print();
@@ -378,4 +378,3 @@ PARISH SEAL</span>
 </script>
 </body>
 </html>
-
