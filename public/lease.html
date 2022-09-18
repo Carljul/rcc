@@ -1,260 +1,227 @@
 lesse_field,address_field,niche_identification_field,lease_amount_select_field,date_of_death_disabled_field,internment_date_disabled_field,expiry_date_disabled_field,location_disabled_field,vicinity_disabled_field,area_disabled_field
 <html>
-<head>
-<title>CONTRACT OF LEASE AND BURIAL PERMIT</title>
-<style type="text/css">
-body { font-family: Arial; font-size: 22.2px }
-.pos { position: absolute; z-index: 0; left: 0px; top: 0px }
-table,
-table tr,
-table tr td {
-    border: 1px solid black;
-    padding: 3px;
-}
-</style>
-</head>
-<body>
-<nobr><nowrap>
-<div class="pos" id="_0:0" style="top:0">
-<img name="_1100:850" src="/img/contract/lease/page_001.jpg" height="1100" width="850" border="0" usemap="#Map"></div>
-<div class="pos" id="_344:101" style="top:101;left:344">
-<span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000">
-ARCHDIOCESE OF CEBU </span>
-</div>
-<div class="pos" id="_177:125" style="top:125;left:177">
-<span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000">
-ARCHDIOCESAN SHRINE OF THE IMMACULATE HEART OF MARY PARISH</span>
-</div>
-<div class="pos" id="_343:148" style="top:148;left:343">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-Minglanilla, Metro Cebu</span>
-</div>
-<div class="pos" id="_321:195" style="top:195;left:321">
-<span id="_14.5" style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000">
-ROMAN CATHOLIC CEMETERY</span>
-</div>
-<div class="pos" id="_277:218" style="top:218;left:277">
-<span id="_15.2" style=" font-family:Arial; font-size:15.2px; color:#000000">
-Poblacion Ward III, Minglanilla, Metro Cebu</span>
-</div>
-<div class="pos" id="_279:293" style="top:293;left:279">
-<span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000">
-CONTRACT OF LEASE AND BURIAL PERMIT </span>
-</div>
-<table style="top: 329px;left: 94px;position: absolute;border: 1px solid black;width: 76.5%;border-collapse: collapse;">
-    <tbody>
-        <tr>
-            <td style="width: 175px;">Name of Lessee</td>
-            <td colspan="3" class="lessee" style=" font-family:Arial; font-size:15.0px; color:#000000;text-align: center;"></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td colspan="3" class="address" style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#000000;text-align: center;"></td>
-        </tr>
-        <tr>
-            <td>Name of Deceased</td>
-            <td colspan="3" class="deceased_name" style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#91d04f;text-align: center;"></td>
-        </tr>
-        <tr>
-            <td>Date of Death</td>
-            <td class="date_of_death" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000"></td>
-            <td colspan="2" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000;text-align: center;">Payment Details</td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Internment Date</td>
-            <td class="date_internment" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000"></td>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Lease Amount</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="lease_amount"></td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Lease Expiry Date</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="lease_expiry_date"></td>
-            <td style="font-family:Arial; font-size:15.1px; color:#000000;width: 200px;">Official Receipt No.</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000;width: 180px;" class="official_receipt_no"></td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:15.4px; color:#000000">Niche Identification #</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="niche_identification"></td>
-            <td style=" font-family:Arial; font-size:15.1px; color:#000000">Official Receipt Date</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000" class="official_receipt_date"></td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:16.3px; color:#000000">Location</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000; width: 166px;" class="location"></td>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Amount Paid</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="amount_paid"></td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:16.3px; color:#000000">Vicinity</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:14.8px; color:#000000" class="vicinity"></td>
-            <td style=" font-family:Arial; font-size:14.8px; color:#000000">Balance Due</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="balance_due"></td>
-        </tr>
-        <tr>
-            <td style=" font-family:Arial; font-size:16.3px; color:#000000">Area</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#000000" class="area"></td>
-            <td style=" font-family:Arial; font-size:15.2px; color:#000000">Terms of Payment</td>
-            <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="terms_of_payment"></td>
-        </tr>
-    </tbody>
-</div>
-<div class="pos" id="_311:547" style="top:547;left:311">
-</div>
-<div class="pos" id="_100:605" style="top:605;left:100">
-<span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000">
-PROVISIONS:</span>
-</div>
-<div class="pos" id="_125:643" style="top:643;left:125">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-1. This Contract of Lease is for a period of _______ year(s) effective the date of interment.</span>
-</div>
-<div class="pos" id="_446:643" style="top:643;left:446">
-<span id="_15.0" style="font-weight:bold; font-family:Arial; font-size:15.0px; color:#000000" class="year_period">
-</span>
-</div>
-<div class="pos" id="_125:690" style="top:690;left:125">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-2. Upon expiration of use, a Notice of Expiration shall be posted in front of the tombstone. </span>
-</div>
-<div class="pos" id="_150:713" style="top:713;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-There shall be a grace period of the thirty (30) days from the date of expiration. A notice </span>
-</div>
-<div class="pos" id="_150:736" style="top:736;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-of expiration shall also be sent to the permanent address of next of kin indicated on </span>
-</div>
-<div class="pos" id="_150:760" style="top:760;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-lease and burial permit.</span>
-</div>
-<div class="pos" id="_125:807" style="top:807;left:125">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-3. In  the  event  that  no  relatives  are  around  to  make  disposition  of  the  mortal  remains </span>
-</div>
-<div class="pos" id="_150:830" style="top:830;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-subject for exhumation order, the LESSEE/s directly warrants and further authorizes the </span>
-</div>
-<div class="pos" id="_150:853" style="top:853;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-Cemetery Management for proper disposition.</span>
-</div>
-<div class="pos" id="_125:900" style="top:900;left:125">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-4. The Niche subject for exhumation is directly intended for Fresh Remains interment. The </span>
-</div>
-<div class="pos" id="_150:924" style="top:924;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-same exhumed mortal remains, the said mortal remains shall not be allowed for RE- </span>
-</div>
-<div class="pos" id="_150:947" style="top:947;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-INTERMENT  in  the  same  niche.  Said  remains  shall  be  interred  separately  and </span>
-</div>
-<div class="pos" id="_150:970" style="top:970;left:150">
-<span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000">
-independently in our Bone Chambers.</span>
-</div>
-<div class="pos" id="_0:0" style="top:1100">
-<img name="_1100:850" src="/img/contract/lease/page_002.jpg" height="1100" width="850" border="0" usemap="#Map"></div>
-<div class="pos" id="_125:1201" style="top:1201;left:125">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-5. Exhumation  and  Re-burial  of  Mortal  Remains  shall  strictly  follow  the  Implementing </span>
-</div>
-<div class="pos" id="_150:1225" style="top:1225;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-Rules  and  Regulations  of  Chapter  XXI,  Disposal  of  Dead  Persons  of  the  Code  on </span>
-</div>
-<div class="pos" id="_150:1248" style="top:1248;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-Sanitation of the Republic of the Philippines (P.D. 856).</span>
-</div>
-<div class="pos" id="_125:1295" style="top:1295;left:125">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-6. That the LESSOR has covenanted the responsibility of security, maintenance upkeep and </span>
-</div>
-<div class="pos" id="_150:1318" style="top:1318;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-care of the leased premises.</span>
-</div>
-<div class="pos" id="_125:1365" style="top:1365;left:125">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-7. A Death Certificate, duly registered in the Local Civil Registrar, shall be attached to this </span>
-</div>
-<div class="pos" id="_150:1389" style="top:1389;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-Contract of Lease. The absence of Death Certificate shall be a ground for non-interment </span>
-</div>
-<div class="pos" id="_150:1412" style="top:1412;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-of this Contract of Lease and Burial Permit. However, if the subject decedent died during </span>
-</div>
-<div class="pos" id="_150:1435" style="top:1435;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-non- working hours and shall be buried less than 48 hours after death, a Temporary </span>
-</div>
-<div class="pos" id="_150:1459" style="top:1459;left:150">
-<span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000">
-Permit shall be secured from the Office of the Chief of Police in the locality.</span>
-</div>
-<div class="pos" id="_111:1521" style="top:1521;left:111">
-<span id="_14.1" style=" font-family:Arial; font-size:14.1px; color:#000000">
-_____________________________________</span>
-</div>
-<div class="pos" id="_194:1516" style="top:1516;left:194">
-<span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="lessee_sign">
-</span>
-</div>
-<div class="pos" id="_519:1514" style="top:1514;left:519">
-<span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="cemetery_administrator">
-</span>
-</div>
-<div class="pos" id="_147:1542" style="top:1542;left:147">
-<span id="_13.5" style=" font-family:Arial; font-size:13.5px; color:#000000">
-SIGNATURE OVER PRINTED NAME </span>
-</div>
-<div class="pos" id="_531:1542" style="top:1542;left:531">
-<span id="_14.3" style=" font-family:Arial; font-size:14.3px; color:#000000">
-Cemetery Administrator</span>
-</div>
-<div class="pos" id="_230:1564" style="top:1564;left:230">
-<span id="_15.0" style="font-weight:bold; font-family:Arial; font-size:15.0px; color:#000000">
-LESSEE</span>
-</div>
-<div class="pos" id="_372:1612" style="top:1612;left:372">
-<span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000">
-Witnessed by :</span>
-</div>
-<div class="pos" id="_359:1686" style="top:1686;left:359">
-<span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_office">
-</span>
-</div>
-<div class="pos" id="_355:1715" style="top:1715;left:355">
-<span id="_13.5" style=" font-family:Arial; font-size:13.5px; color:#000000">
-Parish Office Staff</span>
-</div>
-<div class="pos" id="_158:1797" style="top:1797;left:158">
-<span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_moderator">
-</span>
-</div>
-<div class="pos" id="_514:1796" style="top:1796;left:514">
-<span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_member">
-</span>
-</div>
-<div class="pos" id="_152:1827" style="top:1827;left:152">
-<span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000">
-Parish Team Moderator/ Lessor</span>
-</div>
-<div class="pos" id="_519:1827" style="top:1827;left:519">
-<span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000">
-Parish Team Member/ Lessor</span>
-</div>
-<div class="pos" id="_570:2018" style="top:2018;left:570">
-<span id="_13.1" style="font-weight:bold; font-family:Arial; font-size:13.1px; color:#000000">
-PARISH SEAL</span>
-</div>
-</nowrap></nobr>
+  <head>
+    <title>CONTRACT OF LEASE AND BURIAL PERMIT</title>
+    <style type="text/css">
+      body {
+        font-family: Arial;
+        font-size: 22.2px
+      }
+
+      .pos {
+        position: absolute;
+        z-index: 0;
+        left: 0px;
+        top: 0px
+      }
+    table,
+    table tr,
+    table tr td {
+        border: 1px solid black;
+        padding: 3px;
+    }
+    </style>
+  </head>
+  <body>
+    <nobr>
+      <nowrap>
+        <div class="pos" id="_0:0" style="top:0">
+          <img name="_1300:850" src="/img/contract/lease/page_001.jpg" height="1300" width="850" border="0" usemap="#Map">
+        </div>
+        <div class="pos" id="_344:101" style="top:101;left:344">
+          <span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000"> ARCHDIOCESE OF CEBU </span>
+        </div>
+        <div class="pos" id="_177:125" style="top:125;left:177">
+          <span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000"> ARCHDIOCESAN SHRINE OF THE IMMACULATE HEART OF MARY PARISH</span>
+        </div>
+        <div class="pos" id="_343:148" style="top:148;left:343">
+          <span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000"> Minglanilla, Metro Cebu</span>
+        </div>
+        <div class="pos" id="_321:195" style="top:195;left:321">
+          <span id="_14.5" style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000"> ROMAN CATHOLIC CEMETERY</span>
+        </div>
+        <div class="pos" id="_277:218" style="top:218;left:277">
+          <span id="_15.2" style=" font-family:Arial; font-size:15.2px; color:#000000"> Poblacion Ward III, Minglanilla, Metro Cebu</span>
+        </div>
+        <div class="pos" id="_279:293" style="top:293;left:279">
+          <span id="_14.4" style="font-weight:bold; font-family:Arial; font-size:14.4px; color:#000000"> CONTRACT OF LEASE AND BURIAL PERMIT </span>
+        </div>
+        <table style="top: 329px;left: 94px;position: absolute;border: 1px solid black;width: 76.5%;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td style="width: 175px;">Name of Lessee</td>
+                    <td colspan="3" class="lessee" style=" font-family:Arial; font-size:15.0px; color:#000000;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td colspan="3" class="address" style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#000000;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <td>Name of Deceased</td>
+                    <td colspan="3" class="deceased_name" style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#91d04f;text-align: center;"></td>
+                </tr>
+                <tr>
+                    <td>Date of Death</td>
+                    <td class="date_of_death" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000"></td>
+                    <td colspan="2" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000;text-align: center;">Payment Details</td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:15.2px; color:#000000">Internment Date</td>
+                    <td class="date_internment" style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000"></td>
+                    <td style=" font-family:Arial; font-size:15.2px; color:#000000">Lease Amount</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="lease_amount"></td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:15.2px; color:#000000">Lease Expiry Date</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="lease_expiry_date"></td>
+                    <td style="font-family:Arial; font-size:15.1px; color:#000000;width: 200px;">Official Receipt No.</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000;width: 180px;" class="official_receipt_no"></td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:15.4px; color:#000000">Niche Identification #</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="niche_identification"></td>
+                    <td style=" font-family:Arial; font-size:15.1px; color:#000000">Official Receipt Date</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:15.1px; color:#000000" class="official_receipt_date"></td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:16.3px; color:#000000">Location</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:14.5px; color:#000000; width: 166px;" class="location"></td>
+                    <td style=" font-family:Arial; font-size:15.2px; color:#000000">Amount Paid</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:15.2px; color:#000000" class="amount_paid"></td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:16.3px; color:#000000">Vicinity</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:14.8px; color:#000000" class="vicinity"></td>
+                    <td style=" font-family:Arial; font-size:14.8px; color:#000000">Balance Due</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="balance_due"></td>
+                </tr>
+                <tr>
+                    <td style=" font-family:Arial; font-size:16.3px; color:#000000">Area</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:14.7px; color:#000000" class="area"></td>
+                    <td style=" font-family:Arial; font-size:15.2px; color:#000000">Terms of Payment</td>
+                    <td style="font-weight:bold; font-family:Arial; font-size:16.3px; color:#000000" class="terms_of_payment"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pos" id="_100:633" style="top:633;left:100">
+          <span id="_14.6" style="font-weight:bold; font-family:Arial; font-size:14.6px; color:#000000"> PROVISIONS:</span>
+        </div>
+        <div class="pos" id="_125:670" style="top:670;left:125">
+          <span id="_15.3" style=" font-family:Arial; font-size:15.3px; color:#000000"> 1. This Contract of Lease is for a period of _______ year(s) effective the date of interment.</span>
+        </div>
+        <div class="pos" id="_446:670" style="top:670;left:446">
+          <span id="_15.0" style="font-weight:bold; font-family:Arial; font-size:15.0px; color:#000000" class="year_period"></span>
+        </div>
+        <div class="pos" id="_125:717" style="top:717;left:125">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> 2. Upon expiration of use, a Notice of Expiration shall be posted in front of the tombstone. </span>
+        </div>
+        <div class="pos" id="_150:741" style="top:741;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> There shall be a grace period of the thirty (30) days from the date of expiration. A notice </span>
+        </div>
+        <div class="pos" id="_150:764" style="top:764;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> of expiration shall also be sent to the permanent address of next of kin indicated on </span>
+        </div>
+        <div class="pos" id="_150:787" style="top:787;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> lease and burial permit.</span>
+        </div>
+        <div class="pos" id="_125:834" style="top:834;left:125">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> 3. In the event that no relatives are around to make disposition of the mortal remains </span>
+        </div>
+        <div class="pos" id="_150:858" style="top:858;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> subject for exhumation order, the LESSEE/s directly warrants and further authorizes the </span>
+        </div>
+        <div class="pos" id="_150:881" style="top:881;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> Cemetery Management for proper disposition.</span>
+        </div>
+        <div class="pos" id="_125:928" style="top:928;left:125">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> 4. The Niche subject for exhumation is directly intended for Fresh Remains interment. The </span>
+        </div>
+        <div class="pos" id="_150:951" style="top:951;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> same exhumed mortal remains, the said mortal remains shall not be allowed for RE- </span>
+        </div>
+        <div class="pos" id="_150:974" style="top:974;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> INTERMENT in the same niche. Said remains shall be interred separately and </span>
+        </div>
+        <div class="pos" id="_150:998" style="top:998;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> independently in our Bone Chambers.</span>
+        </div>
+        <div class="pos" id="_125:1045" style="top:1045;left:125">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> 5. Exhumation and Re-burial of Mortal Remains shall strictly follow the Implementing </span>
+        </div>
+        <div class="pos" id="_150:1068" style="top:1068;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> Rules and Regulations of Chapter XXI, Disposal of Dead Persons of the Code on </span>
+        </div>
+        <div class="pos" id="_150:1091" style="top:1091;left:150">
+          <span id="_15.4" style=" font-family:Arial; font-size:15.4px; color:#000000"> Sanitation of the Republic of the Philippines (P.D. 856).</span>
+        </div>
+        <div class="pos" id="_0:0" style="top:1300">
+          <img name="_1300:850" src="/img/contract/lease/page_002.jpg" height="1300" width="850" border="0" usemap="#Map">
+        </div>
+        <div class="pos" id="_125:1401" style="top:1401;left:125">
+          <span id="_15.1" style=" font-family:Arial; font-size:15.1px; color:#000000"> 6. That the LESSOR has covenanted the responsibility of security, maintenance upkeep and </span>
+        </div>
+        <div class="pos" id="_150:1425" style="top:1425;left:150">
+          <span id="_15.1" style=" font-family:Arial; font-size:15.1px; color:#000000"> care of the leased premises.</span>
+        </div>
+        <div class="pos" id="_125:1472" style="top:1472;left:125">
+          <span id="_15.1" style=" font-family:Arial; font-size:15.1px; color:#000000"> 7. A Death Certificate, duly registered in the Local Civil Registrar, shall be attached to this </span>
+        </div>
+        <div class="pos" id="_150:1495" style="top:1495;left:150">
+          <span id="_15.1" style=" font-family:Arial; font-size:15.1px; color:#000000"> Contract of Lease. The absence of Death Certificate shall be a ground for non-interment </span>
+        </div>
+        <div class="pos" id="_150:1518" style="top:1518;left:150">
+          <span id="_15.1" style=" font-family:Arial; font-size:15.1px; color:#000000"> of this Contract of Lease and Burial Permit. However, if the subject decedent died during </span>
+        </div>
+        <div class="pos" id="_150:1542" style="top:1542;left:150">
+          <span id="_15.6" style=" font-family:Arial; font-size:15.6px; color:#000000"> non- working hours and shall be buried less than 48 hours after death, a Temporary </span>
+        </div>
+        <div class="pos" id="_150:1565" style="top:1565;left:150">
+          <span id="_15.2" style=" font-family:Arial; font-size:15.2px; color:#000000"> Permit shall be secured from the Office of the Chief of Police in the locality.</span>
+        </div>
+        <div class="pos" id="_111:1627" style="top:1627;left:111">
+          <span id="_13.9" style=" font-family:Arial; font-size:13.9px; color:#000000"> _____________________________________</span>
+        </div>
+        <div class="pos" id="_194:1622" style="top:1622;left:194">
+          <span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="lessee_sign"></span>
+        </div>
+        <div class="pos" id="_519:1620" style="top:1620;left:519">
+          <span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="cemetery_administrator"></span>
+        </div>
+        <div class="pos" id="_147:1649" style="top:1649;left:147">
+          <span id="_13.5" style=" font-family:Arial; font-size:13.5px; color:#000000"> SIGNATURE OVER PRINTED NAME </span>
+        </div>
+        <div class="pos" id="_531:1648" style="top:1648;left:531">
+          <span id="_14.3" style=" font-family:Arial; font-size:14.3px; color:#000000"> Cemetery Administrator</span>
+        </div>
+        <div class="pos" id="_230:1670" style="top:1670;left:230">
+          <span id="_15.0" style="font-weight:bold; font-family:Arial; font-size:15.0px; color:#000000"> LESSEE</span>
+        </div>
+        <div class="pos" id="_372:1718" style="top:1718;left:372">
+          <span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000"> Witnessed by :</span>
+        </div>
+        <div class="pos" id="_359:1793" style="top:1793;left:359">
+          <span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_office"></span>
+        </div>
+        <div class="pos" id="_355:1821" style="top:1821;left:355">
+          <span id="_13.5" style=" font-family:Arial; font-size:13.5px; color:#000000"> Parish Office Staff</span>
+        </div>
+        <div class="pos" id="_158:1903" style="top:1903;left:158">
+          <span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_moderator"></span>
+        </div>
+        <div class="pos" id="_514:1902" style="top:1902;left:514">
+          <span id="_13.5" style="font-weight:bold; font-family:Arial; font-size:13.5px; color:#000000" class="parish_member"></span>
+        </div>
+        <div class="pos" id="_152:1933" style="top:1933;left:152">
+          <span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000"> Parish Team Moderator/ Lessor</span>
+        </div>
+        <div class="pos" id="_519:1933" style="top:1933;left:519">
+          <span id="_14.0" style=" font-family:Arial; font-size:14.0px; color:#000000"> Parish Team Member/ Lessor</span>
+        </div>
+        <div class="pos" id="_570:2124" style="top:2124;left:570">
+          <span id="_13.1" style="font-weight:bold; font-family:Arial; font-size:13.1px; color:#000000"> PARISH SEAL</span>
+        </div>
+      </nowrap>
+    </nobr>
 
 <script src="/js/jquery-3.6.1.min.js"></script>
 <script>
@@ -376,5 +343,5 @@ PARISH SEAL</span>
           }
     });
 </script>
-</body>
+  </body>
 </html>
