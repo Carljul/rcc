@@ -7,7 +7,7 @@
         'payment' => [
             'index' => [
                 1 => 'CONTRACT OF LEASE AND BURIAL PERMIT PAYMENT',
-                2 => 'BONE CHAMBER'
+                2 => 'LEASE OF CONTRACT AND AGREEMENT'
             ],
             'label' => [
                 'LEASE' => 1,
