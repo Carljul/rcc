@@ -9,28 +9,28 @@ class ExportController extends Controller
 {
     public function deleted()
     {
-        // Column names 
+        // Column names
         $fields = array('First Name', 'Middle Name', 'Last Name', 'Extension', 'Birth Date', 'Gender', 'Date Died',
         'Internment', 'Expiry', 'Cause of Death', 'Vicinity', 'Area', 'Location', 'Remarks');
 
         self::export($fields, 'deleted');
     }
 
-    public function expired($year)
+    public function expired($year, $month)
     {
-        // Column names 
+        // Column names
         $fields = array('First Name', 'Middle Name', 'Last Name', 'Extension', 'Birth Date', 'Gender', 'Date Died',
         'Internment', 'Expiry', 'Cause of Death', 'Vicinity', 'Area', 'Location', 'Remarks');
 
-        self::export($fields, 'expired', $year);
+        self::export($fields, 'expired', $year, $month);
     }
 
-    private static function export($fields, $recordToExtract, $year = null)
+    private static function export($fields, $recordToExtract, $year = null, $month)
     {
-        // Excel file name for download 
+        // Excel file name for download
         $fileName = $recordToExtract."_deceased_data_" . strtoTime(now()) . ".xls";
 
-        // Display column names as first row 
+        // Display column names as first row
         $excel = implode("\t", array_values($fields)) . "\n";
 
         if ($recordToExtract == 'deleted') {
@@ -53,16 +53,16 @@ class ExportController extends Controller
                     $record['remarks'] ?? '',
                 );
 
-                array_walk($lineData, function ($str) { 
-                    $str = preg_replace("/\t/", "\\t", $str); 
-                    $str = preg_replace("/\r?\n/", "\\n", $str); 
-                    if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
+                array_walk($lineData, function ($str) {
+                    $str = preg_replace("/\t/", "\\t", $str);
+                    $str = preg_replace("/\r?\n/", "\\n", $str);
+                    if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
                 });
 
                 $excel .= implode("\t", array_values($lineData)) . "\n";
             }
         } else {
-            $records = Deceased::expired($year);
+            $records = Deceased::expired($year, $month);
             foreach ($records as $record) {
                 $lineData = array(
                     $record['person']['firstname'] ?? '',
@@ -81,28 +81,28 @@ class ExportController extends Controller
                     $record['remarks'] ?? '',
                 );
 
-                array_walk($lineData, function ($str) { 
-                    $str = preg_replace("/\t/", "\\t", $str); 
-                    $str = preg_replace("/\r?\n/", "\\n", $str); 
-                    if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"'; 
+                array_walk($lineData, function ($str) {
+                    $str = preg_replace("/\t/", "\\t", $str);
+                    $str = preg_replace("/\r?\n/", "\\n", $str);
+                    if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
                 });
 
                 $excel .= implode("\t", array_values($lineData)) . "\n";
             }
         }
 
-        // Headers for download 
-        header("Content-Type: application/vnd.ms-excel"); 
+        // Headers for download
+        header("Content-Type: application/vnd.ms-excel");
         header("Content-Disposition: attachment; filename=\"$fileName\"");
 
-        // Render excel data 
+        // Render excel data
         echo $excel;
 
         exit;
     }
 
     /**
-     * Filter the excel data 
+     * Filter the excel data
      */
-    
+
 }

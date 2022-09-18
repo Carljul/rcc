@@ -16,24 +16,42 @@
         <div class="col-sm-6">
             <form action="{{route('deceased.expired')}}" method="post">
                 @csrf
-                <div class="btn-group form-control p-0 b-0 br-0">
-                    <select name="year" class="form-control">
-                        @foreach ($years as $year)
-                            @if($selected == $year)
-                                <option value="{{$year}}" selected>{{$year}}</option>
-                            @else
-                                <option value="{{$year}}">{{$year}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <button class="btn btn-success" type="submit">Search</button>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select name="year" class="form-control">
+                                @foreach ($years as $year)
+                                    @if($selectedYear == $year)
+                                        <option value="{{$year}}" selected>{{$year}}</option>
+                                    @else
+                                        <option value="{{$year}}">{{$year}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select name="month" id="" class="form-control">
+                                <option value="0">All</option>
+                                @foreach (config('const.months') as $key => $month)
+                                    @if($selectedMonth == $key)
+                                        <option value="{{$key}}" selected>{{$month}}</option>
+                                    @else
+                                        <option value="{{$key}}">{{$month}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </div>
+                    </div>
                 </div>
             </form>
-        </div>
-        <div class="col-sm-6">
-            <form action="{{route('export.expired', $selected)}}" method="GET">
-                <button type="submit" class="btn btn-success">Export</button>
-            </form>
+
+            <div class="col-sm-6">
+                <form action="{{route('export.expired', [$selectedYear, $selectedMonth])}}" method="GET">
+                    <button type="submit" class="btn btn-success">Export</button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="row justify-content-center">

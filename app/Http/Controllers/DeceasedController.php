@@ -221,12 +221,18 @@ class DeceasedController extends Controller
     {
         $param = $request->all();
         $year = date('Y');
+        $month = date('m');
 
         if (array_key_exists('year', $param)) {
             $year = $param['year'];
         }
 
-        $selected = $year;
+        if (array_key_exists('month', $param)) {
+            $month = $param['month'];
+        }
+
+        $selectedYear = $year;
+        $selectedMonth = $month;
 
         $years = Deceased::selectRaw('YEAR(expiryDate) AS expiry')
             ->whereNull('deleted_at')
@@ -237,12 +243,12 @@ class DeceasedController extends Controller
             ->pluck('expiry')
             ->toArray();
 
-        $data = Deceased::expired($year);
+        $data = Deceased::expired($year, $month);
 
         if (!in_array(date('Y'), $years)) {
             array_push($years, date('Y'));
         }
 
-        return view('pages.deceased.expire', compact('years', 'selected', 'data'));
+        return view('pages.deceased.expire', compact('years', 'selectedYear', 'selectedMonth', 'data'));
     }
 }

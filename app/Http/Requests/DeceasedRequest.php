@@ -43,9 +43,7 @@ class DeceasedRequest extends FormRequest
         $expiryDateVal = $this->datepaid ? Carbon::parse($this->datepaid) : Carbon::parse($this->expiryDate);
 
         if (!ENV('ENABLE_DECEASE_REQUEST')) {
-            return [
-                'firstname' => ['required']
-            ];
+            return [];
         }
 
         return [

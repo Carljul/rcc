@@ -113,8 +113,8 @@ $(document).ready(function() {
                     $('#viewRemarks').val(data.remarks);
                     $('#deceasedPerson').val(data.id);
 
-                    if (data.approved_by != null) {
-                        $('#isApprove').html('Record was approved by '+data.approved_by.name);
+                    if (data.isApprove == 1) {
+                        $('#isApprove').html('Record was approved');
                     } else {
                         $('#isApprove').html('Record still needs approval');
                     }

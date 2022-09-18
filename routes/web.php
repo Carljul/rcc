@@ -36,12 +36,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function() {
             Route::get('/', [ReportsController::class, 'index'])->name('index');
             Route::post('/', [ReportsController::class, 'store'])->name('store');
-            Route::get('/{report}', [ReportsController::class, 'show'])->name('show');
             Route::put('/{report}', [ReportsController::class, 'update'])->name('update');
             Route::delete('/{report}', [ReportsController::class, 'destroy'])->name('destroy');
             Route::post('/template', [ReportsController::class, 'report'])->name('report');
         });
     });
+    Route::get('reports/{report}', [ReportsController::class, 'show'])->name('reports.show');
+
     Route::group(['prefix' => 'defaults', 'as' => 'defaults.'], function () {
         Route::get('/', [DefaultCertificateController::class, 'index'])->name('index');
         Route::get('/list/json', [DefaultCertificateController::class, 'list'])->name('list');
@@ -85,6 +86,6 @@ Route::group(['middleware' => 'auth'], function() {
     // Export
     Route::group(['prefix' => 'export', 'as' => 'export.'], function () {
         Route::get('/deleted', [ExportController::class, 'deleted'])->name('deleted');
-        Route::get('/expired/{year?}', [ExportController::class, 'expired'])->name('expired');
+        Route::get('/expired/{year?}/{month?}', [ExportController::class, 'expired'])->name('expired');
     });
 });

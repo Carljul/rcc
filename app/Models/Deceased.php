@@ -157,6 +157,16 @@ class Deceased extends Model
         try {
             $deceased = self::where('id', $params['id'])->first();
             $person = Person::where('id', $deceased->person_id)->first();
+
+            $person->firstname = $params['firstname'];
+            $person->middlename = $params['middlename'];
+            $person->lastname = $params['lastname'];
+            $person->extension = $params['extension'];
+            $person->gender = $params['gender'];
+            $person->birthdate = $params['birthdate'];
+            $person->address = $params['address'];
+            $person->save();
+
             if (array_key_exists('expiredUpdate', $params)) {
                 $deceased->deletedBy = Auth::user()->id;
                 $deceased->remarks = $params['remarks'];
@@ -246,10 +256,19 @@ class Deceased extends Model
             ];
         }
     }
-    
-    public static function expired($year)
+
+    public static function expired($year, $month)
     {
+        if ($month == 0) {
+            return self::whereYear('expiryDate', $year)
+                ->with('person')
+                ->with('payment')
+                ->with('lighting')
+                ->get();
+        }
+
         return self::whereYear('expiryDate', $year)
+            ->whereMonth('expiryDate', $month)
             ->with('person')
             ->with('payment')
             ->with('lighting')
