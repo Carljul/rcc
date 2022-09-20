@@ -516,8 +516,12 @@ $(document).ready(function() {
 
     function generateErrorMessage(messages) {
         let messageHtml = '<ul>'
-        for(key in messages) {
-            messageHtml += '<li>' + messages[key][0] + '</li>'
+        if (typeof(messages) == 'string') {
+            messageHtml += `<li>`+messages+`</li>`;
+        } else {
+            for(key in messages) {
+                messageHtml += '<li>' + messages[key][0] + '</li>'
+            }
         }
 
         return messageHtml + '</ul>'
