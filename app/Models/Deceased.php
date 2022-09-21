@@ -81,7 +81,8 @@ class Deceased extends Model
                 'middlename' => $params['middlename'],
                 'lastname' => $params['lastname'],
                 'extension' => $params['extension'],
-                'gender' => array_key_exists('gender', $params) ? $params['gender']:null,
+                'gender' => array_key_exists('gender', $params) ? $params['gender'] == 'null' ? null : $params['gender'] : null,
+                
                 'birthdate' => $params['birthdate'],
                 'address' => $params['address']
             ]);
@@ -162,7 +163,7 @@ class Deceased extends Model
             $person->middlename = array_key_exists('middlename', $params) ? $params['middlename'] : null;
             $person->lastname = array_key_exists('lastname', $params) ? $params['lastname'] : null;
             $person->extension = array_key_exists('extension', $params) ? $params['extension'] : null;
-            $person->gender = array_key_exists('gender', $params) ? $params['gender'] : null;
+            $person->gender = array_key_exists('gender', $params) ? $params['gender'] == 'null' ? null : $params['gender'] : null;
             $person->birthdate = array_key_exists('birthdate', $params) ? $params['birthdate'] : null;
             $person->address = array_key_exists('address', $params) ? $params['address'] : null;
             $person->save();
