@@ -17,7 +17,7 @@ $(document).ready(function() {
                 let html = '';
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
-                    let name = element['person']['firstname']+` `+(element['person']['middlename'] == null ? '':element['person']['middlename'])+` `+(element['person']['lastname'] == null ? '':element['person']['lastname'])+` `+(element['person']['extension'] == null ? '' : element['person']['extension']);
+                    let name = (element['firstname'] == null ? '':element['firstname'])+` `+(element['middlename'] == null ? '':element['middlename'])+` `+(element['lastname'] == null ? '':element['lastname'])+` `+(element['extension'] == null ? '' : element['extension']);
                     html += `<tr>
                         <td>`+name+`</td>
                         <td>`+(element['dateDied'] == null ? '' : element['dateDied'])+`</td>
@@ -95,13 +95,13 @@ $(document).ready(function() {
                     let payment = data.payment;
                     $('#detailModalBody form#updateFormDeceased')[0].reset();
                     $('#detailModalBody form#updateFormDeceased').attr('action', 'deceased/'+data.id)
-                    $('#viewfirstname').val(data.person.firstname);
-                    $('#viewmiddlename').val(data.person.middlename);
-                    $('#viewlastname').val(data.person.lastname);
-                    $('#viewextension').val(data.person.extension);
-                    $('#viewgender').val(data.person.gender).change();
-                    $('#viewbirthdate').val(data.person.birthdate);
-                    $('#viewaddress').val(data.person.address);
+                    $('#viewfirstname').val(data.firstname);
+                    $('#viewmiddlename').val(data.middlename);
+                    $('#viewlastname').val(data.lastname);
+                    $('#viewextension').val(data.extension);
+                    $('#viewgender').val(data.gender).change();
+                    $('#viewbirthdate').val(data.birthdate);
+                    $('#viewaddress').val(data.address);
                     $('#viewdateDied').val(data.dateDied);
                     $('#viewinternmentDate').val(data.internmentDate);
                     $('#viewinternmentTime').val(data.internmentTime);
@@ -568,7 +568,7 @@ $(document).ready(function() {
                 $('#recordOf').html('');
                 $('#lightingForm #deceasedPerson').val(0);
                 $('#lightingForm #deceasedPerson').val(response.recordOf.id);
-                $('#recordOf').html('Record of: '+response.recordOf.person.firstname+' '+response.recordOf.person.lastname);
+                $('#recordOf').html('Record of: '+response.recordOf.firstname+' '+response.recordOf.lastname);
 
                 let html = '';
                 if (response.data != null) {

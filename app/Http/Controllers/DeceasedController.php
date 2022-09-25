@@ -78,10 +78,42 @@ class DeceasedController extends Controller
         }
 
         return response()->json([
-            'data' => Deceased::whereNull('deleted_at')
-                ->with('payment')
+            'data' => Deceased::selectRaw('
+                    deceased.id as id,
+                    deceased.person_id as person_id,
+                    deceased.dateDied as dateDied,
+                    deceased.internmentDate as internmentDate,
+                    deceased.internmentTime as internmentTime,
+                    deceased.expiryDate as expiryDate,
+                    deceased.causeOfDeath as causeOfDeath,
+                    deceased.location as location,
+                    deceased.vicinity as vicinity,
+                    deceased.area as area,
+                    deceased.remarks as remarks,
+                    deceased.isApprove as isApprove,
+                    deceased.approvedBy as approvedBy,
+                    deceased.createdBy as createdBy,
+                    deceased.updatedBy as updatedBy,
+                    deceased.deletedBy as deletedBy,
+                    deceased.created_at as created_at,
+                    deceased.updated_at as updated_at,
+                    deceased.deleted_at as deleted_at,
+                    person.id as pid,
+                    person.firstname as firstname,
+                    person.middlename as middlename,
+                    person.lastname as lastname,
+                    person.extension as extension,
+                    person.gender as gender,
+                    person.birthdate as birthdate,
+                    person.address as address,
+                    person.deleted_at as pdeleted_at,
+                    person.updated_at as pupdated_at,
+                    person.created_at as pcreated_at
+                ')
+                ->whereNull('deceased.deleted_at')
+                ->join('person', 'person.id', '=', 'person_id')
                 ->with('person')
-                ->orderBy('created_at', 'DESC')
+                ->orderBy('deceased.created_at', 'DESC')
                 ->get(),
             'reports' => Reports::where('isActive', 1)->get()
         ]);

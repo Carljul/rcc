@@ -82,7 +82,7 @@ class Deceased extends Model
                 'lastname' => $params['lastname'],
                 'extension' => $params['extension'],
                 'gender' => array_key_exists('gender', $params) ? $params['gender'] == 'null' ? null : $params['gender'] : null,
-                
+
                 'birthdate' => $params['birthdate'],
                 'address' => $params['address']
             ]);
@@ -211,9 +211,41 @@ class Deceased extends Model
 
     public static function show($id)
     {
-        return self::where('id', $id)
-            ->whereNull('deleted_at')
-            ->with('person')
+        return self::selectRaw('
+            deceased.id as id,
+            deceased.person_id as person_id,
+            deceased.dateDied as dateDied,
+            deceased.internmentDate as internmentDate,
+            deceased.internmentTime as internmentTime,
+            deceased.expiryDate as expiryDate,
+            deceased.causeOfDeath as causeOfDeath,
+            deceased.location as location,
+            deceased.vicinity as vicinity,
+            deceased.area as area,
+            deceased.remarks as remarks,
+            deceased.isApprove as isApprove,
+            deceased.approvedBy as approvedBy,
+            deceased.createdBy as createdBy,
+            deceased.updatedBy as updatedBy,
+            deceased.deletedBy as deletedBy,
+            deceased.created_at as created_at,
+            deceased.updated_at as updated_at,
+            deceased.deleted_at as deleted_at,
+            person.id as pid,
+            person.firstname as firstname,
+            person.middlename as middlename,
+            person.lastname as lastname,
+            person.extension as extension,
+            person.gender as gender,
+            person.birthdate as birthdate,
+            person.address as address,
+            person.deleted_at as pdeleted_at,
+            person.updated_at as pupdated_at,
+            person.created_at as pcreated_at
+        ')
+            ->where('deceased.id', $id)
+            ->whereNull('deceased.deleted_at')
+            ->join('person', 'person.id', '=', 'person_id')
             ->with('payment')
             ->with('approvedBy')
             ->with('createdBy')
@@ -229,7 +261,7 @@ class Deceased extends Model
             $deceased = self::where('id', $id)->first();
 
             if (!empty($deceased->person_id)) {
-                $person = Person::find($deceased->person_id);
+                $person = Person::withTrashed()->find($deceased->person_id);
                 $person->delete();
             }
 
