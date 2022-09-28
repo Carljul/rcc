@@ -38,6 +38,7 @@ function extractFile() {
 function savingRecord(file)
 {
     let data = file.data;
+    dateFormatter(data[0].birthdate)
     let toInsert = {
         firstname: data[0].firstname,
         middlename: typeof(data[0].middlename) != 'undefined' ? data[0].middlename : null,
@@ -94,6 +95,7 @@ function savingRecord(file)
             }
             if (response.error) {
                 errorExport(data, file, toInsert);
+                withIssues()
             }
             uploadFile()
         }, error: function(e) {
@@ -120,3 +122,9 @@ function errorExport(data, file, toInsert)
         localStorage.setItem('withIssues', JSON.stringify(withIssues));
     }
 }
+
+
+$('#clearIssues').on('click', function () {
+    localStorage.removeItem('withIssues');
+    withIssues();
+});

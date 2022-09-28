@@ -117,3 +117,58 @@ function renderStorage() {
     }
 }
 renderStorage();
+
+
+function withIssues()
+{
+    let issueCount = 0;
+    let withIssues = [];
+    if (localStorage.getItem('withIssues') === null) {
+        issueCount = 0;
+    } else {
+        withIssues = JSON.parse(localStorage.getItem('withIssues'));
+        issueCount = withIssues.length;
+    }
+    $('#withIssueImportButton span.badge').html(issueCount);
+
+    if (withIssues.length > 0) {
+        let html = '';
+        for (let i = 0; i < withIssues.length; i++) {
+            const element = withIssues[i];
+            html += `<tr>
+                <td>`+element.firstname+`</td>
+                <td>`+element.middlename+`</td>
+                <td>`+element.lastname+`</td>
+                <td>`+element.extension+`</td>
+                <td>`+element.gender+`</td>
+                <td>`+element.birthdate+`</td>
+                <td>`+element.address+`</td>
+                <td>`+element.date_died+`</td>
+                <td>`+element.date_internment+`</td>
+                <td>`+element.time_internment+`</td>
+                <td>`+element.expiry_date+`</td>
+                <td>`+element.cause_of_death+`</td>
+                <td>`+element.location+`</td>
+                <td>`+element.vicinity+`</td>
+                <td>`+element.area+`</td>
+                <td>`+element.payer+`</td>
+                <td>`+element.lease_amount+`</td>
+                <td>`+element.amount+`</td>
+                <td>`+element.contact_number+`</td>
+                <td>`+element.or_number+`</td>
+                <td>`+element.date_paid+`</td>
+                <td>`+element.balance+`</td>
+                <td>`+element.terms_of_payment+`</td>
+                <td>`+element.remarks+`</td>
+                <td>`+element.pasuga_payer+`</td>
+                <td>`+element.pasuga_date_connection+`</td>
+                <td>`+element.pasuga_expiry_date+`</td>
+                <td>`+element.pasuga_amount+`</td>
+                <td>`+element.pasuga_or_number+`</td>
+            </tr>`;
+        }
+        $('#withIssueImport .modal-body table tbody').html(html);
+    }
+}
+
+withIssues()
