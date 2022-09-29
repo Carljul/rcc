@@ -105,7 +105,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="dateOfConnection" class="col-md-4 col-form-label text-md-right">{{ __('Date of connection *') }}</label>
-                                <input id="dateOfConnection" type="date" class="form-control @error('dateOfConnection') is-invalid @enderror" name="dateOfConnection" />
+                                <input id="dateOfConnection" type="date" class="form-control @error('dateOfConnection') is-invalid @enderror" name="dateOfConnection" max="9000-01-01"/>
 
                                 @error('dateOfConnection')
                                     <span class="invalid-feedback" role="alert">
@@ -117,7 +117,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="expiryDate" class="col-md-4 col-form-label text-md-right">{{ __('Expiry Date') }}</label>
-                                <input id="expiryDate" type="date" class="form-control @error('expiryDate') is-invalid @enderror" name="expiryDate" />
+                                <input id="expiryDate" type="date" class="form-control @error('expiryDate') is-invalid @enderror" name="expiryDate" max="9000-01-01"/>
 
                                 @error('expiryDate')
                                     <span class="invalid-feedback" role="alert">

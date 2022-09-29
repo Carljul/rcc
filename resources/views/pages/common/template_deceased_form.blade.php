@@ -49,7 +49,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="birthdate" class="col-md-4 col-form-label text-md-right">{{ __('Birth date') }}</label>
-        <input id="birthdate" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" />
+        <input id="birthdate" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" max="9000-01-01"/>
     </div>
     <div class="col-md-6">
         <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
@@ -59,15 +59,15 @@
 <div class="row">
     <div class="col-md-4">
         <label for="dateDied" class="col-md-4 col-form-label text-md-right">{{ __('Date Died') }}</label>
-        <input id="dateDied" type="date" class="form-control @error('dateDied') is-invalid @enderror" name="dateDied" />
+        <input id="dateDied" type="date" class="form-control @error('dateDied') is-invalid @enderror" name="dateDied" max="9000-01-01"/>
     </div>
     <div class="col-md-4">
         <label for="internmentDate" class="col-md-4 col-form-label text-md-right">{{ __('Date Internment') }}</label>
-        <input id="internmentDate" type="date" class="form-control @error('internmentDate') is-invalid @enderror" name="internmentDate" />
+        <input id="internmentDate" type="date" class="form-control @error('internmentDate') is-invalid @enderror" name="internmentDate" max="9000-01-01"/>
     </div>
     <div class="col-md-4">
         <label for="expiryDate" class="col-md-4 col-form-label text-md-right">{{ __('Expiry Date') }}</label>
-        <input id="expiryDate" type="date" class="form-control @error('expiryDate') is-invalid @enderror" name="expiryDate" />
+        <input id="expiryDate" type="date" class="form-control @error('expiryDate') is-invalid @enderror" name="expiryDate" max="9000-01-01"/>
     </div>
 </div>
 <div class="row">
@@ -141,7 +141,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="datepaid" class="col-md-4 col-form-label text-md-right">{{ __('Date paid') }}</label>
-        <input id="datepaid" type="date" class="form-control" name="datepaid" />
+        <input id="datepaid" type="date" class="form-control" name="datepaid" max="9000-01-01"/>
     </div>
     <div class="col-md-6">
         <label for="remarks" class="col-md-12 col-form-label text-md-right">{{ __('Remarks') }}</label>
@@ -228,7 +228,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="viewbirthdate" class="col-md-4 col-form-label text-md-right">{{ __('Birth date') }}</label>
-                            <input id="viewbirthdate" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" />
+                            <input id="viewbirthdate" type="date" class="form-control @error('birthdate') is-invalid @enderror" name="birthdate" max="9000-01-01"/>
                         </div>
                     </div>
                     <div class="row">
@@ -246,15 +246,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for="viewdateDied" class="col-form-label text-md-right">{{ __('Date Died') }}</label>
-                            <input id="viewdateDied" type="date" class="form-control" name="dateDied" />
+                            <input id="viewdateDied" type="date" class="form-control" name="dateDied" max="9000-01-01"/>
                         </div>
                         <div class="col-md-4">
                             <label for="viewinternmentDate" class="col-form-label text-md-right">{{ __('Date Internment') }}</label>
-                            <input id="viewinternmentDate" type="date" class="form-control" name="internmentDate" />
+                            <input id="viewinternmentDate" type="date" class="form-control" name="internmentDate" max="9000-01-01"/>
                         </div>
                         <div class="col-md-4">
                             <label for="viewexpiryDate" class="col-form-label text-md-right">{{ __('Expiry Date') }}</label>
-                            <input id="viewexpiryDate" type="date" class="form-control" name="expiryDate" />
+                            <input id="viewexpiryDate" type="date" class="form-control" name="expiryDate" max="9000-01-01"/>
                         </div>
                     </div>
                     <div class="row">
@@ -369,7 +369,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="payment_datePaid" class="col-md-4 col-form-label text-md-right">{{ __('Date Paid') }}</label>
-                            <input id="payment_datePaid" type="date" class="form-control" name="datePaid" />
+                            <input id="payment_datePaid" type="date" class="form-control" name="datePaid" max="9000-01-01"/>
                         </div>
                     </div>
                     <div class="row mt-4">
